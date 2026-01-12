@@ -1,5 +1,5 @@
 {
-  "name": "emmanuel-mendez",
+  "name": "emmanuel-mendez-website",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:emmanuel-mendez": "node dist/emmanuel-mendez/server/server.mjs",
+    "serve:ssr:emmanuel-mendez": "node dist/emmanuel-mendez-website/server/server.mjs",
     "lint": "ng lint",
     "lint:fix": "npm run lint -- --fix",
     "prettier": "npx prettier src --check",
