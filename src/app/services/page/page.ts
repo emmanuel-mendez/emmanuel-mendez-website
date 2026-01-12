@@ -14,7 +14,7 @@ export class Page {
   private readonly router = inject(Router);
 
   public setMetaTags(description: string, url?: string): void {
-    const currentUrl = `https://emmanuel-mendez.com${url ?? this.router.url}`;
+    const currentUrl = `https://emmanuel-mendez-website.vercel.app/${url ?? this.router.url}`;
     const pageTitle = this.title.getTitle();
 
     this.updateDomMeta(description, pageTitle, currentUrl);

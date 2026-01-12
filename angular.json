@@ -10,7 +10,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "emmanuel-mendez": {
+    "emmanuel-mendez-website": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/emmanuel-mendez",
+            "outputPath": "dist/emmanuel-mendez-website",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
@@ -67,10 +67,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "emmanuel-mendez:build:production"
+              "buildTarget": "emmanuel-mendez-website:build:production"
             },
             "development": {
-              "buildTarget": "emmanuel-mendez:build:development"
+              "buildTarget": "emmanuel-mendez-website:build:development"
             }
           },
           "defaultConfiguration": "development"
