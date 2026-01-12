@@ -1,54 +1,60 @@
 {
-  "name": "emmanuel-mendez.github.io",
+  "name": "emmanuel-mendez",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:emmanuel-mendez.github.io": "node dist/emmanuel-mendez.github.io/server/server.mjs",
+    "serve:ssr:emmanuel-mendez": "node dist/emmanuel-mendez/server/server.mjs",
     "lint": "ng lint",
     "lint:fix": "npm run lint -- --fix",
     "prettier": "npx prettier src --check",
     "prettier:fix": "npm run prettier -- --write",
     "format": "npm run prettier:fix && npm run lint:fix"
   },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      }
+    ]
+  },
   "private": true,
+  "packageManager": "npm@10.9.2",
   "dependencies": {
-    "@angular/animations": "^21.0.8",
-    "@angular/common": "^21.0.8",
-    "@angular/compiler": "^21.0.8",
-    "@angular/core": "^21.0.8",
-    "@angular/forms": "^21.0.8",
-    "@angular/platform-browser": "^21.0.8",
-    "@angular/platform-browser-dynamic": "^21.0.8",
-    "@angular/platform-server": "^21.0.8",
-    "@angular/router": "^21.0.8",
+    "@angular/common": "^21.0.0",
+    "@angular/compiler": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/forms": "^21.0.0",
+    "@angular/platform-browser": "^21.0.0",
+    "@angular/platform-server": "^21.0.0",
+    "@angular/router": "^21.0.0",
     "@angular/ssr": "^21.0.5",
-    "express": "^4.18.2",
+    "express": "^5.1.0",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@angular/build": "^21.0.5",
     "@angular/cli": "^21.0.5",
-    "@angular/compiler-cli": "^21.0.8",
-    "@types/express": "^4.17.17",
-    "@types/jasmine": "~5.1.0",
-    "@types/node": "^18.18.0",
-    "angular-cli-ghpages": "^3.0.2",
-    "angular-eslint": "19.0.2",
-    "eslint": "^9.16.0",
-    "jasmine-core": "~5.4.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
-    "prettier": "^3.4.2",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.44.1"
+    "@angular/compiler-cli": "^21.0.0",
+    "@tailwindcss/postcss": "^4.1.12",
+    "@types/express": "^5.0.1",
+    "@types/node": "^20.17.19",
+    "angular-eslint": "21.1.0",
+    "eslint": "^9.39.1",
+    "jsdom": "^27.1.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.12",
+    "typescript": "~5.9.2",
+    "typescript-eslint": "8.47.0",
+    "vitest": "^4.0.8"
   }
 }

@@ -1,10 +1,8 @@
 # Emmanuel Mendez
 
 <p align="center">
-  <img align="center" alt="Aleayza" src="https://raw.githubusercontent.com/emmanuel-mendez/emmanuel-mendez.github.io/refs/heads/main/public/png/open-graph.png"/>
+  <img align="center" alt="Emmanuel Mendez" src="https://raw.githubusercontent.com/emmanuel-mendez/emmanuel-mendez.github.io/refs/heads/main/public/png/open-graph.png"/>
 </p>
-
-
 
 **Computer Engineer** with more than **three years** of experience creating high performant and user retention pages, sites and web applications using **TypeScript** and frontend frameworks such as **Angular** and **React**, managing global states with **NgRx** and **Redux**, documenting UI components in **Storybook** and unit testing them using **Jest**, **Jasmine** and **Karma**.
 

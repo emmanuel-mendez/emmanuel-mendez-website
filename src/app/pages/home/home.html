@@ -1,0 +1,19 @@
+<app-layout>
+  <div>
+    @if (responsive.device() | includes: [responsive.breakpoints.LOADING]) {
+      <p>Loading Device</p>
+    }
+    @if (responsive.device() | includes: [responsive.breakpoints.MOBILE]) {
+      <p>Mobile Device</p>
+    }
+    @if (responsive.device() | includes: [responsive.breakpoints.TABLET]) {
+      <p>Tablet Device</p>
+    }
+    @if (
+      responsive.device()
+        | includes: [responsive.breakpoints.DESKTOP, responsive.breakpoints.DESKTOP_SHORT]
+    ) {
+      <p>Desktop Device</p>
+    }
+  </div>
+</app-layout>
