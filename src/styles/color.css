@@ -1,8 +1,20 @@
 :root {
+  color-scheme: light dark;
+
+  --white: #ffffff;
+  --black: #000000;
   --primary: #204d66;
   --analogous--primary: #20665c;
   --analogous--primary-50: #20665c80;
   --analogous--secondary: #202a66;
   --analogous--secondary-50: #202a66b0;
   --monochromatic--dark-deep: #14303f;
+}
+
+.theme--light {
+  color-scheme: light;
+}
+
+.theme--dark {
+  color-scheme: dark;
 }

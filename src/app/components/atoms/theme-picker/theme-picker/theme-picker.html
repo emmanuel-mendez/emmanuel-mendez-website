@@ -1,0 +1,20 @@
+@if (!theme.loading()) {
+  <button class="button" (click)="toggleDropdown()">
+    <span class="material-symbols-outlined icon" [class.icon--filled]="dropdownStatus()">{{
+      currentModeIcon()
+    }}</span>
+  </button>
+}
+
+@if (dropdownStatus()) {
+  <ul class="list">
+    @for (mode of modes; track mode.value) {
+      <li class="item" [class.item--active]="theme.current() === mode.value">
+        <button class="item__button" (click)="selectTheme(mode.value)">
+          <span class="material-symbols-outlined icon">{{ mode.icon }}</span>
+          {{ mode.label }}
+        </button>
+      </li>
+    }
+  </ul>
+}

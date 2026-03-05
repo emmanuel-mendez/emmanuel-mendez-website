@@ -2,4 +2,6 @@
   display: grid;
   min-height: 100svh;
   grid-template-rows: auto 1fr auto;
+  background-color: light-dark(var(--white), var(--black));
+  transition: background-color 0.4s ease;
 }
