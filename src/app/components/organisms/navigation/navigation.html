@@ -1,0 +1,30 @@
+<nav class="navigation">
+  @if (responsive.device() | includes: [breakpoints.DESKTOP]) {
+    <ul class="navigation__list">
+      <li class="navigation__item">
+        <a class="navigation__link" href="/">Home</a>
+      </li>
+      <li class="navigation__item">
+        <a class="navigation__link" href="/projects">Projects</a>
+      </li>
+    </ul>
+  } @else {
+    <button class="navigation__button" type="button" (click)="toggleMenu()">
+      <span class="material-symbols-outlined navigation__icon">{{
+        opened() ? 'close' : 'menu'
+      }}</span>
+      Menu
+    </button>
+
+    @if (opened()) {
+      <ul class="navigation__menu">
+        <li class="navigation__item">
+          <a class="navigation__link" href="/" (click)="closeMenu()">Home</a>
+        </li>
+        <li class="navigation__item">
+          <a class="navigation__link" href="/projects" (click)="closeMenu()">Projects</a>
+        </li>
+      </ul>
+    }
+  }
+</nav>
