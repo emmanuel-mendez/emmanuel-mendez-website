@@ -3,10 +3,11 @@ import { Meta } from '@angular/platform-browser';
 import { Layout } from '@components/templates/layout/layout';
 import { Responsive } from '@services/responsive/responsive';
 import { ResponsiveIncludes } from '@pipes/responsive/includes/includes';
+import { ProjectsSection } from '@components/organisms/projects/projects';
 
 @Component({
   selector: 'app-home',
-  imports: [Layout, ResponsiveIncludes],
+  imports: [Layout, ResponsiveIncludes, ProjectsSection],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
