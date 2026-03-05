@@ -42,6 +42,7 @@
   left: 0;
   min-width: 8rem;
   border-radius: 0.5rem;
+  border: 1px solid light-dark(var(--analogous--primary-100), var(--primary));
   background-color: light-dark(var(--primary), var(--monochromatic--dark-deep));
   transition:
     color 0.2s ease,

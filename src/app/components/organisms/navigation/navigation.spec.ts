@@ -51,4 +51,35 @@ describe('Navigation', () => {
     expect(list).toBeFalsy();
     expect(menuButton).toBeTruthy();
   });
+
+  it('should render hamburger menu for mobile devices', () => {
+    device.set([Devices.MOBILE]);
+    fixture.detectChanges();
+
+    const list = fixture.nativeElement.querySelector('.navigation__list');
+    const menuButton = fixture.nativeElement.querySelector('.navigation__button');
+
+    expect(list).toBeFalsy();
+    expect(menuButton).toBeTruthy();
+  });
+
+  it('should open and close the mobile menu', () => {
+    device.set([Devices.MOBILE]);
+    fixture.detectChanges();
+
+    const menuButton = fixture.nativeElement.querySelector('.navigation__button');
+    menuButton.click();
+    fixture.detectChanges();
+
+    const mobileMenu = fixture.nativeElement.querySelector('.navigation__menu');
+    expect(mobileMenu).toBeTruthy();
+
+    const homeLink = fixture.nativeElement.querySelector('.navigation__menu .navigation__link');
+    homeLink.click();
+    fixture.detectChanges();
+
+    const hiddenMenu = fixture.nativeElement.querySelector('.navigation__menu');
+    expect(hiddenMenu).toBeFalsy();
+    expect(component.opened()).toBe(false);
+  });
 });
