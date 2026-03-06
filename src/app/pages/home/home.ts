@@ -1,20 +1,24 @@
+import { DOCUMENT } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
+import { RouterLink } from '@angular/router';
 import { Layout } from '@components/templates/layout/layout';
-import { Responsive } from '@services/responsive/responsive';
-import { ResponsiveIncludes } from '@pipes/responsive/includes/includes';
 
 @Component({
   selector: 'app-home',
-  imports: [Layout, ResponsiveIncludes],
+  imports: [Layout, RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home implements OnInit {
+  private document = inject(DOCUMENT);
   private metaService = inject(Meta);
-  public responsive = inject(Responsive);
 
   ngOnInit(): void {
     this.metaService.addTags([{ property: 'og:title', content: 'Home - Emmanuel Mendez' }]);
+  }
+
+  scrollToForm(): void {
+    this.document.querySelector('.form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }

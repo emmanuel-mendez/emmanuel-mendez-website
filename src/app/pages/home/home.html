@@ -1,19 +1,47 @@
 <app-layout>
-  <div>
-    @if (responsive.device() | includes: [responsive.breakpoints.LOADING]) {
-      <p>Loading Device</p>
-    }
-    @if (responsive.device() | includes: [responsive.breakpoints.MOBILE]) {
-      <p>Mobile Device</p>
-    }
-    @if (responsive.device() | includes: [responsive.breakpoints.TABLET]) {
-      <p>Tablet Device</p>
-    }
-    @if (
-      responsive.device()
-        | includes: [responsive.breakpoints.DESKTOP, responsive.breakpoints.DESKTOP_SHORT]
-    ) {
-      <p>Desktop Device</p>
-    }
-  </div>
+  <main class="banner">
+    <section class="banner__content">
+      <h1 class="banner__title">I'm Emmanuel Mendez your Computer Engineer</h1>
+      <div class="banner__actions">
+        <a class="banner__cta banner__cta--primary" [routerLink]="['/projects']">View projects</a>
+        <button class="banner__cta banner__cta--secondary" type="button" (click)="scrollToForm()">
+          Contact me
+        </button>
+      </div>
+    </section>
+
+    <article class="banner__project">
+      <a class="banner__project-link" [routerLink]="['/projects/astyimar-emmanuel-wedding']">
+        <span class="banner__project-label">Latest project</span>
+        <h2 class="banner__project-title">Astyimar & Emmanuel Wedding Website</h2>
+        <span class="banner__project-cta">
+          See moore
+          <span class="material-symbols-outlined banner__icon">desktop_windows</span>
+        </span>
+      </a>
+
+      <div class="banner__project-resources">
+        <a
+          class="banner__resource-link"
+          href="https://astyimar-y-emmanuel.com/emmanuel/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="material-symbols-outlined banner__icon">desktop_windows</span>
+          https://astyimar-y-emmanuel.com/emmanuel/
+        </a>
+        <a
+          class="banner__resource-link"
+          href="https://github.com/emmanuel-mendez/astyimar-y-emmanuel"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="material-symbols-outlined banner__icon">dark_mode</span>
+          https://github.com/emmanuel-mendez/astyimar-y-emmanuel
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <div class="form"></div>
 </app-layout>
