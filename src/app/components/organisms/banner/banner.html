@@ -1,0 +1,20 @@
+<main class="banner">
+  <section class="banner__content">
+    <div class="banner__info">
+      <h1 class="banner__title">
+        <span class="banner__title-line"
+          >I'm <span class="banner__title-highlight">Emmanuel Mendez</span></span
+        >
+        {{ ' ' }}
+        <span class="banner__title-line">Computer Engineer</span>
+      </h1>
+      <p class="banner__description">5+ years building high-performance web apps.</p>
+    </div>
+    <div class="banner__actions">
+      <a class="banner__cta banner__cta--primary" [routerLink]="['/projects']">View projects</a>
+      <button class="banner__cta banner__cta--secondary" type="button">Contact me</button>
+    </div>
+  </section>
+
+  <app-featured-project [project]="featuredProject"></app-featured-project>
+</main>

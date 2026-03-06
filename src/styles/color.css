@@ -1,13 +1,21 @@
 :root {
   color-scheme: light dark;
 
-  --white: #ffffff;
-  --black: #000000;
+  --white: #fcfcfd;
+  --grey: #808080;
+  --black: #090909;
   --primary: #204d66;
+  --primary-75: #204d66bf;
+  --primary-50: #204d6680;
+  --primary-25: #204d6640;
   --analogous--primary: #20665c;
+  --analogous--primary-75: #20665cbf;
   --analogous--primary-50: #20665c80;
+  --analogous--primary-25: #20665c40;
   --analogous--secondary: #202a66;
+  --analogous--secondary-75: #202a66bf;
   --analogous--secondary-50: #202a66b0;
+  --analogous--secondary-25: #202a6640;
   --monochromatic--dark-deep: #14303f;
 }
 

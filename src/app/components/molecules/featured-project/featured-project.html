@@ -1,0 +1,38 @@
+<a class="featured-project" [routerLink]="project().projectRoute">
+  <div class="featured-project__image-wrapper">
+    <div class="featured-project__images">
+      <img
+        class="featured-project__image featured-project__image--desktop"
+        [src]="project().desktopImageSrc"
+        [alt]="project().desktopImageAlt"
+        loading="lazy"
+        decoding="async"
+      />
+      <img
+        class="featured-project__image featured-project__image--mobile"
+        [src]="project().mobileImageSrc"
+        [alt]="project().mobileImageAlt"
+        loading="lazy"
+        decoding="async"
+      />
+      <img
+        class="featured-project__image featured-project__image--tablet"
+        [src]="project().tabletImageSrc"
+        [alt]="project().tabletImageAlt"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  </div>
+
+  <div class="featured-project__footer">
+    <p class="featured-project__name">{{ project().name }}</p>
+    <span class="material-symbols-outlined featured-project__icon">{{ project().footerIcon }}</span>
+  </div>
+
+  <div class="featured-project__badge">
+    <span class="material-symbols-outlined featured-project__icon featured-project__icon--badge">
+      {{ project().badgeIcon }}
+    </span>
+  </div>
+</a>

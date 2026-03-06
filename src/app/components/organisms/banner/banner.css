@@ -1,0 +1,140 @@
+:host {
+  display: flex;
+  justify-content: center;
+}
+
+.banner {
+  width: 100%;
+  display: grid;
+  gap: 4rem;
+  padding: 3rem 1rem;
+}
+
+.banner__content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.banner__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.banner__title {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  max-width: 20ch;
+}
+
+.banner__title-line {
+  display: block;
+}
+
+.banner__title-highlight {
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.banner__description {
+  font-size: 1.1rem;
+  color: var(--grey);
+}
+
+.banner__actions {
+  display: grid;
+  width: min(425px, 100%);
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.banner__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  cursor: default;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.banner__cta--primary {
+  color: var(--white);
+  background-color: var(--analogous--primary-75);
+
+  &:hover {
+    background-color: var(--analogous--primary);
+  }
+}
+
+.banner__cta--secondary {
+  color: light-dark(var(--analogous--secondary-75), var(--grey));
+  background-color: transparent;
+  border: 1px solid light-dark(var(--analogous--secondary-75), var(--grey));
+
+  &:hover {
+    color: light-dark(var(--white), var(--white));
+    border-color: light-dark(var(--primary), var(--white));
+    background-color: var(--analogous--secondary-50);
+    border-color: transparent;
+  }
+}
+
+@media (min-width: 375px) {
+  .banner {
+    padding: 3rem 2rem;
+  }
+
+  .banner__title {
+    font-size: 1.8rem;
+  }
+
+  .banner__actions {
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 425px) {
+  .banner__description {
+    font-size: 1.2rem;
+  }
+
+  .banner__cta {
+    font-size: 1.2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .banner {
+    gap: 2.5rem;
+    padding: 3rem 2rem;
+  }
+
+  .banner__title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .banner {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    padding: 3.5rem 2rem;
+    gap: 4rem;
+  }
+}
+
+@media (min-width: 1366px) {
+  .banner {
+    width: min(1660px, 90%);
+    gap: 9rem;
+  }
+
+  .banner__title {
+    font-size: 3rem;
+  }
+}
