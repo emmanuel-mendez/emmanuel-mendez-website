@@ -9,3 +9,8 @@
   background-color: light-dark(var(--primary), var(--monochromatic--dark-deep));
   transition: background-color 0.4s ease;
 }
+
+.logo {
+  height: 2rem;
+  width: auto;
+}
