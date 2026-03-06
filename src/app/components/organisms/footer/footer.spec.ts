@@ -34,6 +34,24 @@ describe('Footer', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should render a GitHub link', () => {
+    const anchor: HTMLAnchorElement = fixture.nativeElement.querySelector(
+      'a[aria-label="GitHub"]',
+    );
+    expect(anchor).toBeTruthy();
+    expect(anchor.getAttribute('href')).toContain('github.com');
+    expect(anchor.getAttribute('target')).toBe('_blank');
+    expect(anchor.getAttribute('rel')).toContain('noopener');
+  });
+
+  it('should render a LinkedIn link', () => {
+    const anchor: HTMLAnchorElement = fixture.nativeElement.querySelector(
+      'a[aria-label="LinkedIn"]',
+    );
+    expect(anchor).toBeTruthy();
+    expect(anchor.getAttribute('href')).toContain('linkedin.com');
+    expect(anchor.getAttribute('target')).toBe('_blank');
+    expect(anchor.getAttribute('rel')).toContain('noopener');
   it('should render a logo image with alt text', () => {
     const img: HTMLImageElement = fixture.nativeElement.querySelector('img.logo');
     expect(img).toBeTruthy();

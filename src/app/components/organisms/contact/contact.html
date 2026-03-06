@@ -1,0 +1,75 @@
+<section class="contact">
+  <h2 class="contact__title">Contacto</h2>
+  <p class="contact__subtitle">¿Tienes un proyecto en mente? Envíame un mensaje.</p>
+
+  @if (status() === 'sent') {
+    <div class="contact__feedback contact__feedback--sent" role="status" aria-live="polite">
+      <span class="material-symbols-outlined contact__feedback-icon">check_circle</span>
+      <p class="contact__feedback-text">¡Mensaje enviado correctamente!</p>
+      <button class="contact__reset" type="button" (click)="reset()">Enviar otro mensaje</button>
+    </div>
+  } @else if (status() === 'error') {
+    <div class="contact__feedback contact__feedback--error" role="alert" aria-live="assertive">
+      <span class="material-symbols-outlined contact__feedback-icon">error</span>
+      <p class="contact__feedback-text">Ha ocurrido un error. Por favor, inténtalo de nuevo.</p>
+      <button class="contact__reset" type="button" (click)="reset()">Reintentar</button>
+    </div>
+  } @else {
+    <form class="contact__form" (ngSubmit)="onSubmit()" #contactForm="ngForm">
+      <div class="contact__field">
+        <label class="contact__label" for="contact-name">Nombre</label>
+        <input
+          class="contact__input"
+          id="contact-name"
+          type="text"
+          name="name"
+          [(ngModel)]="name"
+          required
+          placeholder="Tu nombre completo"
+        />
+      </div>
+
+      <div class="contact__field">
+        <label class="contact__label" for="contact-email">Correo electrónico</label>
+        <input
+          class="contact__input"
+          id="contact-email"
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          required
+          placeholder="tu@correo.com"
+        />
+      </div>
+
+      <div class="contact__field">
+        <label class="contact__label" for="contact-message">Mensaje</label>
+        <textarea
+          class="contact__input contact__input--textarea"
+          id="contact-message"
+          name="message"
+          [(ngModel)]="message"
+          required
+          placeholder="Escribe tu mensaje aquí…"
+          rows="5"
+        ></textarea>
+      </div>
+
+      <button
+        class="contact__button"
+        type="submit"
+        [disabled]="status() === 'sending' || contactForm.invalid"
+      >
+        @if (status() === 'sending') {
+          <span class="material-symbols-outlined contact__button-icon contact__button-icon--spin"
+            >sync</span
+          >
+          Enviando…
+        } @else {
+          <span class="material-symbols-outlined contact__button-icon">send</span>
+          Enviar
+        }
+      </button>
+    </form>
+  }
+</section>

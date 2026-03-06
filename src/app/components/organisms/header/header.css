@@ -1,13 +1,17 @@
 :host {
   position: sticky;
+  z-index: 1;
   top: 0;
   left: 0;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding: 1rem 1.5rem;
-  color: white;
+  color: light-dark(var(--monochromatic--light-deep), var(--monochromatic--light-pure));
   background-color: light-dark(var(--primary), var(--monochromatic--dark-deep));
-  transition: background-color 0.4s ease;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .logo {
