@@ -1,10 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { ResponsiveIncludes } from '@pipes/responsive/includes/includes';
 import { Devices, Responsive } from '@services/responsive/responsive';
+import { ThemePicker } from "@components/atoms/theme-picker/theme-picker/theme-picker";
 
 @Component({
   selector: 'app-navigation',
-  imports: [ResponsiveIncludes],
+  imports: [ResponsiveIncludes, ThemePicker],
   templateUrl: './navigation.html',
   styleUrl: './navigation.css',
 })

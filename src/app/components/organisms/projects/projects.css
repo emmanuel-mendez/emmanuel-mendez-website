@@ -28,7 +28,7 @@
     border-radius: 0.5rem;
     background-color: light-dark(var(--white), var(--monochromatic--dark-deep));
     color: light-dark(var(--black), var(--white));
-    border: 1px solid light-dark(#e0e0e0, #2a2a2a);
+    box-shadow: 0 0 24px #ebebeb;
     transition:
       background-color 0.2s ease,
       color 0.2s ease,

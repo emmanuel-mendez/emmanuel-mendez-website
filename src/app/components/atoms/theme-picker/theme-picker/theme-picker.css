@@ -1,6 +1,7 @@
 :host {
   position: relative;
   display: flex;
+  color: var(--white);
   --icon-fill: 0;
 
   .icon {

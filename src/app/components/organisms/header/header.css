@@ -3,7 +3,8 @@
   z-index: 1;
   top: 0;
   left: 0;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.5rem;
