@@ -1,0 +1,64 @@
+<section class="job-experience">
+  <div class="job-experience__header">
+    <span class="material-symbols-outlined job-experience__header-icon">work</span>
+    <h2 class="job-experience__title">Work Experience</h2>
+  </div>
+
+  <ul class="job-experience__list">
+    @for (job of experiences; track job.company) {
+      <li class="job-experience__item">
+        <div class="job-experience__item-header">
+          <h3 class="job-experience__role">{{ job.role }}</h3>
+
+          <div class="job-experience__company">
+            <a
+              class="job-experience__company-link"
+              [href]="job.companyUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{ job.company }}
+              <span class="material-symbols-outlined job-experience__link-icon">open_in_new</span>
+            </a>
+          </div>
+
+          <div class="job-experience__meta">
+            <span class="job-experience__meta-item">
+              <span class="material-symbols-outlined job-experience__meta-icon">location_on</span>
+              {{ job.location }}
+            </span>
+            <span class="job-experience__meta-item">
+              <span class="material-symbols-outlined job-experience__meta-icon">calendar_month</span>
+              {{ job.startDate }} – {{ job.endDate ?? 'Present' }}
+            </span>
+          </div>
+
+          <div class="job-experience__badges">
+            <span class="job-experience__badge">{{ job.sector }}</span>
+            <span class="job-experience__badge">{{ job.typeOfCommerce }}</span>
+          </div>
+        </div>
+
+        <div class="job-experience__details">
+          <div class="job-experience__section">
+            <h4 class="job-experience__subtitle">Responsibilities</h4>
+            <ul class="job-experience__bullet-list">
+              @for (item of job.responsibilities; track item) {
+                <li class="job-experience__bullet-item">{{ item }}</li>
+              }
+            </ul>
+          </div>
+
+          <div class="job-experience__section">
+            <h4 class="job-experience__subtitle">Key Accomplishments</h4>
+            <ul class="job-experience__bullet-list">
+              @for (item of job.keyAccomplishments; track item) {
+                <li class="job-experience__bullet-item">{{ item }}</li>
+              }
+            </ul>
+          </div>
+        </div>
+      </li>
+    }
+  </ul>
+</section>
