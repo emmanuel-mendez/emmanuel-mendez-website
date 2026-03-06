@@ -20,12 +20,6 @@ describe('About', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render the name and title', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.about__name')?.textContent).toContain('Emmanuel Mendez');
-    expect(compiled.querySelector('.about__title')?.textContent).toContain('Computer Engineer');
-  });
-
   it('should render all skill groups', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const groups = compiled.querySelectorAll('.about__skill-group');

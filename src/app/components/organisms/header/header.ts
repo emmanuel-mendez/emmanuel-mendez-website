@@ -1,12 +1,11 @@
 import { Navigation } from '@components/organisms/navigation/navigation';
 import { Component, inject, computed, signal, afterNextRender, DestroyRef } from '@angular/core';
-import { ThemePicker } from '@components/atoms/theme-picker/theme-picker/theme-picker';
 import { Responsive, Devices } from '@services/responsive/responsive';
 import { Theme, ThemeMode } from '@services/theme/theme';
 
 @Component({
   selector: 'app-header',
-  imports: [Navigation, ThemePicker],
+  imports: [Navigation],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })

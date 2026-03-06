@@ -8,12 +8,16 @@
         <a class="navigation__link" href="/projects">Projects</a>
       </li>
     </ul>
+    <div class="navigation__theme-picker">
+      <app-theme-picker />
+    </div>
   } @else {
+    <app-theme-picker />
+
     <button class="navigation__button" type="button" (click)="toggleMenu()">
       <span class="material-symbols-outlined navigation__icon">{{
         opened() ? 'close' : 'menu'
       }}</span>
-      Menu
     </button>
 
     @if (opened()) {

@@ -4,8 +4,12 @@
 
 .navigation {
   position: relative;
-  display: flex;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
   align-items: center;
+  justify-content: space-between;
 }
 
 .navigation__button {
@@ -14,8 +18,9 @@
   gap: 0.25rem;
   padding: 0.25rem 0.5rem;
   border-radius: 0.5rem;
-  color: inherit;
+  color: var(--white);
   background-color: transparent;
+
   transition:
     color 0.2s ease,
     background-color 0.2s ease;
@@ -51,12 +56,13 @@
 
 .navigation__item {
   display: flex;
+  color: var(--white);
 }
 
 .navigation__link {
   width: 100%;
   padding: 0.5rem 0.75rem;
-  color: inherit;
+  color: var(--white);
   text-decoration: none;
   transition:
     color 0.2s ease,
@@ -70,5 +76,11 @@
 .navigation__list {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
+}
+
+.navigation__theme-picker {
+  display: flex;
+  justify-content: flex-end;
 }

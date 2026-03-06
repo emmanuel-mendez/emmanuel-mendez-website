@@ -52,6 +52,7 @@ describe('Footer', () => {
     expect(anchor.getAttribute('href')).toContain('linkedin.com');
     expect(anchor.getAttribute('target')).toBe('_blank');
     expect(anchor.getAttribute('rel')).toContain('noopener');
+  });
   it('should render a logo image with alt text', () => {
     const img: HTMLImageElement = fixture.nativeElement.querySelector('img.logo');
     expect(img).toBeTruthy();
@@ -79,4 +80,5 @@ describe('Footer', () => {
     theme.set(ThemeMode.LIGHT);
     expect(component.logoSrc()).toBe('/svg/logo--expanded--light.svg');
   });
+
 });
