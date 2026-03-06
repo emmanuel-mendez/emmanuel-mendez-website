@@ -1,1 +1,64 @@
-<p>card works!</p>
+<article class="card">
+  <span class="card__label">Latest</span>
+  <div class="card__body">
+    <div class="card__image-wrapper">
+      <div class="card__images">
+        <img
+          class="card__image card__image--desktop"
+          src="/webp/astyimar-emmanuel-wedding--desktop.webp"
+          alt="Astyimar and Emmanuel wedding website desktop preview"
+          loading="lazy"
+          decoding="async"
+        />
+        <img
+          class="card__image card__image--mobile"
+          src="/webp/astyimar-emmanuel-wedding--mobile.webp"
+          alt="Astyimar and Emmanuel wedding website mobile preview"
+          loading="lazy"
+          decoding="async"
+        />
+        <img
+          class="card__image card__image--tablet"
+          src="/webp/astyimar-emmanuel-wedding--tablet.webp"
+          alt="Astyimar and Emmanuel wedding website tablet preview"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+
+    <ul class="card__skills-list">
+      <li class="card__skill-badge">Typescript</li>
+      <li class="card__skill-badge">Astro</li>
+      <li class="card__skill-badge">Preact</li>
+    </ul>
+
+    <h2 class="card__title">Astyimar & Emmanuel Wedding Website</h2>
+    <a class="card__project-link" [routerLink]="['/projects/astyimar-emmanuel-wedding']">
+      <span class="card__cta"> See more </span>
+    </a>
+
+    <div class="card__resources">
+      <a
+        class="card__resource-link"
+        href="https://astyimar-y-emmanuel.com/emmanuel/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="material-symbols-outlined card__icon">link_2</span>
+        <span class="card__resource-text">https://astyimar-y-emmanuel.com/emmanuel/</span>
+      </a>
+      <a
+        class="card__resource-link"
+        href="https://github.com/emmanuel-mendez/astyimar-emmanuel-wedding"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="material-symbols-outlined card__icon">code</span>
+        <span class="card__resource-text"
+          >https://github.com/emmanuel-mendez/astyimar-emmanuel-wedding</span
+        >
+      </a>
+    </div>
+  </div>
+</article>
