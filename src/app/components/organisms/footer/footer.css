@@ -41,3 +41,8 @@
       'opsz' 24;
   }
 }
+
+.logo {
+  height: 2rem;
+  width: auto;
+}
