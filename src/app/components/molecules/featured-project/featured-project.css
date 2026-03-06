@@ -1,0 +1,126 @@
+:host {
+  display: block;
+}
+
+.featured-project {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 24px #ebebeb;
+
+  &:hover .featured-project__images {
+    transform: scale(1.01);
+  }
+}
+
+.featured-project__image-wrapper {
+  padding: 1.5rem;
+  background-color: var(--analogous--primary-25);
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.featured-project__images {
+  position: relative;
+  margin: 0 auto;
+  padding: 0.75rem;
+  transition: transform 0.2s ease;
+}
+
+.featured-project__image {
+  display: block;
+  height: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 12px var(--primary-50);
+}
+
+.featured-project__image--desktop {
+  border: 1px solid light-dark(var(--monochromatic--light-soft), var(--monochromatic--dark-soft));
+}
+
+.featured-project__image--mobile,
+.featured-project__image--tablet {
+  position: absolute;
+  min-width: 2rem;
+  border: 1px solid light-dark(var(--monochromatic--light-soft), var(--monochromatic--dark-soft));
+}
+
+.featured-project__image--mobile {
+  left: 0;
+  bottom: 0;
+  width: 12%;
+}
+
+.featured-project__image--tablet {
+  bottom: 0;
+  right: 0;
+  width: 40%;
+}
+
+.featured-project__image--desktop,
+.featured-project__image--mobile,
+.featured-project__image--tablet {
+  height: auto;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.featured-project__footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  color: var(--analogous--primary);
+}
+
+.featured-project__name {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.featured-project__badge {
+  position: absolute;
+  top: -2%;
+  right: 4%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.featured-project__icon--badge {
+  font-size: 3rem;
+  color: var(--analogous--primary);
+  line-height: 80%;
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+@media (min-width: 375px) {
+  .featured-project__name {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 425px) {
+  .featured-project__name {
+    font-size: 1.2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .featured-project__image-wrapper {
+    padding: 3rem;
+  }
+
+  .featured-project__images {
+    padding: 1rem;
+  }
+
+  .featured-project__icon--badge {
+    font-size: 5rem;
+  }
+}

@@ -1,4 +1,3 @@
-import { Component } from '@angular/core';
 import { Navigation } from '@components/organisms/navigation/navigation';
 import { Component, inject, computed, signal, afterNextRender, DestroyRef } from '@angular/core';
 import { ThemePicker } from '@components/atoms/theme-picker/theme-picker/theme-picker';
