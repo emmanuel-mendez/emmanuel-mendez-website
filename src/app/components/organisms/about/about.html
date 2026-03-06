@@ -1,0 +1,38 @@
+<section class="about">
+  <div class="about__header">
+    <h1 class="about__name">Emmanuel Mendez</h1>
+    <h2 class="about__title">Computer Engineer</h2>
+  </div>
+
+  <div class="about__body">
+    <p class="about__description">
+      Computer Engineer with more than three years of experience creating high performant and user
+      retention pages, sites and web applications using TypeScript and frontend frameworks such as
+      Angular and React, managing global states with NgRx and Redux, documenting UI components in
+      Storybook and unit testing them using Jest, Jasmine and Karma.
+    </p>
+    <p class="about__description">
+      Expert in using CSS frameworks and UI component libraries to style and enhance the UX of web
+      applications, such as PostCSS, Sass, CSS Modules, Styled Components, Emotion, Bootstrap,
+      Tailwind CSS and Angular Material.
+    </p>
+    <p class="about__description">
+      Able to write clean and scalable code applying best practices, programming principles,
+      object-oriented programming, reactive programming with RxJS, functional programming, design
+      patterns and atomic design.
+    </p>
+  </div>
+
+  <div class="about__skills">
+    @for (skillGroup of skills; track skillGroup.group) {
+      <div class="about__skill-group">
+        <h3 class="about__skill-group-title">{{ skillGroup.group }}</h3>
+        <ul class="about__tags">
+          @for (tag of skillGroup.tags; track tag) {
+            <li class="about__tag">{{ tag }}</li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+</section>
