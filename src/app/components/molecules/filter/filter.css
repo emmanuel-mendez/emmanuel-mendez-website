@@ -80,4 +80,9 @@
     accent-color: light-dark(var(--primary), var(--analogous--primary));
   }
 
+  @media (min-width: 1024px) {
+    .filter__options {
+      flex-direction: column;
+    }
+  }
 }
