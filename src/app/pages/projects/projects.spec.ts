@@ -21,4 +21,22 @@ describe('Projects', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should sort projects alphabetically by default', () => {
+    const titles = component.displayedProjects().map((project) => project.title);
+
+    expect(titles).toEqual([...titles].sort((first, second) => first.localeCompare(second)));
+  });
+
+  it('should sort projects by descending year', () => {
+    component.setSort('year');
+
+    const years = component.displayedProjects().map((project) => project.year);
+
+    expect(years).toEqual([...years].sort((first, second) => second - first));
+  });
+
+  it('should render the mock projects', () => {
+    expect(component.projects.length).toBeGreaterThan(3);
+  });
 });
