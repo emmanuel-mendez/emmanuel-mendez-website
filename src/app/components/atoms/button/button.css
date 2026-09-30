@@ -22,7 +22,7 @@
 
 .button--primary {
   color: var(--white);
-  background-color: var(--analogous--primary-75);
+  background-color: light-dark(var(--primary), var(--analogous--primary));
 
   &:hover {
     background-color: var(--analogous--primary);
