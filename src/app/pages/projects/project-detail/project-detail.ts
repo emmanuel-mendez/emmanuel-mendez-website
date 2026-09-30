@@ -5,11 +5,12 @@ import { map } from 'rxjs';
 import { Layout } from '@components/templates/layout/layout';
 import { Page } from '@services/page/page';
 import { Project, ProjectsData } from '@services/projects/projects-data';
+import { Button } from '@components/atoms/button/button';
 
 @Component({
   selector: 'app-project-detail',
   standalone: true,
-  imports: [Layout, RouterLink],
+  imports: [Button, Layout, RouterLink],
   templateUrl: './project-detail.html',
   styleUrl: './project-detail.css',
 })

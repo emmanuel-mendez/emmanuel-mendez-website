@@ -13,11 +13,11 @@
   } @else {
     <app-theme-picker />
 
-    <button class="navigation__button" type="button" (click)="toggleMenu()">
+    <app-button class="navigation__button" appearance="plain" type="button" (click)="toggleMenu()">
       <span class="material-symbols-outlined navigation__icon">{{
         opened() ? 'close' : 'menu'
       }}</span>
-    </button>
+    </app-button>
 
     @if (opened()) {
       <ul class="navigation__menu">
@@ -30,12 +30,13 @@
         }
       </ul>
 
-      <button
+      <app-button
         class="navigation__backdrop"
+        appearance="plain"
         type="button"
         aria-label="Close navigation menu"
         (click)="closeMenu()"
-      ></button>
+      ></app-button>
     }
   }
 </nav>

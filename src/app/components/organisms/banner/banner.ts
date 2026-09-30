@@ -1,5 +1,5 @@
 import { Component, output } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Button } from '@components/atoms/button/button';
 import {
   FeaturedProject,
   type FeaturedProjectModel,
@@ -7,7 +7,7 @@ import {
 
 @Component({
   selector: 'app-banner',
-  imports: [RouterLink, FeaturedProject],
+  imports: [Button, FeaturedProject],
   templateUrl: './banner.html',
   styleUrl: './banner.css',
 })

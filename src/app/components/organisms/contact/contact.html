@@ -8,13 +8,17 @@
     <div class="contact__feedback contact__feedback--sent" role="status" aria-live="polite">
       <span class="material-symbols-outlined contact__feedback-icon">check_circle</span>
       <p class="contact__feedback-text">Message sent successfully!</p>
-      <button class="contact__reset" type="button" (click)="reset()">Send another message</button>
+      <app-button class="contact__reset" appearance="secondary" (click)="reset()">
+        Send another message
+      </app-button>
     </div>
   } @else if (status() === 'error') {
     <div class="contact__feedback contact__feedback--error" role="alert" aria-live="assertive">
       <span class="material-symbols-outlined contact__feedback-icon">error</span>
       <p class="contact__feedback-text">An error occurred. Please try again.</p>
-      <button class="contact__reset" type="button" (click)="reset()">Try again</button>
+      <app-button class="contact__reset" appearance="secondary" (click)="reset()">
+        Try again
+      </app-button>
     </div>
   } @else {
     <form class="contact__form" (ngSubmit)="onSubmit()" #contactForm="ngForm">
@@ -57,7 +61,7 @@
         ></textarea>
       </div>
 
-      <button
+      <app-button
         class="contact__button"
         type="submit"
         [disabled]="status() === 'sending' || contactForm.invalid"
@@ -67,7 +71,7 @@
         } @else {
           Send
         }
-      </button>
+      </app-button>
     </form>
   }
 </section>
