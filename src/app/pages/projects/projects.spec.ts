@@ -43,4 +43,12 @@ describe('Projects', () => {
   it('should render the mock projects', () => {
     expect(component.projects.length).toBeGreaterThan(3);
   });
+
+  it('should open and close the project filter dialog', () => {
+    component.openFilterDialog();
+    expect(component.isFilterDialogOpen()).toBe(true);
+
+    component.closeFilterDialog();
+    expect(component.isFilterDialogOpen()).toBe(false);
+  });
 });

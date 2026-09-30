@@ -1,48 +1,92 @@
 <app-layout>
   <section class="projects">
     <h1 class="projects__title">Projects</h1>
-    <app-filter
-      [list]="projects"
-      [categories]="categories()"
-      (filteredListChange)="setFilteredProjects($event)"
-    />
-    <div class="projects__sorting" role="group" aria-label="Sort projects">
-      <span class="projects__sorting-label">Sort by:</span>
-      <button
-        class="projects__sort-button"
-        type="button"
-        [attr.aria-pressed]="sort() === 'alphabetical'"
-        (click)="setSort('alphabetical')"
-      >
-        Alphabetically
-      </button>
-      <button
-        class="projects__sort-button"
-        type="button"
-        [attr.aria-pressed]="sort() === 'year'"
-        (click)="setSort('year')"
-      >
-        Year
-      </button>
-    </div>
-    <div class="projects__grid">
-      @for (project of displayedProjects(); track project.slug) {
-        <a class="projects__card" [routerLink]="['/projects', project.slug]">
-          <div class="projects__card-header">
-            <span class="material-symbols-outlined projects__card-icon">{{ project.icon }}</span>
-            <h2 class="projects__card-title">{{ project.title }}</h2>
-          </div>
-          <p class="projects__card-description">{{ project.description }}</p>
-          <p class="projects__card-year">{{ project.year }}</p>
-          <ul class="projects__card-tags">
-            @for (tech of project.technologies; track tech) {
-              <li class="projects__card-tag">{{ tech }}</li>
-            }
-          </ul>
-        </a>
-      } @empty {
-        <p class="projects__empty">No projects match these filters.</p>
+    <button
+      class="projects__filter-trigger"
+      type="button"
+      aria-haspopup="dialog"
+      [attr.aria-expanded]="isFilterDialogOpen()"
+      (click)="openFilterDialog()"
+    >
+      <span class="material-symbols-outlined" aria-hidden="true">tune</span>
+      Filter projects
+    </button>
+    <div class="projects__content">
+      @if (isFilterDialogOpen()) {
+        <button
+          class="projects__backdrop"
+          type="button"
+          aria-label="Close project filters"
+          (click)="closeFilterDialog()"
+        ></button>
       }
+      <div
+        class="projects__filter-panel"
+        [class.projects__filter-panel--open]="isFilterDialogOpen()"
+        [attr.role]="isFilterDialogOpen() ? 'dialog' : null"
+        [attr.aria-modal]="isFilterDialogOpen() ? 'true' : null"
+        aria-labelledby="projects-filter-heading"
+        (keydown.escape)="closeFilterDialog()"
+      >
+        <div class="projects__filter-dialog-header">
+          <h2 class="projects__filter-dialog-title" id="projects-filter-heading">
+            Filter projects
+          </h2>
+          <button
+            class="projects__filter-close"
+            type="button"
+            aria-label="Close project filters"
+            (click)="closeFilterDialog()"
+          >
+            <span class="material-symbols-outlined" aria-hidden="true">close</span>
+          </button>
+        </div>
+        <app-filter
+          [list]="projects"
+          [categories]="categories()"
+          (filteredListChange)="setFilteredProjects($event)"
+        />
+      </div>
+      <div class="projects__results">
+        <div class="projects__sorting" role="group" aria-label="Sort projects">
+          <span class="projects__sorting-label">Sort by:</span>
+          <button
+            class="projects__sort-button"
+            type="button"
+            [attr.aria-pressed]="sort() === 'alphabetical'"
+            (click)="setSort('alphabetical')"
+          >
+            Alphabetically
+          </button>
+          <button
+            class="projects__sort-button"
+            type="button"
+            [attr.aria-pressed]="sort() === 'year'"
+            (click)="setSort('year')"
+          >
+            Year
+          </button>
+        </div>
+        <div class="projects__grid">
+          @for (project of displayedProjects(); track project.slug) {
+            <a class="projects__card" [routerLink]="['/projects', project.slug]">
+              <div class="projects__card-header">
+                <span class="material-symbols-outlined projects__card-icon">{{ project.icon }}</span>
+                <h2 class="projects__card-title">{{ project.title }}</h2>
+              </div>
+              <p class="projects__card-description">{{ project.description }}</p>
+              <p class="projects__card-year">{{ project.year }}</p>
+              <ul class="projects__card-tags">
+                @for (tech of project.technologies; track tech) {
+                  <li class="projects__card-tag">{{ tech }}</li>
+                }
+              </ul>
+            </a>
+          } @empty {
+            <p class="projects__empty">No projects match these filters.</p>
+          }
+        </div>
+      </div>
     </div>
   </section>
 </app-layout>

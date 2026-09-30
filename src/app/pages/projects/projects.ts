@@ -21,6 +21,7 @@ export class Projects {
   public readonly projects = this.projectsData.projects;
   public readonly filteredProjects = signal<readonly Project[]>(this.projects);
   public readonly sort = signal<ProjectSort>('alphabetical');
+  public readonly isFilterDialogOpen = signal(false);
   public readonly categories = computed<readonly FilterCategory<Project>[]>(() => [
     {
       name: 'Technology',
@@ -59,5 +60,13 @@ export class Projects {
 
   public setSort(sort: ProjectSort): void {
     this.sort.set(sort);
+  }
+
+  public openFilterDialog(): void {
+    this.isFilterDialogOpen.set(true);
+  }
+
+  public closeFilterDialog(): void {
+    this.isFilterDialogOpen.set(false);
   }
 }
