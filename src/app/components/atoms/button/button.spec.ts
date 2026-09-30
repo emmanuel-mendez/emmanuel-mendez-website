@@ -16,11 +16,7 @@ describe('Button', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-<<<<<<< HEAD
       imports: [Button, RouterLinkButtonHost],
-=======
-      imports: [Button],
->>>>>>> origin/main
       providers: [provideRouter([])],
     }).compileComponents();
 
@@ -33,7 +29,6 @@ describe('Button', () => {
     expect(component).toBeTruthy();
   });
 
-<<<<<<< HEAD
   it('should render a primary button by default', () => {
     const button: HTMLButtonElement | null = fixture.nativeElement.querySelector('button');
 
@@ -46,6 +41,14 @@ describe('Button', () => {
     fixture.detectChanges();
 
     expect(fixture.nativeElement.querySelector('a')?.getAttribute('href')).toBe('/projects');
+  });
+
+  it('should render a router link when the route input is provided', () => {
+    fixture.componentRef.setInput('route', ['/projects']);
+    fixture.detectChanges();
+
+    const link: HTMLAnchorElement | null = fixture.nativeElement.querySelector('a');
+    expect(link?.getAttribute('href')).toBe('/projects');
   });
 
   it('should render an external link with the requested attributes', () => {
@@ -67,18 +70,5 @@ describe('Button', () => {
     hostFixture.detectChanges();
 
     expect(hostFixture.nativeElement.querySelector('a')?.textContent?.trim()).toBe('View projects');
-=======
-  it('should render its default label and route', () => {
-    const link = fixture.nativeElement.querySelector('a');
-    expect(link.textContent.trim()).toBe('See more');
-    expect(link.getAttribute('href')).toBe('/projects');
-  });
-
-  it('should accept a dynamic label', () => {
-    fixture.componentRef.setInput('label', 'View all projects');
-    fixture.detectChanges();
-
-    expect(fixture.nativeElement.querySelector('a').textContent.trim()).toBe('View all projects');
->>>>>>> origin/main
   });
 });

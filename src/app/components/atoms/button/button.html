@@ -1,11 +1,10 @@
-<<<<<<< HEAD
-@if (routerLink(); as route) {
+@if (routerLink() ?? route(); as routePath) {
   <a
     class="button"
     [class.button--primary]="appearance() === 'primary'"
     [class.button--secondary]="appearance() === 'secondary'"
     [class.button--plain]="appearance() === 'plain'"
-    [routerLink]="route"
+    [routerLink]="routePath"
     [attr.aria-label]="ariaLabel() ?? null"
     [attr.target]="target() ?? null"
     [attr.rel]="rel() ?? null"
@@ -41,6 +40,3 @@
     <ng-content />
   </button>
 }
-=======
-<a class="button__link" [routerLink]="route()">{{ label() }}</a>
->>>>>>> origin/main
