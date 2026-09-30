@@ -56,6 +56,7 @@ describe('Navigation', () => {
 
     expect(list).toBeFalsy();
     expect(menuButton).toBeTruthy();
+    expect(menuButton.querySelector('button')?.type).toBe('button');
   });
 
   it('should render hamburger menu for mobile devices', () => {
