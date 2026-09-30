@@ -45,11 +45,9 @@ describe('Projects', () => {
   });
 
   it('should render each project role', () => {
-    const roles = fixture.nativeElement.querySelectorAll('.projects__card-rol');
+    const roles = fixture.nativeElement.querySelectorAll<HTMLElement>('.projects__card-rol');
 
     expect(roles.length).toBe(component.displayedProjects().length);
-    expect(
-      Array.from(roles).some((role: Element) => role.textContent?.trim() === 'Role: owner'),
-    ).toBe(true);
+    expect(Array.from(roles).some((role) => role.textContent?.trim() === 'Role: owner')).toBe(true);
   });
 });

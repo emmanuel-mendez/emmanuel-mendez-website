@@ -18,9 +18,9 @@ describe('ProjectsData', () => {
   });
 
   it('should assign each project an allowed role', () => {
-    expect(service.projects.every((project) => ['owner', 'collaborator'].includes(project.rol))).toBe(
-      true,
-    );
+    expect(
+      service.projects.every((project) => ['owner', 'collaborator'].includes(project.rol)),
+    ).toBe(true);
     expect(service.getBySlug('emmanuel-mendez-website')?.rol).toBe('owner');
   });
 
