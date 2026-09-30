@@ -1,0 +1,61 @@
+:host {
+  display: inline-flex;
+}
+
+.button {
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-radius: 0.5rem;
+  font: inherit;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.button--primary {
+  color: var(--white);
+  background-color: light-dark(var(--primary), var(--analogous--primary));
+
+  &:hover {
+    background-color: var(--analogous--primary);
+  }
+}
+
+.button--secondary {
+  color: light-dark(var(--analogous--secondary-75), var(--grey));
+  background-color: transparent;
+  border: 1px solid light-dark(var(--analogous--secondary-75), var(--grey));
+
+  &:hover {
+    color: var(--white);
+    background-color: var(--analogous--secondary-50);
+    border-color: transparent;
+  }
+}
+
+.button--plain {
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background-color: transparent;
+  border-radius: 0;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (min-width: 425px) {
+  .button {
+    font-size: var(--large);
+  }
+}

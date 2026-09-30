@@ -36,4 +36,14 @@ describe('ProjectDetail', () => {
     expect(component.project()).toBeTruthy();
     expect(component.project()?.title).toBe('Emmanuel Mendez Website');
   });
+
+  it('should render project actions through the shared Button component', () => {
+    const links: NodeListOf<HTMLAnchorElement> = fixture.nativeElement.querySelectorAll(
+      'app-button.project-detail__link a',
+    );
+
+    expect(links).toHaveLength(2);
+    expect(links[0]?.target).toBe('_blank');
+    expect(links[0]?.rel).toBe('noopener noreferrer');
+  });
 });

@@ -19,4 +19,8 @@ describe('ThemePicker', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render the shared Button component for the theme toggle', () => {
+    expect(fixture.nativeElement.querySelector('app-button.button button')?.type).toBe('button');
+  });
 });
