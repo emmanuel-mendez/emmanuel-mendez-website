@@ -41,6 +41,22 @@ describe('Projects', () => {
   });
 
   it('should show the remaining project catalog', () => {
-    expect(component.projects.map((project) => project.title)).toEqual(['Emmanuel Mendez Website']);
+    expect(component.projects).toHaveLength(32);
+    expect(component.projects[0].rol).toBe('owner');
+    expect(component.projects.slice(1).every((project) => project.rol === 'collaborator')).toBe(
+      true,
+    );
+  });
+
+  it('should render project roles and hide unavailable years', () => {
+    const cards = fixture.nativeElement.querySelectorAll('.projects__card');
+    const firstCard = cards[0] as HTMLElement;
+    const yearLabels = fixture.nativeElement.querySelectorAll('.projects__card-year');
+
+    expect(firstCard.querySelector('.projects__card-role')?.textContent.trim()).toBe('owner');
+    expect(yearLabels.length).toBe(1);
+    expect(cards[1].querySelector('.projects__card-role')?.textContent.trim()).toBe(
+      'collaborator',
+    );
   });
 });

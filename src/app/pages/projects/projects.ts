@@ -30,9 +30,13 @@ export class Projects {
     {
       name: 'Year',
       property: 'year',
-      properties: [...new Set(this.projects.map((project) => String(project.year)))].sort(
-        (first, second) => Number(second) - Number(first),
-      ),
+      properties: [
+        ...new Set(
+          this.projects.flatMap((project) =>
+            project.year === undefined ? [] : [String(project.year)],
+          ),
+        ),
+      ].sort((first, second) => Number(second) - Number(first)),
     },
   ]);
   public readonly displayedProjects = computed(() => {
@@ -42,7 +46,7 @@ export class Projects {
     return [...this.filteredProjects()].sort((first, second) =>
       this.sort() === 'alphabetical'
         ? titleOrder(first, second)
-        : second.year - first.year || titleOrder(first, second),
+        : (second.year ?? 0) - (first.year ?? 0) || titleOrder(first, second),
     );
   });
 

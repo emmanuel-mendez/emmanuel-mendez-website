@@ -33,7 +33,10 @@
             <h2 class="projects__card-title">{{ project.title }}</h2>
           </div>
           <p class="projects__card-description">{{ project.description }}</p>
-          <p class="projects__card-year">{{ project.year }}</p>
+          <p class="projects__card-role">{{ project.rol }}</p>
+          @if (project.year !== undefined) {
+            <p class="projects__card-year">{{ project.year }}</p>
+          }
           <ul class="projects__card-tags">
             @for (tech of project.technologies; track tech) {
               <li class="projects__card-tag">{{ tech }}</li>

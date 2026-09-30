@@ -36,4 +36,13 @@ describe('ProjectDetail', () => {
     expect(component.project()).toBeTruthy();
     expect(component.project()?.title).toBe('Emmanuel Mendez Website');
   });
+
+  it('should render project role and products', () => {
+    expect(fixture.nativeElement.querySelector('.project-detail__role').textContent).toContain(
+      'owner',
+    );
+    expect(fixture.nativeElement.querySelector('.project-detail__section-title').textContent).toBe(
+      'Products',
+    );
+  });
 });

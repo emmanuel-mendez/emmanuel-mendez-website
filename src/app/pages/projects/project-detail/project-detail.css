@@ -71,6 +71,37 @@
     opacity: 0.9;
   }
 
+  .project-detail__role {
+    display: inline-block;
+    margin: 0 0 1rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 0.25rem;
+    background-color: light-dark(var(--analogous--primary), var(--analogous--secondary-50));
+    color: var(--white);
+    font-size: var(--extra-extra-small);
+    font-weight: 500;
+    text-transform: capitalize;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .project-detail__section {
+    margin-bottom: 1.5rem;
+  }
+
+  .project-detail__section-title {
+    margin-bottom: 0.5rem;
+    font-size: var(--medium);
+    font-weight: 600;
+  }
+
+  .project-detail__list {
+    margin: 0;
+    padding-left: 1.5rem;
+    line-height: 1.7;
+  }
+
   .project-detail__tags {
     display: flex;
     flex-wrap: wrap;
