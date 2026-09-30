@@ -40,7 +40,7 @@ describe('Projects', () => {
     expect(years).toEqual([...years].sort((first, second) => second - first));
   });
 
-  it('should render the mock projects', () => {
-    expect(component.projects.length).toBeGreaterThan(3);
+  it('should show the remaining project catalog', () => {
+    expect(component.projects.map((project) => project.title)).toEqual(['Emmanuel Mendez Website']);
   });
 });
