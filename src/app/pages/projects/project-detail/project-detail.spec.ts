@@ -38,8 +38,9 @@ describe('ProjectDetail', () => {
   });
 
   it('should render project actions through the shared Button component', () => {
-    const links: NodeListOf<HTMLAnchorElement> =
-      fixture.nativeElement.querySelectorAll('app-button.project-detail__link a');
+    const links: NodeListOf<HTMLAnchorElement> = fixture.nativeElement.querySelectorAll(
+      'app-button.project-detail__link a',
+    );
 
     expect(links).toHaveLength(2);
     expect(links[0]?.target).toBe('_blank');
