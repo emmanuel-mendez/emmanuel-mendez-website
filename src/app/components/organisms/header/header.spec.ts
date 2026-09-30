@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { signal, WritableSignal } from '@angular/core';
+import { provideRouter } from '@angular/router';
 
 import { Header } from './header';
 import { Devices, Responsive } from '@services/responsive/responsive';
@@ -17,6 +18,7 @@ describe('Header', () => {
     await TestBed.configureTestingModule({
       imports: [Header],
       providers: [
+        provideRouter([]),
         {
           provide: Responsive,
           useValue: { device: mockDevice },

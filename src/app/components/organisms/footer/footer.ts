@@ -28,16 +28,4 @@ export class Footer {
   public readonly isDesktop = computed((): boolean =>
     this.responsive.device().includes(Devices.DESKTOP),
   );
-
-  public readonly logoSrc = computed((): string => {
-    const isDesktop = this.isDesktop();
-    const themeMode = this.theme.current();
-    const isDark =
-      themeMode === ThemeMode.DARK || (themeMode === ThemeMode.SYSTEM && this.systemDark());
-
-    if (isDesktop) {
-      return isDark ? '/svg/logo--expanded.svg' : '/svg/logo--expanded--light.svg';
-    }
-    return isDark ? '/svg/logo.svg' : '/svg/logo--light.svg';
-  });
 }

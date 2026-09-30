@@ -2,20 +2,16 @@
   display: block;
 }
 
-.contact {
-  padding: 2rem 1rem;
-}
-
 .contact__title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: var(--extra-large);
+  font-weight: bold;
   color: light-dark(var(--primary), var(--white));
   transition: color 0.2s ease;
   margin-bottom: 0.25rem;
 }
 
 .contact__subtitle {
-  font-size: 0.9375rem;
+  font-size: var(--small);
   color: light-dark(var(--monochromatic--dark-deep), #b0bec5);
   transition: color 0.2s ease;
   margin-bottom: 1.5rem;
@@ -34,7 +30,7 @@
 }
 
 .contact__label {
-  font-size: 0.875rem;
+  font-size: var(--extra-small);
   font-weight: 500;
   color: light-dark(var(--primary), var(--white));
   transition: color 0.2s ease;
@@ -44,7 +40,7 @@
   width: 100%;
   padding: 0.75rem 1rem;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: var(--small);
   border: 1.5px solid light-dark(var(--analogous--secondary-50), #37474f);
   border-radius: 0.375rem;
   background-color: light-dark(var(--white), var(--monochromatic--dark-deep));
@@ -73,21 +69,22 @@
 
 .contact__button {
   display: inline-flex;
+  min-width: 218.5px;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 0.375rem;
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  background-color: light-dark(var(--primary), var(--analogous--primary));
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
   color: var(--white);
+  background-color: var(--analogous--primary-75);
+  cursor: default;
   transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
+    color 0.2s ease,
+    background-color 0.2s ease;
+
+  &:hover {
+    background-color: var(--analogous--primary);
+  }
 
   &:hover:not(:disabled) {
     background-color: light-dark(var(--analogous--primary), var(--primary));
@@ -100,7 +97,7 @@
 }
 
 .contact__button-icon {
-  font-size: 1.25rem;
+  font-size: var(--large);
 }
 
 .contact__button-icon--spin {
@@ -131,11 +128,11 @@
 }
 
 .contact__feedback-icon {
-  font-size: 3rem;
+  font-size: var(--xxxxl);
 }
 
 .contact__feedback-text {
-  font-size: 1.0625rem;
+  font-size: var(--medium);
   font-weight: 500;
 }
 
@@ -144,7 +141,7 @@
   border-radius: 0.375rem;
   border: none;
   font-family: inherit;
-  font-size: 0.875rem;
+  font-size: var(--extra-small);
   font-weight: 500;
   cursor: pointer;
   background-color: light-dark(var(--primary), var(--analogous--primary));
@@ -164,15 +161,9 @@
   }
 }
 
-@media (min-width: 48rem) {
-  .contact {
-    padding: 3rem 2rem;
-    max-width: 40rem;
-    margin-inline: auto;
-  }
-
+@media (min-width: 768px) {
   .contact__title {
-    font-size: 2rem;
+    font-size: var(--extra-extra-extra-large);
   }
 
   .contact__button {

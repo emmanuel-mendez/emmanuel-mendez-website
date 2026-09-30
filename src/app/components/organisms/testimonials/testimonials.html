@@ -1,4 +1,4 @@
-<section class="testimonials">
+<section class="testimonials section">
   <h2 class="testimonials__title">Testimonials</h2>
   <ul class="testimonials__list">
     @for (testimonial of testimonials; track testimonial.id) {
@@ -14,19 +14,6 @@
               <span class="testimonials__author-role"
                 >{{ testimonial.role }} · {{ testimonial.company }}</span
               >
-            </div>
-            <div
-              class="testimonials__rating"
-              [attr.aria-label]="testimonial.rating + ' out of 5 stars'"
-            >
-              @for (star of stars; track star) {
-                <span
-                  class="material-symbols-outlined testimonials__star"
-                  [class.testimonials__star--filled]="star <= testimonial.rating"
-                  aria-hidden="true"
-                  >star</span
-                >
-              }
             </div>
           </footer>
         </article>

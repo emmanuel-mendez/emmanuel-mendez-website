@@ -76,7 +76,7 @@
 .featured-project__name {
   display: flex;
   align-items: center;
-  font-size: 0.8rem;
+  font-size: var(--extra-small);
 }
 
 .featured-project__badge {
@@ -89,7 +89,7 @@
 }
 
 .featured-project__icon--badge {
-  font-size: 3rem;
+  font-size: var(--xxxxl);
   color: var(--analogous--primary);
   line-height: 80%;
   font-variation-settings:
@@ -101,13 +101,13 @@
 
 @media (min-width: 375px) {
   .featured-project__name {
-    font-size: 1rem;
+    font-size: var(--medium);
   }
 }
 
 @media (min-width: 425px) {
   .featured-project__name {
-    font-size: 1.2rem;
+    font-size: var(--large);
   }
 }
 

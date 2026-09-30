@@ -16,7 +16,7 @@
 
 .card__label {
   align-self: flex-end;
-  font-size: 0.9rem;
+  font-size: var(--medium);
   line-height: 1.2;
   background-color: var(--analogous--secondary-50);
   color: var(--white);
@@ -99,7 +99,7 @@
   border: 1px solid light-dark(var(--primary), var(--analogous--primary));
   background-color: light-dark(var(--white), var(--analogous--secondary-50));
   color: light-dark(var(--primary), var(--white));
-  font-size: 0.75rem;
+  font-size: var(--extra-extra-small);
   line-height: 1.4;
   transition:
     color 0.2s ease,
@@ -108,7 +108,7 @@
 
 .card__title {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: var(--extra-large);
 }
 
 .card__project-link {
@@ -136,7 +136,7 @@
   gap: 0.3rem;
   align-items: flex-start;
   color: inherit;
-  font-size: 0.8rem;
+  font-size: var(--extra-small);
   transition:
     color 0.2s ease,
     background-color 0.2s ease;
@@ -149,7 +149,7 @@
 }
 
 .card__icon {
-  font-size: 1.25rem;
+  font-size: var(--large);
 }
 
 @media (min-width: 768px) {

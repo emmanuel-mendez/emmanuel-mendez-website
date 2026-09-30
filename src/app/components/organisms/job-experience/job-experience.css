@@ -1,10 +1,6 @@
 :host {
   display: block;
 
-  .job-experience {
-    padding: 2rem 1rem;
-  }
-
   .job-experience__header {
     display: flex;
     align-items: center;
@@ -13,16 +9,20 @@
   }
 
   .job-experience__header-icon {
-    font-size: 1.75rem;
+    font-size: var(--extra-extra-large);
     color: light-dark(var(--primary), var(--analogous--primary));
     transition: color 0.2s ease;
   }
 
   .job-experience__title {
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: var(--extra-large);
+    font-weight: bold;
     color: light-dark(var(--primary), var(--analogous--primary));
     transition: color 0.2s ease;
+
+    @media (min-width: 1204px) {
+      font-size: var(--extra-extra-extra-large);
+    }
   }
 
   .job-experience__list {
@@ -54,7 +54,7 @@
   }
 
   .job-experience__role {
-    font-size: 1.125rem;
+    font-size: var(--medium);
     font-weight: 600;
     color: light-dark(var(--primary), var(--white));
     transition: color 0.2s ease;
@@ -82,7 +82,7 @@
   }
 
   .job-experience__link-icon {
-    font-size: 1rem;
+    font-size: var(--medium);
   }
 
   .job-experience__meta {
@@ -95,13 +95,13 @@
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
-    font-size: 0.875rem;
+    font-size: var(--extra-small);
     color: light-dark(var(--analogous--secondary), var(--analogous--primary));
     transition: color 0.2s ease;
   }
 
   .job-experience__meta-icon {
-    font-size: 1rem;
+    font-size: var(--medium);
   }
 
   .job-experience__badges {
@@ -113,11 +113,11 @@
   .job-experience__badge {
     display: inline-block;
     padding: 0.25rem 0.625rem;
-    border-radius: 1rem;
-    font-size: 0.75rem;
+    border-radius: 0.2rem;
+    font-size: var(--extra-extra-small);
     font-weight: 500;
-    background-color: light-dark(var(--analogous--primary-50), var(--analogous--secondary-50));
-    color: light-dark(var(--primary), var(--white));
+    background-color: light-dark(var(--analogous--secondary-50), var(--analogous--secondary-50));
+    color: light-dark(var(--white), var(--white));
     transition:
       background-color 0.2s ease,
       color 0.2s ease;
@@ -136,7 +136,7 @@
   }
 
   .job-experience__subtitle {
-    font-size: 0.875rem;
+    font-size: var(--small);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -153,28 +153,16 @@
   }
 
   .job-experience__bullet-item {
-    font-size: 0.9rem;
+    font-size: var(--small);
     line-height: 1.5;
     color: light-dark(var(--black), var(--white));
     transition: color 0.2s ease;
   }
 
-  @media (min-width: 48rem) {
-    .job-experience {
-      padding: 2rem 1.5rem;
-    }
-
+  @media (min-width: 768px) {
     .job-experience__meta {
       flex-direction: row;
       gap: 1rem;
-    }
-  }
-
-  @media (min-width: 75rem) {
-    .job-experience {
-      padding: 2.5rem 2rem;
-      max-width: 60rem;
-      margin: 0 auto;
     }
   }
 }

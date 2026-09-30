@@ -53,32 +53,4 @@ describe('Footer', () => {
     expect(anchor.getAttribute('target')).toBe('_blank');
     expect(anchor.getAttribute('rel')).toContain('noopener');
   });
-  it('should render a logo image with alt text', () => {
-    const img: HTMLImageElement = fixture.nativeElement.querySelector('img.logo');
-    expect(img).toBeTruthy();
-    expect(img.alt).toBe('Emmanuel Mendez');
-  });
-
-  it('should return compact dark logo on mobile in dark mode', () => {
-    theme.set(ThemeMode.DARK);
-    expect(component.logoSrc()).toBe('/svg/logo.svg');
-  });
-
-  it('should return compact light logo on mobile in light mode', () => {
-    theme.set(ThemeMode.LIGHT);
-    expect(component.logoSrc()).toBe('/svg/logo--light.svg');
-  });
-
-  it('should return expanded dark logo on desktop in dark mode', () => {
-    mockDevice.set([Devices.DESKTOP, Devices.DESKTOP_MEDIUM]);
-    theme.set(ThemeMode.DARK);
-    expect(component.logoSrc()).toBe('/svg/logo--expanded.svg');
-  });
-
-  it('should return expanded light logo on desktop in light mode', () => {
-    mockDevice.set([Devices.DESKTOP, Devices.DESKTOP_MEDIUM]);
-    theme.set(ThemeMode.LIGHT);
-    expect(component.logoSrc()).toBe('/svg/logo--expanded--light.svg');
-  });
-
 });

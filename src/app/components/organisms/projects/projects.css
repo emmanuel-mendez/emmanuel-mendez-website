@@ -1,17 +1,20 @@
 :host {
   display: block;
-  padding: 2rem 1rem;
   color: light-dark(var(--black), var(--white));
   transition:
     color 0.2s ease,
     background-color 0.2s ease;
 
   .projects__title {
-    font-size: 1.75rem;
-    font-weight: 700;
+    font-size: var(--extra-large);
+    font-weight: bold;
     margin-bottom: 1.5rem;
     color: light-dark(var(--primary), var(--white));
     transition: color 0.2s ease;
+
+    @media (min-width: 1204px) {
+      font-size: var(--extra-extra-extra-large);
+    }
   }
 
   .projects__grid {
@@ -47,7 +50,7 @@
   }
 
   .projects__card-icon {
-    font-size: 1.75rem;
+    font-size: var(--extra-extra-large);
     color: light-dark(var(--primary), var(--analogous--primary));
     transition: color 0.2s ease;
     font-variation-settings:
@@ -58,13 +61,13 @@
   }
 
   .projects__card-title {
-    font-size: 1.125rem;
+    font-size: var(--medium);
     font-weight: 600;
   }
 
   .projects__card-description {
     flex: 1;
-    font-size: 0.875rem;
+    font-size: var(--small);
     line-height: 1.6;
     opacity: 0.85;
   }
@@ -80,10 +83,10 @@
 
   .projects__card-tag {
     padding: 0.25rem 0.625rem;
-    border-radius: 0.25rem;
-    font-size: 0.75rem;
+    border-radius: 0.2rem;
+    font-size: var(--extra-extra-small);
     font-weight: 500;
-    background-color: light-dark(var(--analogous--primary), var(--analogous--secondary-50));
+    background-color: light-dark(var(--analogous--secondary-50), var(--analogous--secondary-50));
     color: var(--white);
     transition:
       background-color 0.2s ease,
@@ -100,7 +103,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
-    font-size: 0.875rem;
+    font-size: var(--extra-small);
     font-weight: 500;
     color: light-dark(var(--primary), var(--analogous--primary));
     text-decoration: none;
@@ -112,7 +115,7 @@
   }
 
   .projects__card-link-icon {
-    font-size: 1rem;
+    font-size: var(--medium);
     font-variation-settings:
       'FILL' 0,
       'wght' 400,
@@ -121,16 +124,12 @@
   }
 
   @media (min-width: 768px) {
-    padding: 3rem 2rem;
-
     .projects__grid {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 
   @media (min-width: 1024px) {
-    padding: 4rem 3rem;
-
     .projects__grid {
       grid-template-columns: repeat(3, 1fr);
     }

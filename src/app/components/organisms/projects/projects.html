@@ -1,4 +1,4 @@
-<section class="projects">
+<section class="projects section">
   <h2 class="projects__title">Projects</h2>
   <div class="projects__grid">
     @for (project of projects; track project.slug) {
@@ -14,10 +14,7 @@
           }
         </ul>
         <div class="projects__card-actions">
-          <a
-            class="projects__card-link"
-            [routerLink]="['/projects', project.slug]"
-          >
+          <a class="projects__card-link" [routerLink]="['/projects', project.slug]">
             <span class="material-symbols-outlined projects__card-link-icon">open_in_new</span>
             Details
           </a>

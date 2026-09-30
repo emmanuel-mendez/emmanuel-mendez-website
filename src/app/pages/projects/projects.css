@@ -10,11 +10,42 @@
   }
 
   .projects__title {
-    font-size: 1.75rem;
+    font-size: var(--extra-extra-large);
     font-weight: 700;
     margin-bottom: 1.5rem;
     color: light-dark(var(--primary), var(--white));
     transition: color 0.2s ease;
+  }
+
+  .projects__sorting {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+
+  .projects__sorting-label {
+    font-size: var(--extra-small);
+    font-weight: 600;
+  }
+
+  .projects__sort-button {
+    padding: 0.375rem 0.75rem;
+    border: 1px solid light-dark(var(--primary-25), var(--analogous--primary-50));
+    border-radius: 999px;
+    background-color: light-dark(var(--white), var(--monochromatic--dark-deep));
+    color: light-dark(var(--black), var(--white));
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+
+    &[aria-pressed='true'] {
+      border-color: light-dark(var(--primary), var(--analogous--primary));
+      background-color: light-dark(var(--primary), var(--analogous--primary));
+      color: var(--white);
+    }
   }
 
   .projects__grid {
@@ -50,7 +81,7 @@
   }
 
   .projects__card-icon {
-    font-size: 1.75rem;
+    font-size: var(--extra-extra-large);
     color: light-dark(var(--primary), var(--analogous--primary));
     transition: color 0.2s ease;
     font-variation-settings:
@@ -61,15 +92,28 @@
   }
 
   .projects__card-title {
-    font-size: 1.125rem;
+    font-size: var(--medium);
     font-weight: 600;
   }
 
   .projects__card-description {
     flex: 1;
-    font-size: 0.875rem;
+    font-size: var(--extra-small);
     line-height: 1.6;
     opacity: 0.85;
+  }
+
+  .projects__card-year {
+    margin: 0;
+    font-size: var(--extra-extra-small);
+    font-weight: 600;
+    opacity: 0.75;
+  }
+
+  .projects__empty {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 1rem 0;
   }
 
   .projects__card-tags {
@@ -84,7 +128,7 @@
   .projects__card-tag {
     padding: 0.25rem 0.625rem;
     border-radius: 0.25rem;
-    font-size: 0.75rem;
+    font-size: var(--extra-extra-small);
     font-weight: 500;
     background-color: light-dark(var(--analogous--primary), var(--analogous--secondary-50));
     color: var(--white);
@@ -94,20 +138,12 @@
   }
 
   @media (min-width: 768px) {
-    .projects {
-      padding: 3rem 2rem;
-    }
-
     .projects__grid {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 
   @media (min-width: 1024px) {
-    .projects {
-      padding: 4rem 3rem;
-    }
-
     .projects__grid {
       grid-template-columns: repeat(3, 1fr);
     }

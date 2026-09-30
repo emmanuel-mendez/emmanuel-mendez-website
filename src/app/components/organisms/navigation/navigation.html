@@ -1,12 +1,11 @@
 <nav class="navigation">
   @if (responsive.device() | includes: [breakpoints.DESKTOP]) {
     <ul class="navigation__list">
-      <li class="navigation__item">
-        <a class="navigation__link" href="/">Home</a>
-      </li>
-      <li class="navigation__item">
-        <a class="navigation__link" href="/projects">Projects</a>
-      </li>
+      @for (item of navigationItems; track item.href) {
+        <li class="navigation__item">
+          <a class="navigation__link" [href]="item.href">{{ item.label }}</a>
+        </li>
+      }
     </ul>
     <div class="navigation__theme-picker">
       <app-theme-picker />
@@ -22,13 +21,21 @@
 
     @if (opened()) {
       <ul class="navigation__menu">
-        <li class="navigation__item">
-          <a class="navigation__link" href="/" (click)="closeMenu()">Home</a>
-        </li>
-        <li class="navigation__item">
-          <a class="navigation__link" href="/projects" (click)="closeMenu()">Projects</a>
-        </li>
+        @for (item of navigationItems; track item.href) {
+          <li class="navigation__item">
+            <a class="navigation__link" [href]="item.href" (click)="closeMenu()">{{
+              item.label
+            }}</a>
+          </li>
+        }
       </ul>
+
+      <button
+        class="navigation__backdrop"
+        type="button"
+        aria-label="Close navigation menu"
+        (click)="closeMenu()"
+      ></button>
     }
   }
 </nav>

@@ -23,7 +23,7 @@
 }
 
 .banner__title {
-  font-size: 1.5rem;
+  font-size: var(--extra-large);
   line-height: 1.2;
   max-width: 20ch;
 }
@@ -38,7 +38,7 @@
 }
 
 .banner__description {
-  font-size: 1.1rem;
+  font-size: var(--medium);
   color: var(--grey);
 }
 
@@ -90,7 +90,7 @@
   }
 
   .banner__title {
-    font-size: 1.8rem;
+    font-size: var(--extra-extra-large);
   }
 
   .banner__actions {
@@ -100,11 +100,11 @@
 
 @media (min-width: 425px) {
   .banner__description {
-    font-size: 1.2rem;
+    font-size: var(--large);
   }
 
   .banner__cta {
-    font-size: 1.2rem;
+    font-size: var(--large);
   }
 }
 
@@ -115,7 +115,7 @@
   }
 
   .banner__title {
-    font-size: 2.5rem;
+    font-size: var(--extra-extra-extra-large);
   }
 }
 
@@ -135,6 +135,6 @@
   }
 
   .banner__title {
-    font-size: 3rem;
+    font-size: var(--xxxxl);
   }
 }

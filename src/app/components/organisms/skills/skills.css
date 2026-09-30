@@ -1,23 +1,21 @@
-:host {
-  display: block;
-}
-
 .skills {
-  padding: 2rem 1.5rem;
   color: light-dark(var(--primary), var(--white));
   transition:
     color 0.2s ease,
     background-color 0.2s ease;
 }
 
-.skills__heading {
-  font-size: 1.5rem;
-  font-weight: 700;
+.skills__title {
+  font-size: var(--extra-large);
+  font-weight: bold;
   margin-bottom: 1.5rem;
-  text-align: center;
   letter-spacing: 0.02em;
   color: light-dark(var(--primary), var(--white));
   transition: color 0.2s ease;
+
+  @media (min-width: 1204px) {
+    font-size: var(--extra-extra-extra-large);
+  }
 }
 
 .skills__grid {
@@ -57,7 +55,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: var(--extra-large);
   color: light-dark(var(--primary), var(--white));
   font-variation-settings:
     'FILL' 0,
@@ -68,7 +66,7 @@
 }
 
 .skills__category-name {
-  font-size: 1rem;
+  font-size: var(--medium);
   font-weight: 600;
   color: light-dark(var(--primary), var(--white));
   transition: color 0.2s ease;
@@ -87,10 +85,10 @@
   display: inline-flex;
   align-items: center;
   padding: 0.25rem 0.625rem;
-  border-radius: 999px;
-  font-size: 0.8125rem;
+  border-radius: 0.2rem;
+  font-size: var(--extra-extra-small);
   font-weight: 500;
-  background-color: light-dark(var(--primary), var(--analogous--secondary-50));
+  background-color: light-dark(var(--analogous--secondary-50), var(--analogous--secondary-50));
   color: light-dark(var(--white), var(--white));
   transition:
     color 0.2s ease,

@@ -40,17 +40,22 @@
     flex-direction: column;
     position: absolute;
     top: calc(100% + 1rem);
-    right: 0;
+    right: -0.75rem;
     background-color: light-dark(var(--primary), var(--monochromatic--dark-deep));
     transition: background-color 0.4s ease;
     border-radius: 0 0 0.5rem 0.5rem;
+
+    @media (min-width: 1024px) {
+      top: calc(100% + 1.8rem);
+      right: -1.8rem;
+    }
   }
 
   .item {
     display: flex;
     width: 100%;
     white-space: nowrap;
-    padding: 0.75rem;
+    padding: 0.75rem 1.5rem;
     transition: background-color 0.2s ease;
 
     &:hover {

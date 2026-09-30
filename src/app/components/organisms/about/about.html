@@ -1,7 +1,7 @@
-<section class="about">
+<section class="about section">
   <div class="about__body">
     <p class="about__description">
-      Computer Engineer with more than three years of experience creating high performant and user
+      Computer Engineer with more than five years of experience creating high performant and user
       retention pages, sites and web applications using TypeScript and frontend frameworks such as
       Angular and React, managing global states with NgRx and Redux, documenting UI components in
       Storybook and unit testing them using Jest, Jasmine and Karma.
@@ -16,18 +16,5 @@
       object-oriented programming, reactive programming with RxJS, functional programming, design
       patterns and atomic design.
     </p>
-  </div>
-
-  <div class="about__skills">
-    @for (skillGroup of skills; track skillGroup.group) {
-      <div class="about__skill-group">
-        <h3 class="about__skill-group-title">{{ skillGroup.group }}</h3>
-        <ul class="about__tags">
-          @for (tag of skillGroup.tags; track tag) {
-            <li class="about__tag">{{ tag }}</li>
-          }
-        </ul>
-      </div>
-    }
   </div>
 </section>

@@ -1,3 +1,15 @@
+:root {
+  --extra-extra-small: 0.75rem;
+  --extra-small: 0.875rem;
+  --small: 1rem;
+  --medium: 1.125rem;
+  --large: 1.25rem;
+  --extra-large: 1.5rem;
+  --extra-extra-large: 1.75rem;
+  --extra-extra-extra-large: 2rem;
+  --xxxxl: 3rem;
+}
+
 body {
   font-family:
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,

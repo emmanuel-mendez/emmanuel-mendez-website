@@ -1,6 +1,5 @@
 :host {
   display: block;
-  padding: 3rem 1rem;
   background-color: light-dark(var(--white), var(--black));
   transition:
     background-color 0.2s ease,
@@ -8,12 +7,15 @@
 }
 
 .testimonials__title {
-  font-size: 1.75rem;
+  font-size: var(--extra-large);
   font-weight: bold;
-  text-align: center;
   margin-bottom: 2rem;
   color: light-dark(var(--primary), var(--white));
   transition: color 0.2s ease;
+
+  @media (min-width: 1204px) {
+    font-size: var(--extra-extra-extra-large);
+  }
 }
 
 .testimonials__list {
@@ -26,13 +28,13 @@
   max-width: 75rem;
 }
 
-@media (min-width: 48rem) {
+@media (min-width: 768px) {
   .testimonials__list {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 1024px) {
   .testimonials__list {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -44,8 +46,9 @@
   gap: 1rem;
   padding: 1.5rem;
   border-radius: 0.5rem;
-  background-color: light-dark(var(--primary), var(--monochromatic--dark-deep));
-  color: light-dark(var(--white), var(--white));
+  background-color: light-dark(var(--white), var(--monochromatic--dark-deep));
+  color: light-dark(var(--black), var(--white));
+  box-shadow: 0 0 24px #ebebeb;
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
@@ -53,20 +56,20 @@
 
 .testimonials__quote-icon {
   --icon-fill: 1;
-  font-size: 2rem;
+  font-size: var(--extra-extra-extra-large);
   font-variation-settings:
     'FILL' var(--icon-fill),
     'wght' 400,
     'GRAD' 0,
     'opsz' 24;
-  color: light-dark(var(--analogous--primary), var(--analogous--secondary));
+  color: light-dark(var(--analogous--secondary), var(--analogous--secondary));
   transition: color 0.2s ease;
 }
 
 .testimonials__text {
   flex: 1;
   font-style: italic;
-  line-height: 1.6;
+  font-size: var(--small);
 }
 
 .testimonials__footer {
@@ -86,28 +89,6 @@
 }
 
 .testimonials__author-role {
-  font-size: 0.875rem;
+  font-size: var(--extra-extra-small);
   opacity: 0.8;
-}
-
-.testimonials__rating {
-  display: flex;
-  gap: 0.125rem;
-}
-
-.testimonials__star {
-  --icon-fill: 0;
-  font-size: 1.25rem;
-  font-variation-settings:
-    'FILL' var(--icon-fill),
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24;
-  color: light-dark(var(--analogous--primary-50), var(--analogous--secondary-50));
-  transition: color 0.2s ease;
-}
-
-.testimonials__star--filled {
-  --icon-fill: 1;
-  color: light-dark(var(--white), var(--analogous--primary));
 }

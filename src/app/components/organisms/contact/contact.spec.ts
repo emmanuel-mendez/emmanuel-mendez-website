@@ -29,6 +29,24 @@ describe('Contact', () => {
     expect(component.status()).toBe('idle');
   });
 
+  it('should render English contact copy', () => {
+    const nativeElement: HTMLElement = fixture.nativeElement;
+
+    expect(nativeElement.querySelector('.contact__title')?.textContent?.trim()).toBe('Contact');
+    expect(nativeElement.querySelector('.contact__subtitle')?.textContent?.trim()).toBe(
+      'Do you have a project in mind? Send me a message.',
+    );
+    expect(nativeElement.querySelector('#contact-name')?.getAttribute('placeholder')).toBe(
+      'Your full name',
+    );
+    expect(nativeElement.querySelector('#contact-email')?.getAttribute('placeholder')).toBe(
+      'you@example.com',
+    );
+    expect(nativeElement.querySelector('#contact-message')?.getAttribute('placeholder')).toBe(
+      'Write your message here...',
+    );
+  });
+
   it('should set status to sending on submit', () => {
     vi.useFakeTimers();
     component.onSubmit();

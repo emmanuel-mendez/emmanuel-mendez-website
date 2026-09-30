@@ -1,6 +1,5 @@
-<section class="job-experience">
+<section class="job-experience section">
   <div class="job-experience__header">
-    <span class="material-symbols-outlined job-experience__header-icon">work</span>
     <h2 class="job-experience__title">Work Experience</h2>
   </div>
 
@@ -28,7 +27,9 @@
               {{ job.location }}
             </span>
             <span class="job-experience__meta-item">
-              <span class="material-symbols-outlined job-experience__meta-icon">calendar_month</span>
+              <span class="material-symbols-outlined job-experience__meta-icon"
+                >calendar_month</span
+              >
               {{ job.startDate }} – {{ job.endDate ?? 'Present' }}
             </span>
           </div>

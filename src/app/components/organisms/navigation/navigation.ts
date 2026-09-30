@@ -1,7 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
 import { ResponsiveIncludes } from '@pipes/responsive/includes/includes';
 import { Devices, Responsive } from '@services/responsive/responsive';
-import { ThemePicker } from "@components/atoms/theme-picker/theme-picker/theme-picker";
+import { ThemePicker } from '@components/atoms/theme-picker/theme-picker/theme-picker';
+
+type NavigationItem = {
+  readonly href: string;
+  readonly label: string;
+};
 
 @Component({
   selector: 'app-navigation',
@@ -15,6 +20,10 @@ export class Navigation {
   public readonly breakpoints: typeof Devices = Devices;
 
   public readonly opened = signal<boolean>(false);
+
+  public readonly navigationItems: readonly NavigationItem[] = [
+    { href: '/projects', label: 'Projects' },
+  ];
 
   public toggleMenu(): void {
     this.opened.update((status) => !status);
