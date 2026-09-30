@@ -1,6 +1,14 @@
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { Button } from './button';
+
+@Component({
+  imports: [Button],
+  template: '<app-button [routerLink]="[\'/projects\']" label="View projects" />',
+})
+class RouterLinkButtonHost {}
 
 describe('Button', () => {
   let component: Button;
@@ -8,7 +16,8 @@ describe('Button', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Button],
+      imports: [Button, RouterLinkButtonHost],
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Button);
@@ -45,5 +54,13 @@ describe('Button', () => {
     expect(link?.href).toBe('https://example.com/');
     expect(link?.target).toBe('_blank');
     expect(link?.rel).toBe('noopener noreferrer');
+  });
+
+  it('should render the label in a router link', () => {
+    const hostFixture: ComponentFixture<RouterLinkButtonHost> =
+      TestBed.createComponent(RouterLinkButtonHost);
+    hostFixture.detectChanges();
+
+    expect(hostFixture.nativeElement.querySelector('a')?.textContent?.trim()).toBe('View projects');
   });
 });

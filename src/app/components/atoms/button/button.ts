@@ -16,6 +16,7 @@ export class Button {
   public readonly href = input<string | null>(null);
   public readonly type = input<ButtonType>('button');
   public readonly disabled = input(false);
+  public readonly label = input<string | undefined>(undefined);
   public readonly ariaLabel = input<string | undefined>(undefined, { alias: 'aria-label' });
   public readonly target = input<string | undefined>(undefined);
   public readonly rel = input<string | undefined>(undefined);

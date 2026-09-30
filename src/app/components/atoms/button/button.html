@@ -9,6 +9,7 @@
     [attr.target]="target() ?? null"
     [attr.rel]="rel() ?? null"
   >
+    {{ label() }}
     <ng-content />
   </a>
 } @else if (href(); as link) {
@@ -22,6 +23,7 @@
     [attr.target]="target() ?? null"
     [attr.rel]="rel() ?? null"
   >
+    {{ label() }}
     <ng-content />
   </a>
 } @else {
@@ -34,6 +36,7 @@
     [disabled]="disabled()"
     [attr.aria-label]="ariaLabel() ?? null"
   >
+    {{ label() }}
     <ng-content />
   </button>
 }
