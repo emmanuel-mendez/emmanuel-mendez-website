@@ -45,7 +45,8 @@ describe('Projects', () => {
   });
 
   it('should render each project role', () => {
-    const roles = fixture.nativeElement.querySelectorAll<HTMLElement>('.projects__card-rol');
+    const nativeElement = fixture.nativeElement as HTMLElement;
+    const roles = nativeElement.querySelectorAll('.projects__card-rol');
 
     expect(roles.length).toBe(component.displayedProjects().length);
     expect(Array.from(roles).some((role) => role.textContent?.trim() === 'Role: owner')).toBe(true);
