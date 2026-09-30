@@ -4,27 +4,11 @@
     <app-filter
       [list]="projects"
       [categories]="categories()"
+      [sortProperties]="sortProperties"
+      [sortProperty]="sort()"
       (filteredListChange)="setFilteredProjects($event)"
+      (sortPropertyChange)="setSort($event)"
     />
-    <div class="projects__sorting" role="group" aria-label="Sort projects">
-      <span class="projects__sorting-label">Sort by:</span>
-      <button
-        class="projects__sort-button"
-        type="button"
-        [attr.aria-pressed]="sort() === 'alphabetical'"
-        (click)="setSort('alphabetical')"
-      >
-        Alphabetically
-      </button>
-      <button
-        class="projects__sort-button"
-        type="button"
-        [attr.aria-pressed]="sort() === 'year'"
-        (click)="setSort('year')"
-      >
-        Year
-      </button>
-    </div>
     <div class="projects__grid">
       @for (project of displayedProjects(); track project.slug) {
         <a class="projects__card" [routerLink]="['/projects', project.slug]">
