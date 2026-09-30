@@ -25,7 +25,11 @@ describe('Projects', () => {
   it('should sort projects alphabetically by default', () => {
     const titles = component.displayedProjects().map((project) => project.title);
 
-    expect(titles).toEqual([...titles].sort((first, second) => first.localeCompare(second)));
+    expect(titles).toEqual(
+      [...titles].sort((first, second) =>
+        first.localeCompare(second, undefined, { sensitivity: 'base' }),
+      ),
+    );
   });
 
   it('should sort projects by descending year', () => {

@@ -3,7 +3,7 @@
 
   .filter {
     padding: 1rem;
-    border: 1px solid light-dark(var(--monochromatic--light), var(--monochromatic--dark));
+    border: 1px solid light-dark(var(--primary-25), var(--analogous--primary-50));
     border-radius: 0.5rem;
     background-color: light-dark(var(--white), var(--monochromatic--dark-deep));
     color: light-dark(var(--black), var(--white));
@@ -38,7 +38,7 @@
       background-color 0.2s ease;
 
     &:hover {
-      background-color: light-dark(var(--analogous--primary), var(--monochromatic--dark));
+      background-color: light-dark(var(--analogous--primary), var(--monochromatic--dark-deep));
       color: var(--white);
     }
   }
