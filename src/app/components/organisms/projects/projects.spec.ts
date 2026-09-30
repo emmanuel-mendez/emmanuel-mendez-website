@@ -26,9 +26,9 @@ describe('ProjectsSection', () => {
     expect(component.projects.length).toBeGreaterThan(0);
   });
 
-  it('should render a card for each project', () => {
+  it('should render only the configured number of project cards', () => {
     const cards = fixture.nativeElement.querySelectorAll('.projects__card');
-    expect(cards.length).toBe(component.projects.length);
+    expect(cards.length).toBe(2);
   });
 
   it('should render project titles in the DOM', () => {
@@ -49,5 +49,11 @@ describe('ProjectsSection', () => {
     const allLinks = fixture.nativeElement.querySelectorAll('.projects__card-link');
     expect(allLinks.length).toBeGreaterThanOrEqual(projectsWithLink.length);
     expect(projectsWithoutLink.length).toBeGreaterThanOrEqual(0);
+  });
+
+  it('should render a See more link to the projects page when projects are hidden', () => {
+    const button = fixture.nativeElement.querySelector('app-button a');
+    expect(button.textContent.trim()).toBe('See more');
+    expect(button.getAttribute('href')).toBe('/projects');
   });
 });

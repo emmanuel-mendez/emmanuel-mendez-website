@@ -1,0 +1,11 @@
+:host {
+  display: contents;
+}
+
+.pagination__items {
+  display: contents;
+}
+
+app-button {
+  grid-column: 1 / -1;
+}
