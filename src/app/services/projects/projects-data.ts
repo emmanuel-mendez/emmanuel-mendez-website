@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 
+export type ProjectRole = 'owner' | 'collaborator';
+
 export type Project = {
   slug: string;
   title: string;
-  rol: 'owner' | 'collaborator';
+  rol: ProjectRole;
   description: string;
   icon: string;
   technologies: readonly string[];
@@ -273,7 +275,8 @@ const PROJECTS: readonly Project[] = [
     technologies: ['Typescript', 'Angular', 'Storybook'],
     products: ['Web Application'],
     modules: ['Brand strategy recommendation system based on movie character archetypes'],
-    content: 'Web application featuring a brand strategy recommendation system based on movie character archetypes.',
+    content:
+      'Web application featuring a brand strategy recommendation system based on movie character archetypes.',
   },
   {
     slug: 'especialistas-en-casa',

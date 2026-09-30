@@ -35,7 +35,9 @@ describe('Projects', () => {
   it('should sort projects by descending year', () => {
     component.setSort('year');
 
-    const years = component.displayedProjects().map((project) => project.year);
+    const years = component.displayedProjects().flatMap((project) =>
+      project.year === undefined ? [] : [project.year],
+    );
 
     expect(years).toEqual([...years].sort((first, second) => second - first));
   });
@@ -55,8 +57,6 @@ describe('Projects', () => {
 
     expect(firstCard.querySelector('.projects__card-role')?.textContent.trim()).toBe('owner');
     expect(yearLabels.length).toBe(1);
-    expect(cards[1].querySelector('.projects__card-role')?.textContent.trim()).toBe(
-      'collaborator',
-    );
+    expect(cards[1].querySelector('.projects__card-role')?.textContent.trim()).toBe('collaborator');
   });
 });

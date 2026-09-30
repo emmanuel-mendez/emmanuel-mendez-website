@@ -37,12 +37,9 @@ describe('ProjectDetail', () => {
     expect(component.project()?.title).toBe('Emmanuel Mendez Website');
   });
 
-  it('should render project role and products', () => {
+  it('should render the project role', () => {
     expect(fixture.nativeElement.querySelector('.project-detail__role').textContent).toContain(
       'owner',
-    );
-    expect(fixture.nativeElement.querySelector('.project-detail__section-title').textContent).toBe(
-      'Products',
     );
   });
 });

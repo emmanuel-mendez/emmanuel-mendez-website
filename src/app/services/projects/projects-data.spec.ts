@@ -73,9 +73,7 @@ describe('ProjectsData', () => {
       modules: ['Colombia localization', 'Totem ads'],
       technologies: ['Typescript', 'Next.js', 'Storybook'],
     });
-    expect(service.getBySlug('m374')?.description).toBe(
-      'Renting virtual spaces in the metaverse.',
-    );
+    expect(service.getBySlug('m374')?.description).toBe('Renting virtual spaces in the metaverse.');
   });
 
   it('should return undefined for unknown slug', () => {
