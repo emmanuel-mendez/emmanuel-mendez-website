@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 export type Project = {
   slug: string;
   title: string;
+  rol: 'owner' | 'collaborator';
   description: string;
   icon: string;
   technologies: readonly string[];
@@ -16,6 +17,7 @@ const PROJECTS: readonly Project[] = [
   {
     slug: 'emmanuel-mendez-website',
     title: 'Emmanuel Mendez Website',
+    rol: 'owner',
     description:
       'Personal portfolio website built with Angular featuring server-side rendering, responsive design, and light/dark theme switching.',
     icon: 'web',
@@ -29,6 +31,7 @@ const PROJECTS: readonly Project[] = [
   {
     slug: 'ui-component-library',
     title: 'UI Component Library',
+    rol: 'collaborator',
     description:
       'Reusable Angular component library built with atomic design principles, fully documented with Storybook and unit tested.',
     icon: 'widgets',
@@ -41,6 +44,7 @@ const PROJECTS: readonly Project[] = [
   {
     slug: 'state-management-dashboard',
     title: 'State Management Dashboard',
+    rol: 'collaborator',
     description:
       'Frontend dashboard application with advanced global state management, reactive data streams, and dynamic data visualizations.',
     icon: 'dashboard',
@@ -53,6 +57,7 @@ const PROJECTS: readonly Project[] = [
   {
     slug: 'ecommerce-storefront',
     title: 'E-commerce Storefront',
+    rol: 'collaborator',
     description:
       'Mock storefront experience with product discovery, category navigation, and a responsive shopping cart.',
     icon: 'shopping_bag',
@@ -65,6 +70,7 @@ const PROJECTS: readonly Project[] = [
   {
     slug: 'task-planner',
     title: 'Task Planner',
+    rol: 'collaborator',
     description:
       'Mock productivity app for organizing tasks, tracking progress, and reviewing upcoming work.',
     icon: 'task_alt',

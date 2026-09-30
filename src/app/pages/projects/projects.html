@@ -34,6 +34,7 @@
           </div>
           <p class="projects__card-description">{{ project.description }}</p>
           <p class="projects__card-year">{{ project.year }}</p>
+          <p class="projects__card-rol">Role: {{ project.rol }}</p>
           <ul class="projects__card-tags">
             @for (tech of project.technologies; track tech) {
               <li class="projects__card-tag">{{ tech }}</li>

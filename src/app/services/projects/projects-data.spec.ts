@@ -17,6 +17,13 @@ describe('ProjectsData', () => {
     expect(service.projects.length).toBeGreaterThan(0);
   });
 
+  it('should assign each project an allowed role', () => {
+    expect(service.projects.every((project) => ['owner', 'collaborator'].includes(project.rol))).toBe(
+      true,
+    );
+    expect(service.getBySlug('emmanuel-mendez-website')?.rol).toBe('owner');
+  });
+
   it('should find project by slug', () => {
     const project = service.getBySlug('emmanuel-mendez-website');
     expect(project).toBeTruthy();

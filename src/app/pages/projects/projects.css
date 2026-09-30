@@ -110,6 +110,12 @@
     opacity: 0.75;
   }
 
+  .projects__card-rol {
+    margin: 0;
+    font-size: var(--extra-extra-small);
+    font-weight: 600;
+  }
+
   .projects__empty {
     grid-column: 1 / -1;
     margin: 0;
