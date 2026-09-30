@@ -66,11 +66,7 @@ export class Projects {
   private readonly projectsData = inject(ProjectsData);
 
   public readonly projects = this.projectsData.projects;
-  public readonly sortProperties: readonly ProjectSort[] = [
-    'Relevance',
-    'Alphabetically',
-    'Year',
-  ];
+  public readonly sortProperties: readonly ProjectSort[] = ['Relevance', 'Alphabetically', 'Year'];
   public readonly filteredProjects = signal<readonly Project[]>(this.projects);
   public readonly sort = signal<ProjectSort>('Relevance');
   public readonly categories = computed<readonly FilterCategory<Project>[]>(() => [

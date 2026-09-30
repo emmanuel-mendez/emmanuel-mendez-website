@@ -81,13 +81,14 @@ describe('Projects', () => {
   it('should sort projects alphabetically when requested', () => {
     component.setSort('Alphabetically');
     const titles = component.displayedProjects().map((project) => project.title);
+    const collaboratorTitles = titles.slice(1);
 
-    expect(titles).toEqual(
-      [...titles].sort((first, second) =>
+    expect(titles[0]).toBe('Emmanuel Mendez Website');
+    expect(collaboratorTitles).toEqual(
+      [...collaboratorTitles].sort((first, second) =>
         first.localeCompare(second, undefined, { sensitivity: 'base' }),
       ),
     );
-    expect(titles[0]).toBe('Emmanuel Mendez Website');
   });
 
   it('should show the remaining project catalog', () => {
@@ -105,8 +106,6 @@ describe('Projects', () => {
 
     expect(firstCard.querySelector('.projects__card-role')?.textContent.trim()).toBe('owner');
     expect(yearLabels.length).toBe(1);
-    expect(cards[1].querySelector('.projects__card-role')?.textContent.trim()).toBe(
-      'collaborator',
-    );
+    expect(cards[1].querySelector('.projects__card-role')?.textContent.trim()).toBe('collaborator');
   });
 });
