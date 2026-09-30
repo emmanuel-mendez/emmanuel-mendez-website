@@ -1,7 +1,14 @@
 <section class="projects section">
   <h2 class="projects__title">Projects</h2>
-  <div class="projects__grid">
-    @for (project of projects; track project.slug) {
+  <app-pagination
+    class="projects__grid"
+    [items]="projects"
+    [itemTemplate]="projectTemplate"
+    [itemsPerPage]="2"
+    buttonLabel="See more"
+    [buttonRoute]="['/projects']"
+  />
+  <ng-template #projectTemplate let-project>
       <article class="projects__card">
         <div class="projects__card-header">
           <span class="material-symbols-outlined projects__card-icon">{{ project.icon }}</span>
@@ -31,6 +38,5 @@
           }
         </div>
       </article>
-    }
-  </div>
+  </ng-template>
 </section>

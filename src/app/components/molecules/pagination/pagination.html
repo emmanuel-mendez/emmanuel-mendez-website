@@ -1,0 +1,11 @@
+<div class="pagination__items">
+  @for (item of visibleItems(); track $index) {
+    <ng-container
+      [ngTemplateOutlet]="itemTemplate()"
+      [ngTemplateOutletContext]="{ $implicit: item }"
+    />
+  }
+</div>
+@if (hasMoreItems()) {
+  <app-button [label]="buttonLabel()" [route]="buttonRoute()" />
+}
