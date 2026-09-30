@@ -41,8 +41,6 @@ describe('Projects', () => {
   });
 
   it('should show the remaining project catalog', () => {
-    expect(component.projects.map((project) => project.title)).toEqual([
-      'Emmanuel Mendez Website',
-    ]);
+    expect(component.projects.map((project) => project.title)).toEqual(['Emmanuel Mendez Website']);
   });
 });
