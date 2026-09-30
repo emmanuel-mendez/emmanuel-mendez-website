@@ -63,8 +63,8 @@ describe('Projects', () => {
   it('should render all sort directions in the dropdown', () => {
     fixture.detectChanges();
     const options = Array.from(
-      fixture.nativeElement.querySelectorAll<HTMLOptionElement>('#projects-sort option'),
-    ).map((option) => option.value);
+      (fixture.nativeElement as HTMLElement).querySelectorAll('#projects-sort option'),
+    ).map((option) => (option as HTMLOptionElement).value);
 
     expect(options).toEqual([
       'title-ascending',

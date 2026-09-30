@@ -26,6 +26,7 @@
         [attr.role]="isFilterDialogOpen() ? 'dialog' : null"
         [attr.aria-modal]="isFilterDialogOpen() ? 'true' : null"
         aria-labelledby="projects-filter-heading"
+        tabindex="-1"
         (keydown.escape)="closeFilterDialog()"
       >
         <div class="projects__filter-dialog-header">
