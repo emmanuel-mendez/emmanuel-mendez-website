@@ -40,12 +40,20 @@ describe('Pagination', () => {
 
   it('should render only the configured number of items and show the button when more remain', () => {
     expect(fixture.nativeElement.querySelectorAll('.pagination-test__item').length).toBe(1);
-    expect(fixture.nativeElement.querySelector('app-button')).toBeTruthy();
+    const link = fixture.nativeElement.querySelector('app-button a');
+    expect(link.textContent.trim()).toBe('See more');
+    expect(link.getAttribute('href')).toBe('/projects');
   });
 
-  it('should hide the button when all items fit and reflect a dynamic label', () => {
-    fixture.componentInstance.itemsPerPage = 2;
+  it('should reflect a dynamic button label', () => {
     fixture.componentInstance.buttonLabel = 'View all';
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('app-button a').textContent.trim()).toBe('View all');
+  });
+
+  it('should hide the button when all items fit', () => {
+    fixture.componentInstance.itemsPerPage = 2;
     fixture.detectChanges();
 
     expect(fixture.nativeElement.querySelectorAll('.pagination-test__item').length).toBe(2);
