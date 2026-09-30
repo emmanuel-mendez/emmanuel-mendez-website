@@ -22,7 +22,7 @@ describe('Projects', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should sort projects alphabetically by default', () => {
+  it('should sort projects by title ascending by default', () => {
     const titles = component.displayedProjects().map((project) => project.title);
 
     expect(titles).toEqual(
@@ -32,15 +32,57 @@ describe('Projects', () => {
     );
   });
 
+  it('should sort projects by title descending', () => {
+    component.setSort('title-descending');
+
+    const titles = component.displayedProjects().map((project) => project.title);
+
+    expect(titles).toEqual(
+      [...titles].sort((first, second) =>
+        second.localeCompare(first, undefined, { sensitivity: 'base' }),
+      ),
+    );
+  });
+
+  it('should sort projects by ascending year', () => {
+    component.setSort('year-ascending');
+
+    const years = component.displayedProjects().map((project) => project.year);
+
+    expect(years).toEqual([...years].sort((first, second) => first - second));
+  });
+
   it('should sort projects by descending year', () => {
-    component.setSort('year');
+    component.setSort('year-descending');
 
     const years = component.displayedProjects().map((project) => project.year);
 
     expect(years).toEqual([...years].sort((first, second) => second - first));
   });
 
+  it('should render all sort directions in the dropdown', () => {
+    fixture.detectChanges();
+    const options = Array.from(
+      (fixture.nativeElement as HTMLElement).querySelectorAll('#projects-sort option'),
+    ).map((option) => (option as HTMLOptionElement).value);
+
+    expect(options).toEqual([
+      'title-ascending',
+      'title-descending',
+      'year-descending',
+      'year-ascending',
+    ]);
+  });
+
   it('should render the mock projects', () => {
     expect(component.projects.length).toBeGreaterThan(3);
+  });
+
+  it('should open and close the project filter dialog', () => {
+    component.openFilterDialog();
+    expect(component.isFilterDialogOpen()).toBe(true);
+
+    component.closeFilterDialog();
+    expect(component.isFilterDialogOpen()).toBe(false);
   });
 });
