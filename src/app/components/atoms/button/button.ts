@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-button',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './button.html',
   styleUrl: './button.css',
 })
-export class Button {}
+export class Button {
+  public readonly label = input('See more');
+  public readonly route = input<readonly string[]>(['/projects']);
+}
