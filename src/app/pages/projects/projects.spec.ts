@@ -40,7 +40,16 @@ describe('Projects', () => {
     expect(years).toEqual([...years].sort((first, second) => second - first));
   });
 
-  it('should render the mock projects', () => {
-    expect(component.projects.length).toBeGreaterThan(3);
+  it('should exclude the requested projects', () => {
+    const hiddenProjectTitles = [
+      'E-commerce Storefront',
+      'State Management Dashboard',
+      'Task Planner',
+      'UI Component Library',
+    ];
+
+    expect(component.projects.map((project) => project.title)).not.toEqual(
+      expect.arrayContaining(hiddenProjectTitles),
+    );
   });
 });
