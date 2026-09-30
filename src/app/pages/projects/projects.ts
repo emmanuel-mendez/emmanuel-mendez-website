@@ -7,13 +7,6 @@ import { Project, ProjectsData } from '@services/projects/projects-data';
 
 type ProjectSort = 'alphabetical' | 'year';
 
-const HIDDEN_PROJECT_SLUGS: ReadonlySet<string> = new Set([
-  'ecommerce-storefront',
-  'state-management-dashboard',
-  'task-planner',
-  'ui-component-library',
-]);
-
 @Component({
   selector: 'app-projects',
   standalone: true,
@@ -25,9 +18,7 @@ export class Projects {
   private readonly pageService = inject(Page);
   private readonly projectsData = inject(ProjectsData);
 
-  public readonly projects = this.projectsData.projects.filter(
-    (project) => !HIDDEN_PROJECT_SLUGS.has(project.slug),
-  );
+  public readonly projects = this.projectsData.projects;
   public readonly filteredProjects = signal<readonly Project[]>(this.projects);
   public readonly sort = signal<ProjectSort>('alphabetical');
   public readonly categories = computed<readonly FilterCategory<Project>[]>(() => [

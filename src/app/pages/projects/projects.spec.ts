@@ -40,16 +40,9 @@ describe('Projects', () => {
     expect(years).toEqual([...years].sort((first, second) => second - first));
   });
 
-  it('should exclude the requested projects', () => {
-    const hiddenProjectTitles = [
-      'E-commerce Storefront',
-      'State Management Dashboard',
-      'Task Planner',
-      'UI Component Library',
-    ];
-
-    expect(component.projects.map((project) => project.title)).not.toEqual(
-      expect.arrayContaining(hiddenProjectTitles),
-    );
+  it('should show the remaining project catalog', () => {
+    expect(component.projects.map((project) => project.title)).toEqual([
+      'Emmanuel Mendez Website',
+    ]);
   });
 });
