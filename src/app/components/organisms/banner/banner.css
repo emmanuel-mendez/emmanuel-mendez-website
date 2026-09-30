@@ -67,7 +67,6 @@
   .banner__description {
     font-size: var(--large);
   }
-
 }
 
 @media (min-width: 768px) {

@@ -30,8 +30,9 @@ describe('Contact', () => {
   });
 
   it('should use the shared Button component for submission', () => {
-    const submitButton: HTMLButtonElement | null =
-      fixture.nativeElement.querySelector('app-button.contact__button button');
+    const submitButton: HTMLButtonElement | null = fixture.nativeElement.querySelector(
+      'app-button.contact__button button',
+    );
 
     expect(submitButton?.type).toBe('submit');
   });

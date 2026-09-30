@@ -21,11 +21,11 @@ export class ProjectDetail {
 
   private readonly slug: Signal<string> = toSignal(
     this.route.paramMap.pipe(map((params) => params.get('slug') ?? '')),
-    { initialValue: '' }
+    { initialValue: '' },
   );
 
   public readonly project: Signal<Project | undefined> = computed(() =>
-    this.projectsData.getBySlug(this.slug())
+    this.projectsData.getBySlug(this.slug()),
   );
 
   constructor() {

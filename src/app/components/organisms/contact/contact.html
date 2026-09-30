@@ -64,7 +64,7 @@
       <app-button
         class="contact__button"
         type="submit"
-        [disabled]="status() === 'sending' || contactForm.invalid"
+        [disabled]="status() === 'sending' || contactForm.invalid === true"
       >
         @if (status() === 'sending') {
           Sending...

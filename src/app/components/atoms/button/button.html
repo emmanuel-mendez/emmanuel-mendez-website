@@ -1,24 +1,39 @@
 @if (routerLink(); as route) {
-  <a class="button" [class.button--primary]="appearance() === 'primary'"
+  <a
+    class="button"
+    [class.button--primary]="appearance() === 'primary'"
     [class.button--secondary]="appearance() === 'secondary'"
     [class.button--plain]="appearance() === 'plain'"
-    [routerLink]="route" [attr.aria-label]="ariaLabel() ?? null"
-    [attr.target]="target() ?? null" [attr.rel]="rel() ?? null">
+    [routerLink]="route"
+    [attr.aria-label]="ariaLabel() ?? null"
+    [attr.target]="target() ?? null"
+    [attr.rel]="rel() ?? null"
+  >
     <ng-content />
   </a>
 } @else if (href(); as link) {
-  <a class="button" [class.button--primary]="appearance() === 'primary'"
+  <a
+    class="button"
+    [class.button--primary]="appearance() === 'primary'"
     [class.button--secondary]="appearance() === 'secondary'"
     [class.button--plain]="appearance() === 'plain'"
-    [href]="link" [attr.aria-label]="ariaLabel() ?? null"
-    [attr.target]="target() ?? null" [attr.rel]="rel() ?? null">
+    [href]="link"
+    [attr.aria-label]="ariaLabel() ?? null"
+    [attr.target]="target() ?? null"
+    [attr.rel]="rel() ?? null"
+  >
     <ng-content />
   </a>
 } @else {
-  <button class="button" [class.button--primary]="appearance() === 'primary'"
+  <button
+    class="button"
+    [class.button--primary]="appearance() === 'primary'"
     [class.button--secondary]="appearance() === 'secondary'"
     [class.button--plain]="appearance() === 'plain'"
-    [type]="type()" [disabled]="disabled()" [attr.aria-label]="ariaLabel() ?? null">
+    [type]="type()"
+    [disabled]="disabled()"
+    [attr.aria-label]="ariaLabel() ?? null"
+  >
     <ng-content />
   </button>
 }
