@@ -5,7 +5,7 @@ import { Layout } from '@components/templates/layout/layout';
 import { Page } from '@services/page/page';
 import { Project, ProjectsData } from '@services/projects/projects-data';
 
-type ProjectSort = 'alphabetical' | 'year';
+type ProjectSort = 'title-ascending' | 'title-descending' | 'year-ascending' | 'year-descending';
 
 @Component({
   selector: 'app-projects',
@@ -20,7 +20,7 @@ export class Projects {
 
   public readonly projects = this.projectsData.projects;
   public readonly filteredProjects = signal<readonly Project[]>(this.projects);
-  public readonly sort = signal<ProjectSort>('alphabetical');
+  public readonly sort = signal<ProjectSort>('title-ascending');
   public readonly isFilterDialogOpen = signal(false);
   public readonly categories = computed<readonly FilterCategory<Project>[]>(() => [
     {
@@ -40,11 +40,20 @@ export class Projects {
     const titleOrder = (first: Project, second: Project): number =>
       first.title.localeCompare(second.title, undefined, { sensitivity: 'base' });
 
-    return [...this.filteredProjects()].sort((first, second) =>
-      this.sort() === 'alphabetical'
-        ? titleOrder(first, second)
-        : second.year - first.year || titleOrder(first, second),
-    );
+    const sortOrder = this.sort();
+
+    return [...this.filteredProjects()].sort((first, second) => {
+      switch (sortOrder) {
+        case 'title-ascending':
+          return titleOrder(first, second);
+        case 'title-descending':
+          return titleOrder(second, first);
+        case 'year-ascending':
+          return first.year - second.year || titleOrder(first, second);
+        case 'year-descending':
+          return second.year - first.year || titleOrder(first, second);
+      }
+    });
   });
 
   private readonly DESCRIPTION =
@@ -60,6 +69,20 @@ export class Projects {
 
   public setSort(sort: ProjectSort): void {
     this.sort.set(sort);
+  }
+
+  public onSortChange(event: Event): void {
+    const selectedSort = (event.currentTarget as HTMLSelectElement).value;
+    const sortOptions: readonly ProjectSort[] = [
+      'title-ascending',
+      'title-descending',
+      'year-ascending',
+      'year-descending',
+    ];
+
+    if (sortOptions.includes(selectedSort as ProjectSort)) {
+      this.setSort(selectedSort as ProjectSort);
+    }
   }
 
   public openFilterDialog(): void {
