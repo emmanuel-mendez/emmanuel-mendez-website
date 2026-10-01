@@ -29,6 +29,14 @@ describe('Contact', () => {
     expect(component.status()).toBe('idle');
   });
 
+  it('should use the shared Button component for submission', () => {
+    const submitButton: HTMLButtonElement | null = fixture.nativeElement.querySelector(
+      'app-button.contact__button button',
+    );
+
+    expect(submitButton?.type).toBe('submit');
+  });
+
   it('should render English contact copy', () => {
     const nativeElement: HTMLElement = fixture.nativeElement;
 

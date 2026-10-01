@@ -46,4 +46,14 @@ describe('ProjectDetail', () => {
     expect(sections[1].textContent).toContain('Colombia localization');
     expect(sections[1].textContent).toContain('Totem ads');
   });
+
+  it('should render project actions through the shared Button component', () => {
+    const links: NodeListOf<HTMLAnchorElement> = fixture.nativeElement.querySelectorAll(
+      'app-button.project-detail__link a',
+    );
+
+    expect(links).toHaveLength(2);
+    expect(links[0]?.target).toBe('_blank');
+    expect(links[0]?.rel).toBe('noopener noreferrer');
+  });
 });

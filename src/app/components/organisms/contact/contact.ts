@@ -1,11 +1,12 @@
 import { Component, OnDestroy, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Button } from '@components/atoms/button/button';
 
 type ContactStatus = 'idle' | 'sending' | 'sent' | 'error';
 
 @Component({
   selector: 'app-contact',
-  imports: [FormsModule],
+  imports: [Button, FormsModule],
   templateUrl: './contact.html',
   styleUrl: './contact.css',
 })
