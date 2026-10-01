@@ -1,0 +1,26 @@
+<section class="filter" aria-label="Project filters">
+  <div class="filter__header">
+    <h2 class="filter__title">Filter projects</h2>
+    <button class="filter__reset" type="button" (click)="clearFilters()">Clear filters</button>
+  </div>
+  <div class="filter__categories">
+    @for (category of categories(); track category.property) {
+      <fieldset class="filter__category">
+        <legend class="filter__category-name">{{ category.name }}</legend>
+        <div class="filter__options">
+          @for (property of category.properties; track property) {
+            <label class="filter__option">
+              <input
+                class="filter__checkbox"
+                type="checkbox"
+                [checked]="isSelected(category, property)"
+                (change)="toggleProperty(category, property)"
+              />
+              <span>{{ property }}</span>
+            </label>
+          }
+        </div>
+      </fieldset>
+    }
+  </div>
+</section>

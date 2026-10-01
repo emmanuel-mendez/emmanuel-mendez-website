@@ -21,4 +21,26 @@ describe('Projects', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should sort projects alphabetically by default', () => {
+    const titles = component.displayedProjects().map((project) => project.title);
+
+    expect(titles).toEqual(
+      [...titles].sort((first, second) =>
+        first.localeCompare(second, undefined, { sensitivity: 'base' }),
+      ),
+    );
+  });
+
+  it('should sort projects by descending year', () => {
+    component.setSort('year');
+
+    const years = component.displayedProjects().map((project) => project.year);
+
+    expect(years).toEqual([...years].sort((first, second) => second - first));
+  });
+
+  it('should show the remaining project catalog', () => {
+    expect(component.projects.map((project) => project.title)).toEqual(['Emmanuel Mendez Website']);
+  });
 });

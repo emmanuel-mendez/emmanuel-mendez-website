@@ -13,6 +13,7 @@ export type ButtonType = 'button' | 'submit' | 'reset';
 export class Button {
   public readonly appearance = input<ButtonAppearance>('primary');
   public readonly routerLink = input<string | string[] | null>(null);
+  public readonly route = input<readonly string[] | null>(null);
   public readonly href = input<string | null>(null);
   public readonly type = input<ButtonType>('button');
   public readonly disabled = input(false);

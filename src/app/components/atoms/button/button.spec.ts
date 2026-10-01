@@ -43,6 +43,14 @@ describe('Button', () => {
     expect(fixture.nativeElement.querySelector('a')?.getAttribute('href')).toBe('/projects');
   });
 
+  it('should render a router link when the route input is provided', () => {
+    fixture.componentRef.setInput('route', ['/projects']);
+    fixture.detectChanges();
+
+    const link: HTMLAnchorElement | null = fixture.nativeElement.querySelector('a');
+    expect(link?.getAttribute('href')).toBe('/projects');
+  });
+
   it('should render an external link with the requested attributes', () => {
     fixture.componentRef.setInput('href', 'https://example.com');
     fixture.componentRef.setInput('target', '_blank');
