@@ -1,16 +1,68 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Filter, FilterCategory } from '@components/molecules/filter/filter';
+import { Pagination } from '@components/molecules/pagination/pagination';
 import { Layout } from '@components/templates/layout/layout';
 import { Page } from '@services/page/page';
 import { Project, ProjectsData } from '@services/projects/projects-data';
 
+<<<<<<< HEAD
 type ProjectSort = 'title-ascending' | 'title-descending' | 'year-ascending' | 'year-descending';
+=======
+type ProjectSort = 'Relevance' | 'Alphabetically' | 'Year';
+
+const SORT_PROPERTIES: Readonly<Record<string, ProjectSort>> = {
+  Relevance: 'Relevance',
+  Alphabetically: 'Alphabetically',
+  Year: 'Year',
+};
+
+const RELEVANCE_ORDER: readonly string[] = [
+  'Emmanuel Mendez Website',
+  'Coca Cola',
+  'Toyota',
+  'Shell GT',
+  'Mars',
+  'Castrol',
+  'Bancolombia',
+  'Rappi',
+  'Colombina',
+  'Grupo Diana',
+  'Wompi',
+  'Banistmo',
+  'Grupo Alen',
+  'Comfaboy',
+  'Grupo Uno Nicaragua',
+  'Grupo Uno Honduras',
+  'Expovinos 2021',
+  'Foodbox',
+  'Chillibean',
+  'Alpina Quinquenios',
+  'Ultra1Plus',
+  'Rappi Redención',
+  'Rappi Defensoría',
+  'Rappi Mochilas',
+  'Blog Rappitenderos',
+  'Toyota Totem',
+  'Highpeak',
+  'Grateful',
+  'Especialistas En Casa',
+  'Q Buen Plan',
+  'Geekboss',
+  'Dra Skin',
+  'Planetife',
+  'Agro Platform',
+  'Destiny Website',
+  'Dosmass',
+  'Adresles',
+  'M374 Meta',
+];
+>>>>>>> origin/main
 
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [Layout, RouterLink, Filter],
+  imports: [Layout, RouterLink, Filter, Pagination],
   templateUrl: './projects.html',
   styleUrl: './projects.css',
 })
@@ -19,9 +71,15 @@ export class Projects {
   private readonly projectsData = inject(ProjectsData);
 
   public readonly projects = this.projectsData.projects;
+  public readonly sortProperties: readonly ProjectSort[] = ['Relevance', 'Alphabetically', 'Year'];
   public readonly filteredProjects = signal<readonly Project[]>(this.projects);
+<<<<<<< HEAD
   public readonly sort = signal<ProjectSort>('title-ascending');
   public readonly isFilterDialogOpen = signal(false);
+=======
+  public readonly sort = signal<ProjectSort>('Relevance');
+  public readonly page = signal(1);
+>>>>>>> origin/main
   public readonly categories = computed<readonly FilterCategory<Project>[]>(() => [
     {
       name: 'Technology',
@@ -31,15 +89,20 @@ export class Projects {
     {
       name: 'Year',
       property: 'year',
-      properties: [...new Set(this.projects.map((project) => String(project.year)))].sort(
-        (first, second) => Number(second) - Number(first),
-      ),
+      properties: [
+        ...new Set(
+          this.projects.flatMap((project) =>
+            project.year === undefined ? [] : [String(project.year)],
+          ),
+        ),
+      ].sort((first, second) => Number(second) - Number(first)),
     },
   ]);
   public readonly displayedProjects = computed(() => {
     const titleOrder = (first: Project, second: Project): number =>
       first.title.localeCompare(second.title, undefined, { sensitivity: 'base' });
 
+<<<<<<< HEAD
     const sortOrder = this.sort();
 
     return [...this.filteredProjects()].sort((first, second) => {
@@ -53,6 +116,30 @@ export class Projects {
         case 'year-descending':
           return second.year - first.year || titleOrder(first, second);
       }
+=======
+    return [...this.filteredProjects()].sort((first, second) => {
+      const ownerOrder = Number(second.rol === 'owner') - Number(first.rol === 'owner');
+      if (ownerOrder !== 0) {
+        return ownerOrder;
+      }
+
+      const sortProperty = this.sort();
+      if (sortProperty === 'Alphabetically') {
+        return titleOrder(first, second);
+      }
+
+      if (sortProperty === 'Year') {
+        return (second.year ?? 0) - (first.year ?? 0) || titleOrder(first, second);
+      }
+
+      const firstRelevance = RELEVANCE_ORDER.indexOf(first.title);
+      const secondRelevance = RELEVANCE_ORDER.indexOf(second.title);
+      const relevanceOrder =
+        (firstRelevance < 0 ? RELEVANCE_ORDER.length : firstRelevance) -
+        (secondRelevance < 0 ? RELEVANCE_ORDER.length : secondRelevance);
+
+      return relevanceOrder || titleOrder(first, second);
+>>>>>>> origin/main
     });
   });
 
@@ -65,10 +152,16 @@ export class Projects {
 
   public setFilteredProjects(projects: readonly Project[]): void {
     this.filteredProjects.set(projects);
+    this.page.set(1);
   }
 
-  public setSort(sort: ProjectSort): void {
-    this.sort.set(sort);
+  public setSort(sort: string): void {
+    this.sort.set(SORT_PROPERTIES[sort] ?? 'Relevance');
+    this.page.set(1);
+  }
+
+  public setPage(page: number): void {
+    this.page.set(page);
   }
 
   public onSortChange(event: Event): void {

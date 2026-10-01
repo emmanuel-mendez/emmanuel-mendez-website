@@ -16,8 +16,8 @@ describe('ProjectDetail', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            paramMap: of({ get: () => 'emmanuel-mendez-website' }),
-            snapshot: { paramMap: { get: () => 'emmanuel-mendez-website' } },
+            paramMap: of({ get: () => 'toyota' }),
+            snapshot: { paramMap: { get: () => 'toyota' } },
           },
         },
       ],
@@ -34,6 +34,26 @@ describe('ProjectDetail', () => {
 
   it('should resolve project from slug', () => {
     expect(component.project()).toBeTruthy();
-    expect(component.project()?.title).toBe('Emmanuel Mendez Website');
+    expect(component.project()?.title).toBe('Toyota');
+  });
+
+  it('should render project role, products, and modules', () => {
+    expect(fixture.nativeElement.querySelector('.project-detail__role').textContent).toContain(
+      'collaborator',
+    );
+    const sections = fixture.nativeElement.querySelectorAll('.project-detail__section');
+    expect(sections[0].textContent).toContain('Website');
+    expect(sections[1].textContent).toContain('Colombia localization');
+    expect(sections[1].textContent).toContain('Totem ads');
+  });
+
+  it('should render project actions through the shared Button component', () => {
+    const links: NodeListOf<HTMLAnchorElement> = fixture.nativeElement.querySelectorAll(
+      'app-button.project-detail__link a',
+    );
+
+    expect(links).toHaveLength(2);
+    expect(links[0]?.target).toBe('_blank');
+    expect(links[0]?.rel).toBe('noopener noreferrer');
   });
 });

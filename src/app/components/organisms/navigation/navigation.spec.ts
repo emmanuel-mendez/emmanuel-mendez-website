@@ -34,9 +34,7 @@ describe('Navigation', () => {
   });
 
   it('should expose reusable navigation items', () => {
-    expect(component.navigationItems).toEqual([
-      { href: '/projects', label: 'Projects' },
-    ]);
+    expect(component.navigationItems).toEqual([{ href: '/projects', label: 'Projects' }]);
   });
 
   it('should render desktop list for desktop devices', () => {
@@ -56,6 +54,7 @@ describe('Navigation', () => {
 
     expect(list).toBeFalsy();
     expect(menuButton).toBeTruthy();
+    expect(menuButton.querySelector('button')?.type).toBe('button');
   });
 
   it('should render hamburger menu for mobile devices', () => {

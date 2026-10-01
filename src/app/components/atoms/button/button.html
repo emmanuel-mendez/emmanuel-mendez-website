@@ -1,1 +1,42 @@
-<a class="button__link" [routerLink]="route()">{{ label() }}</a>
+@if (routerLink() ?? route(); as routePath) {
+  <a
+    class="button"
+    [class.button--primary]="appearance() === 'primary'"
+    [class.button--secondary]="appearance() === 'secondary'"
+    [class.button--plain]="appearance() === 'plain'"
+    [routerLink]="routePath"
+    [attr.aria-label]="ariaLabel() ?? null"
+    [attr.target]="target() ?? null"
+    [attr.rel]="rel() ?? null"
+  >
+    {{ label() }}
+    <ng-content />
+  </a>
+} @else if (href(); as link) {
+  <a
+    class="button"
+    [class.button--primary]="appearance() === 'primary'"
+    [class.button--secondary]="appearance() === 'secondary'"
+    [class.button--plain]="appearance() === 'plain'"
+    [href]="link"
+    [attr.aria-label]="ariaLabel() ?? null"
+    [attr.target]="target() ?? null"
+    [attr.rel]="rel() ?? null"
+  >
+    {{ label() }}
+    <ng-content />
+  </a>
+} @else {
+  <button
+    class="button"
+    [class.button--primary]="appearance() === 'primary'"
+    [class.button--secondary]="appearance() === 'secondary'"
+    [class.button--plain]="appearance() === 'plain'"
+    [type]="type()"
+    [disabled]="disabled()"
+    [attr.aria-label]="ariaLabel() ?? null"
+  >
+    {{ label() }}
+    <ng-content />
+  </button>
+}

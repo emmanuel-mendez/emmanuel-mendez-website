@@ -1,8 +1,10 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ThemeMode, Theme } from '@services/theme/theme';
+import { Button } from '@components/atoms/button/button';
 
 @Component({
   selector: 'app-theme-picker',
+  imports: [Button],
   templateUrl: './theme-picker.html',
   styleUrl: './theme-picker.css',
 })

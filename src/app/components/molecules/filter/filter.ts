@@ -15,7 +15,10 @@ export type FilterCategory<T extends object> = {
 export class Filter<T extends object> {
   public readonly list = input.required<readonly T[]>();
   public readonly categories = input.required<readonly FilterCategory<T>[]>();
+  public readonly sortProperties = input<readonly string[]>(['Relevance']);
+  public readonly sortProperty = input('Relevance');
   public readonly filteredListChange = output<readonly T[]>();
+  public readonly sortPropertyChange = output<string>();
 
   private readonly selectedProperties = signal<Readonly<Record<string, readonly string[]>>>({});
 
@@ -57,5 +60,19 @@ export class Filter<T extends object> {
   public clearFilters(): void {
     this.selectedProperties.set({});
     this.filteredListChange.emit(this.filteredList());
+  }
+
+  public changeSortProperty(event: Event): void {
+    const target = event.target;
+    if (!(target instanceof HTMLSelectElement)) {
+      return;
+    }
+
+    const property = target.value;
+    if (!this.sortProperties().includes(property)) {
+      return;
+    }
+
+    this.sortPropertyChange.emit(property);
   }
 }
