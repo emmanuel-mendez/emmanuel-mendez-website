@@ -112,10 +112,6 @@
     color: light-dark(var(--primary), var(--analogous--primary));
     text-decoration: none;
     transition: color 0.2s ease;
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 
   .projects__card-link-icon {

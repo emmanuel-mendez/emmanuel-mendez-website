@@ -24,10 +24,6 @@
     text-decoration: none;
     margin-bottom: 1.5rem;
     transition: color 0.2s ease;
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 
   .project-detail__back-icon {
