@@ -74,8 +74,8 @@ describe('Projects', () => {
     ]);
   });
 
-  it('should render the mock projects', () => {
-    expect(component.projects.length).toBeGreaterThan(3);
+  it('should show the remaining project catalog', () => {
+    expect(component.projects.map((project) => project.title)).toEqual(['Emmanuel Mendez Website']);
   });
 
   it('should open and close the project filter dialog', () => {
