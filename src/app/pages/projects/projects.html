@@ -4,45 +4,41 @@
     <app-filter
       [list]="projects"
       [categories]="categories()"
+      [sortProperties]="sortProperties"
+      [sortProperty]="sort()"
       (filteredListChange)="setFilteredProjects($event)"
+      (sortPropertyChange)="setSort($event)"
     />
-    <div class="projects__sorting" role="group" aria-label="Sort projects">
-      <span class="projects__sorting-label">Sort by:</span>
-      <button
-        class="projects__sort-button"
-        type="button"
-        [attr.aria-pressed]="sort() === 'alphabetical'"
-        (click)="setSort('alphabetical')"
-      >
-        Alphabetically
-      </button>
-      <button
-        class="projects__sort-button"
-        type="button"
-        [attr.aria-pressed]="sort() === 'year'"
-        (click)="setSort('year')"
-      >
-        Year
-      </button>
-    </div>
-    <div class="projects__grid">
-      @for (project of displayedProjects(); track project.slug) {
-        <a class="projects__card" [routerLink]="['/projects', project.slug]">
-          <div class="projects__card-header">
-            <span class="material-symbols-outlined projects__card-icon">{{ project.icon }}</span>
-            <h2 class="projects__card-title">{{ project.title }}</h2>
-          </div>
-          <p class="projects__card-description">{{ project.description }}</p>
+    @if (displayedProjects().length) {
+      <app-pagination
+        class="projects__grid"
+        [items]="displayedProjects()"
+        [itemTemplate]="projectTemplate"
+        [itemsPerPage]="9"
+        [currentPage]="page()"
+        [showPageControls]="true"
+        (pageChange)="setPage($event)"
+      />
+    } @else {
+      <p class="projects__empty">No projects match these filters.</p>
+    }
+    <ng-template #projectTemplate let-project>
+      <a class="projects__card" [routerLink]="['/projects', project.slug]">
+        <div class="projects__card-header">
+          <span class="material-symbols-outlined projects__card-icon">{{ project.icon }}</span>
+          <h2 class="projects__card-title">{{ project.title }}</h2>
+        </div>
+        <p class="projects__card-description">{{ project.description }}</p>
+        <p class="projects__card-role">{{ project.rol }}</p>
+        @if (project.year !== undefined) {
           <p class="projects__card-year">{{ project.year }}</p>
-          <ul class="projects__card-tags">
-            @for (tech of project.technologies; track tech) {
-              <li class="projects__card-tag">{{ tech }}</li>
-            }
-          </ul>
-        </a>
-      } @empty {
-        <p class="projects__empty">No projects match these filters.</p>
-      }
-    </div>
+        }
+        <ul class="projects__card-tags">
+          @for (tech of project.technologies; track tech) {
+            <li class="projects__card-tag">{{ tech }}</li>
+          }
+        </ul>
+      </a>
+    </ng-template>
   </section>
 </app-layout>

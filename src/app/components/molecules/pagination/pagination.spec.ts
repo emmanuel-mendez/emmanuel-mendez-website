@@ -12,6 +12,9 @@ type PaginationItem = Readonly<{ name: string }>;
       [items]="items"
       [itemTemplate]="itemTemplate"
       [itemsPerPage]="itemsPerPage"
+      [currentPage]="currentPage"
+      [showPageControls]="showPageControls"
+      (pageChange)="currentPage = $event"
       [buttonLabel]="buttonLabel"
     />
     <ng-template #itemTemplate let-item>
@@ -22,6 +25,8 @@ type PaginationItem = Readonly<{ name: string }>;
 class PaginationTestHost {
   public readonly items: readonly PaginationItem[] = [{ name: 'First' }, { name: 'Second' }];
   public itemsPerPage = 1;
+  public currentPage = 1;
+  public showPageControls = false;
   public buttonLabel = 'See more';
 }
 
@@ -58,5 +63,23 @@ describe('Pagination', () => {
 
     expect(fixture.nativeElement.querySelectorAll('.pagination-test__item').length).toBe(2);
     expect(fixture.nativeElement.querySelector('app-button')).toBeNull();
+  });
+
+  it('should show the requested page and emit navigation changes', () => {
+    fixture.componentInstance.showPageControls = true;
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.pagination-test__item').textContent.trim()).toBe(
+      'First',
+    );
+    expect(fixture.nativeElement.querySelector('app-button')).toBeNull();
+
+    fixture.nativeElement.querySelector('.pagination__control:last-child').click();
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.currentPage).toBe(2);
+    expect(fixture.nativeElement.querySelector('.pagination-test__item').textContent.trim()).toBe(
+      'Second',
+    );
   });
 });

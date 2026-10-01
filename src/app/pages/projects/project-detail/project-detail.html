@@ -11,7 +11,30 @@
         <h1 class="project-detail__title">{{ project.title }}</h1>
       </div>
 
+      <p class="project-detail__role">Role: {{ project.rol }}</p>
       <p class="project-detail__content">{{ project.content }}</p>
+
+      @if (project.products?.length) {
+        <section class="project-detail__section">
+          <h2 class="project-detail__section-title">Products</h2>
+          <ul class="project-detail__list">
+            @for (product of project.products; track product) {
+              <li>{{ product }}</li>
+            }
+          </ul>
+        </section>
+      }
+
+      @if (project.modules?.length) {
+        <section class="project-detail__section">
+          <h2 class="project-detail__section-title">Modules</h2>
+          <ul class="project-detail__list">
+            @for (module of project.modules; track module) {
+              <li>{{ module }}</li>
+            }
+          </ul>
+        </section>
+      }
 
       <ul class="project-detail__tags">
         @for (tech of project.technologies; track tech) {
