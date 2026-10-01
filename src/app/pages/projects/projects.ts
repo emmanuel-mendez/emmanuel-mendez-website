@@ -6,16 +6,14 @@ import { Layout } from '@components/templates/layout/layout';
 import { Page } from '@services/page/page';
 import { Project, ProjectsData } from '@services/projects/projects-data';
 
-<<<<<<< HEAD
-type ProjectSort = 'title-ascending' | 'title-descending' | 'year-ascending' | 'year-descending';
-=======
-type ProjectSort = 'Relevance' | 'Alphabetically' | 'Year';
-
-const SORT_PROPERTIES: Readonly<Record<string, ProjectSort>> = {
-  Relevance: 'Relevance',
-  Alphabetically: 'Alphabetically',
-  Year: 'Year',
-};
+type ProjectSort =
+  | 'Relevance'
+  | 'Alphabetically'
+  | 'Year'
+  | 'Title (A–Z)'
+  | 'Title (Z–A)'
+  | 'Year (newest first)'
+  | 'Year (oldest first)';
 
 const RELEVANCE_ORDER: readonly string[] = [
   'Emmanuel Mendez Website',
@@ -57,7 +55,6 @@ const RELEVANCE_ORDER: readonly string[] = [
   'Adresles',
   'M374 Meta',
 ];
->>>>>>> origin/main
 
 @Component({
   selector: 'app-projects',
@@ -71,15 +68,19 @@ export class Projects {
   private readonly projectsData = inject(ProjectsData);
 
   public readonly projects = this.projectsData.projects;
-  public readonly sortProperties: readonly ProjectSort[] = ['Relevance', 'Alphabetically', 'Year'];
+  public readonly sortProperties: readonly ProjectSort[] = [
+    'Relevance',
+    'Alphabetically',
+    'Year',
+    'Title (A–Z)',
+    'Title (Z–A)',
+    'Year (newest first)',
+    'Year (oldest first)',
+  ];
   public readonly filteredProjects = signal<readonly Project[]>(this.projects);
-<<<<<<< HEAD
-  public readonly sort = signal<ProjectSort>('title-ascending');
-  public readonly isFilterDialogOpen = signal(false);
-=======
   public readonly sort = signal<ProjectSort>('Relevance');
   public readonly page = signal(1);
->>>>>>> origin/main
+  public readonly isFilterDialogOpen = signal(false);
   public readonly categories = computed<readonly FilterCategory<Project>[]>(() => [
     {
       name: 'Technology',
@@ -102,21 +103,6 @@ export class Projects {
     const titleOrder = (first: Project, second: Project): number =>
       first.title.localeCompare(second.title, undefined, { sensitivity: 'base' });
 
-<<<<<<< HEAD
-    const sortOrder = this.sort();
-
-    return [...this.filteredProjects()].sort((first, second) => {
-      switch (sortOrder) {
-        case 'title-ascending':
-          return titleOrder(first, second);
-        case 'title-descending':
-          return titleOrder(second, first);
-        case 'year-ascending':
-          return first.year - second.year || titleOrder(first, second);
-        case 'year-descending':
-          return second.year - first.year || titleOrder(first, second);
-      }
-=======
     return [...this.filteredProjects()].sort((first, second) => {
       const ownerOrder = Number(second.rol === 'owner') - Number(first.rol === 'owner');
       if (ownerOrder !== 0) {
@@ -124,12 +110,20 @@ export class Projects {
       }
 
       const sortProperty = this.sort();
-      if (sortProperty === 'Alphabetically') {
+      if (sortProperty === 'Alphabetically' || sortProperty === 'Title (A–Z)') {
         return titleOrder(first, second);
       }
 
-      if (sortProperty === 'Year') {
+      if (sortProperty === 'Title (Z–A)') {
+        return titleOrder(second, first);
+      }
+
+      if (sortProperty === 'Year' || sortProperty === 'Year (newest first)') {
         return (second.year ?? 0) - (first.year ?? 0) || titleOrder(first, second);
+      }
+
+      if (sortProperty === 'Year (oldest first)') {
+        return (first.year ?? 0) - (second.year ?? 0) || titleOrder(first, second);
       }
 
       const firstRelevance = RELEVANCE_ORDER.indexOf(first.title);
@@ -137,9 +131,7 @@ export class Projects {
       const relevanceOrder =
         (firstRelevance < 0 ? RELEVANCE_ORDER.length : firstRelevance) -
         (secondRelevance < 0 ? RELEVANCE_ORDER.length : secondRelevance);
-
       return relevanceOrder || titleOrder(first, second);
->>>>>>> origin/main
     });
   });
 
@@ -156,26 +148,16 @@ export class Projects {
   }
 
   public setSort(sort: string): void {
-    this.sort.set(SORT_PROPERTIES[sort] ?? 'Relevance');
+    if (!this.sortProperties.includes(sort as ProjectSort)) {
+      return;
+    }
+
+    this.sort.set(sort as ProjectSort);
     this.page.set(1);
   }
 
   public setPage(page: number): void {
     this.page.set(page);
-  }
-
-  public onSortChange(event: Event): void {
-    const selectedSort = (event.currentTarget as HTMLSelectElement).value;
-    const sortOptions: readonly ProjectSort[] = [
-      'title-ascending',
-      'title-descending',
-      'year-ascending',
-      'year-descending',
-    ];
-
-    if (sortOptions.includes(selectedSort as ProjectSort)) {
-      this.setSort(selectedSort as ProjectSort);
-    }
   }
 
   public openFilterDialog(): void {
