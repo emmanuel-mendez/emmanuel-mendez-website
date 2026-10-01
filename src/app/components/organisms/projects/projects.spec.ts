@@ -26,9 +26,9 @@ describe('ProjectsSection', () => {
     expect(component.projects.length).toBeGreaterThan(0);
   });
 
-  it('should render only the configured number of project cards', () => {
+  it('should render every project in the catalog', () => {
     const cards = fixture.nativeElement.querySelectorAll('.projects__card');
-    expect(cards.length).toBe(2);
+    expect(cards.length).toBe(component.projects.length);
   });
 
   it('should render project titles in the DOM', () => {
@@ -51,9 +51,10 @@ describe('ProjectsSection', () => {
     expect(projectsWithoutLink.length).toBeGreaterThanOrEqual(0);
   });
 
-  it('should render a See more link to the projects page when projects are hidden', () => {
+  it('should render a compact See more link to the projects page', () => {
     const button = fixture.nativeElement.querySelector('app-button a');
     expect(button.textContent.trim()).toBe('See more');
     expect(button.getAttribute('href')).toBe('/projects');
+    expect(fixture.nativeElement.querySelector('app-button').classList).toContain('projects__more');
   });
 });
