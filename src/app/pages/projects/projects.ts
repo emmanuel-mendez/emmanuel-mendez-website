@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Filter, FilterCategory } from '@components/molecules/filter/filter';
+import { Pagination } from '@components/molecules/pagination/pagination';
 import { Layout } from '@components/templates/layout/layout';
 import { Page } from '@services/page/page';
 import { Project, ProjectsData } from '@services/projects/projects-data';
@@ -57,7 +58,7 @@ const RELEVANCE_ORDER: readonly string[] = [
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [Layout, RouterLink, Filter],
+  imports: [Layout, RouterLink, Filter, Pagination],
   templateUrl: './projects.html',
   styleUrl: './projects.css',
 })
@@ -69,6 +70,7 @@ export class Projects {
   public readonly sortProperties: readonly ProjectSort[] = ['Relevance', 'Alphabetically', 'Year'];
   public readonly filteredProjects = signal<readonly Project[]>(this.projects);
   public readonly sort = signal<ProjectSort>('Relevance');
+  public readonly page = signal(1);
   public readonly categories = computed<readonly FilterCategory<Project>[]>(() => [
     {
       name: 'Technology',
@@ -125,9 +127,15 @@ export class Projects {
 
   public setFilteredProjects(projects: readonly Project[]): void {
     this.filteredProjects.set(projects);
+    this.page.set(1);
   }
 
   public setSort(sort: string): void {
     this.sort.set(SORT_PROPERTIES[sort] ?? 'Relevance');
+    this.page.set(1);
+  }
+
+  public setPage(page: number): void {
+    this.page.set(page);
   }
 }

@@ -108,4 +108,28 @@ describe('Projects', () => {
     expect(yearLabels.length).toBe(1);
     expect(cards[1].querySelector('.projects__card-role')?.textContent.trim()).toBe('collaborator');
   });
+
+  it('should display nine projects per page and navigate between pages', () => {
+    expect(fixture.nativeElement.querySelectorAll('.projects__card')).toHaveLength(9);
+    expect(fixture.nativeElement.querySelectorAll('.pagination__control')).toHaveLength(7);
+
+    fixture.nativeElement.querySelector('.pagination__control:last-child').click();
+    fixture.detectChanges();
+
+    expect(component.page()).toBe(2);
+    expect(fixture.nativeElement.querySelectorAll('.projects__card')).toHaveLength(9);
+    expect(fixture.nativeElement.querySelector('.projects__card-title').textContent.trim()).toBe(
+      'Grupo Diana',
+    );
+  });
+
+  it('should reset pagination after sorting or filtering projects', () => {
+    component.setPage(3);
+    component.setSort('Year');
+    expect(component.page()).toBe(1);
+
+    component.setPage(3);
+    component.setFilteredProjects(component.projects.slice(0, 5));
+    expect(component.page()).toBe(1);
+  });
 });
