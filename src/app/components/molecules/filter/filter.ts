@@ -1,4 +1,5 @@
 import { Component, computed, input, output, signal } from '@angular/core';
+import { Button } from '@components/atoms/button/button';
 
 export type FilterCategory<T extends object> = {
   name: string;
@@ -11,6 +12,7 @@ export type FilterCategory<T extends object> = {
   standalone: true,
   templateUrl: './filter.html',
   styleUrl: './filter.css',
+  imports: [Button],
 })
 export class Filter<T extends object> {
   public readonly list = input.required<readonly T[]>();

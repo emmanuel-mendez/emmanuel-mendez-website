@@ -9,7 +9,7 @@
       (click)="openFilterDialog()"
     >
       <span class="material-symbols-outlined" aria-hidden="true">tune</span>
-      Filter projects
+      Filter
     </button>
     <div class="projects__content">
       @if (isFilterDialogOpen()) {
@@ -30,9 +30,6 @@
         (keydown.escape)="closeFilterDialog()"
       >
         <div class="projects__filter-dialog-header">
-          <h2 class="projects__filter-dialog-title" id="projects-filter-heading">
-            Filter projects
-          </h2>
           <button
             class="projects__filter-close"
             type="button"
@@ -57,7 +54,7 @@
             <app-pagination
               [items]="displayedProjects()"
               [itemTemplate]="projectTemplate"
-              [itemsPerPage]="9"
+              [itemsPerPage]="6"
               [currentPage]="page()"
               [showPageControls]="true"
               (pageChange)="setPage($event)"
@@ -70,6 +67,9 @@
     </div>
     <ng-template #projectTemplate let-project>
       <a class="projects__card" [routerLink]="['/projects', project.slug]">
+        <div class="projects__card-image-container">
+          <img class="projects__card-image" [src]="project.image" [alt]="project.title" />
+        </div>
         <div class="projects__card-header">
           <h2 class="projects__card-title">{{ project.title }}</h2>
         </div>
