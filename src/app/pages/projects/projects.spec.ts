@@ -9,7 +9,6 @@ describe('Projects', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Projects],
-      // 2. Add the provider here
       providers: [provideRouter([])],
     }).compileComponents();
 
@@ -68,17 +67,7 @@ describe('Projects', () => {
     ]);
   });
 
-  it('should sort projects by descending year', () => {
-    component.setSort('Year');
-
-    const years = component
-      .displayedProjects()
-      .flatMap((project) => (project.year === undefined ? [] : [project.year]));
-
-    expect(years).toEqual([...years].sort((first, second) => second - first));
-  });
-
-  it('should sort projects alphabetically when requested', () => {
+  it('should sort projects alphabetically with the owner first', () => {
     component.setSort('Alphabetically');
     const titles = component.displayedProjects().map((project) => project.title);
     const collaboratorTitles = titles.slice(1);
@@ -91,7 +80,50 @@ describe('Projects', () => {
     );
   });
 
-  it('should show the remaining project catalog', () => {
+  it('should support both title sort directions while keeping the owner first', () => {
+    component.setSort('Title (A–Z)');
+    const ascendingTitles = component.displayedProjects().map((project) => project.title);
+    component.setSort('Title (Z–A)');
+    const descendingTitles = component.displayedProjects().map((project) => project.title);
+
+    expect(ascendingTitles[0]).toBe('Emmanuel Mendez Website');
+    expect(descendingTitles[0]).toBe('Emmanuel Mendez Website');
+    expect(descendingTitles.slice(1)).toEqual(ascendingTitles.slice(1).reverse());
+  });
+
+  it('should sort collaborator projects by year in either direction', () => {
+    component.setSort('Year (newest first)');
+    const newestFirstYears = component
+      .displayedProjects()
+      .slice(1)
+      .map((project) => project.year ?? 0);
+    component.setSort('Year (oldest first)');
+    const oldestFirstYears = component
+      .displayedProjects()
+      .slice(1)
+      .map((project) => project.year ?? 0);
+
+    expect(newestFirstYears).toEqual([...newestFirstYears].sort((first, second) => second - first));
+    expect(oldestFirstYears).toEqual([...oldestFirstYears].sort((first, second) => first - second));
+  });
+
+  it('should render all sorting choices in the filter', () => {
+    const options = Array.from(
+      (fixture.nativeElement as HTMLElement).querySelectorAll('#filter-sort option'),
+    ).map((option) => (option as HTMLOptionElement).value);
+
+    expect(options).toEqual([
+      'Relevance',
+      'Alphabetically',
+      'Year',
+      'Title (A–Z)',
+      'Title (Z–A)',
+      'Year (newest first)',
+      'Year (oldest first)',
+    ]);
+  });
+
+  it('should show the complete project catalog with the owner first', () => {
     expect(component.projects).toHaveLength(39);
     expect(component.projects[0].rol).toBe('owner');
     expect(component.projects.slice(1).every((project) => project.rol === 'collaborator')).toBe(
@@ -131,5 +163,13 @@ describe('Projects', () => {
     component.setPage(3);
     component.setFilteredProjects(component.projects.slice(0, 5));
     expect(component.page()).toBe(1);
+  });
+
+  it('should open and close the project filter dialog', () => {
+    component.openFilterDialog();
+    expect(component.isFilterDialogOpen()).toBe(true);
+
+    component.closeFilterDialog();
+    expect(component.isFilterDialogOpen()).toBe(false);
   });
 });
