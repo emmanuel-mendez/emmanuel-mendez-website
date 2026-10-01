@@ -20,10 +20,9 @@
   .projects__container {
     display: flex;
     flex-direction: column;
+    gap: 2.5rem;
 
-    gap: 1.5rem;
-
-    @media (min-width: 1024px) {
+    @media (min-width: 768px) {
       align-items: center;
     }
   }
@@ -32,10 +31,14 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
-  }
 
-  .projects__more {
-    grid-column: 1 / -1;
+    .projects__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   .projects__card {
@@ -121,17 +124,5 @@
       'wght' 400,
       'GRAD' 0,
       'opsz' 24;
-  }
-
-  @media (min-width: 768px) {
-    .projects__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .projects__grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
   }
 }

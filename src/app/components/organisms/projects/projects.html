@@ -8,7 +8,7 @@
       [itemsPerPage]="3"
     />
     @if (hasMoreProjects) {
-      <app-button class="projects__more" label="See more" [route]="['/projects']" />
+      <app-button label="See more" [route]="['/projects']" />
     }
   </div>
   <ng-template #projectContainer let-itemsContent>
