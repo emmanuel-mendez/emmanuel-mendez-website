@@ -6,6 +6,37 @@
     />
   }
 </div>
+@if (showPageControls() && pageCount() > 1) {
+  <nav class="pagination__controls" aria-label="Project pages">
+    <button
+      class="pagination__control"
+      type="button"
+      [disabled]="activePage() === 1"
+      (click)="changePage(activePage() - 1)"
+    >
+      Previous
+    </button>
+    @for (page of pageNumbers(); track page) {
+      <button
+        class="pagination__control"
+        type="button"
+        [attr.aria-current]="activePage() === page ? 'page' : null"
+        [attr.aria-label]="'Page ' + page"
+        (click)="changePage(page)"
+      >
+        {{ page }}
+      </button>
+    }
+    <button
+      class="pagination__control"
+      type="button"
+      [disabled]="activePage() === pageCount()"
+      (click)="changePage(activePage() + 1)"
+    >
+      Next
+    </button>
+  </nav>
+}
 @if (hasMoreItems()) {
   <app-button [label]="buttonLabel()" [route]="buttonRoute()" />
 }
