@@ -1,6 +1,5 @@
-<section class="filter" aria-label="Project filters">
+<section class="filter">
   <div class="filter__header">
-    <h2 class="filter__title">Filter projects</h2>
     <div class="filter__controls">
       <label class="filter__sort-label" for="filter-sort">Sort by</label>
       <select
@@ -13,7 +12,6 @@
           <option [value]="property">{{ property }}</option>
         }
       </select>
-      <button class="filter__reset" type="button" (click)="clearFilters()">Clear filters</button>
     </div>
   </div>
   <div class="filter__categories">
@@ -36,4 +34,5 @@
       </fieldset>
     }
   </div>
+  <app-button appearance="secondary" (click)="clearFilters()">Clear filters</app-button>
 </section>

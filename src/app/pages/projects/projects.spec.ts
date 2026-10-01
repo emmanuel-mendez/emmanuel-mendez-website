@@ -26,9 +26,10 @@ describe('Projects', () => {
 
     expect(titles).toEqual([
       'Emmanuel Mendez Website',
+      'Astyimar y Emmanuel',
       'Coca Cola',
       'Toyota',
-      'Shell GT',
+      'Shell',
       'Mars',
       'Castrol',
       'Bancolombia',
@@ -39,72 +40,66 @@ describe('Projects', () => {
       'Banistmo',
       'Grupo Alen',
       'Comfaboy',
-      'Grupo Uno Nicaragua',
-      'Grupo Uno Honduras',
+      'Grupo Uno',
       'Expovinos 2021',
       'Foodbox',
-      'Chillibean',
-      'Alpina Quinquenios',
+      'Chillibeans',
+      'Alpina',
       'Ultra1Plus',
-      'Rappi Redención',
-      'Rappi Defensoría',
-      'Rappi Mochilas',
-      'Blog Rappitenderos',
-      'Toyota Totem',
-      'Highpeak',
-      'Grateful',
       'Especialistas En Casa',
-      'Q Buen Plan',
+      'Planetife',
       'Geekboss',
       'Dra Skin',
-      'Planetife',
-      'Agro Platform',
-      'Destiny Website',
-      'Dosmass',
       'Adresles',
-      'M374 Meta',
+      'Dosmass',
+      'Destiny',
       'Dojo',
+      'Cimonamía',
+      'Highpeak',
+      'Grateful',
+      'Q Buen Plan',
+      'M374',
     ]);
   });
 
-  it('should sort projects alphabetically with the owner first', () => {
-    component.setSort('Alphabetically');
-    const titles = component.displayedProjects().map((project) => project.title);
-    const collaboratorTitles = titles.slice(1);
-
-    expect(titles[0]).toBe('Emmanuel Mendez Website');
-    expect(collaboratorTitles).toEqual(
-      [...collaboratorTitles].sort((first, second) =>
-        first.localeCompare(second, undefined, { sensitivity: 'base' }),
-      ),
-    );
-  });
-
-  it('should support both title sort directions while keeping the owner first', () => {
+  it('should sort projects by title ascending and descending', () => {
     component.setSort('Title (A–Z)');
     const ascendingTitles = component.displayedProjects().map((project) => project.title);
+    const expectedAscending = [...ascendingTitles].sort((first, second) =>
+      first.localeCompare(second, undefined, { sensitivity: 'base' }),
+    );
+    expect(ascendingTitles).toEqual(expectedAscending);
+    expect(ascendingTitles[0]).toBe('Adresles');
+
     component.setSort('Title (Z–A)');
     const descendingTitles = component.displayedProjects().map((project) => project.title);
-
-    expect(ascendingTitles[0]).toBe('Emmanuel Mendez Website');
-    expect(descendingTitles[0]).toBe('Emmanuel Mendez Website');
-    expect(descendingTitles.slice(1)).toEqual(ascendingTitles.slice(1).reverse());
+    const expectedDescending = [...descendingTitles].sort((first, second) =>
+      second.localeCompare(first, undefined, { sensitivity: 'base' }),
+    );
+    expect(descendingTitles).toEqual(expectedDescending);
+    expect(descendingTitles[0]).toBe('Wompi');
   });
 
-  it('should sort collaborator projects by year in either direction', () => {
+  it('should sort projects by year newest first and oldest first with undefined years last', () => {
     component.setSort('Year (newest first)');
-    const newestFirstYears = component
-      .displayedProjects()
-      .slice(1)
-      .map((project) => project.year ?? 0);
-    component.setSort('Year (oldest first)');
-    const oldestFirstYears = component
-      .displayedProjects()
-      .slice(1)
-      .map((project) => project.year ?? 0);
+    const newestProjects = component.displayedProjects();
+    const newestWithYear = newestProjects
+      .filter((project) => project.year !== undefined)
+      .map((project) => project.year as number);
+    const newestWithoutYear = newestProjects.filter((project) => project.year === undefined);
 
-    expect(newestFirstYears).toEqual([...newestFirstYears].sort((first, second) => second - first));
-    expect(oldestFirstYears).toEqual([...oldestFirstYears].sort((first, second) => first - second));
+    expect(newestWithYear).toEqual([...newestWithYear].sort((first, second) => second - first));
+    expect(newestProjects.slice(newestWithYear.length)).toEqual(newestWithoutYear);
+
+    component.setSort('Year (oldest first)');
+    const oldestProjects = component.displayedProjects();
+    const oldestWithYear = oldestProjects
+      .filter((project) => project.year !== undefined)
+      .map((project) => project.year as number);
+    const oldestWithoutYear = oldestProjects.filter((project) => project.year === undefined);
+
+    expect(oldestWithYear).toEqual([...oldestWithYear].sort((first, second) => first - second));
+    expect(oldestProjects.slice(oldestWithYear.length)).toEqual(oldestWithoutYear);
   });
 
   it('should render all sorting choices in the filter', () => {
@@ -114,8 +109,6 @@ describe('Projects', () => {
 
     expect(options).toEqual([
       'Relevance',
-      'Alphabetically',
-      'Year',
       'Title (A–Z)',
       'Title (Z–A)',
       'Year (newest first)',
@@ -123,12 +116,10 @@ describe('Projects', () => {
     ]);
   });
 
-  it('should show the complete project catalog with the owner first', () => {
-    expect(component.projects).toHaveLength(39);
-    expect(component.projects[0].rol).toBe('owner');
-    expect(component.projects.slice(1).every((project) => project.rol === 'collaborator')).toBe(
-      true,
-    );
+  it('should show the complete project catalog with valid roles', () => {
+    expect(component.projects).toHaveLength(34);
+    expect(component.projects.filter((project) => project.rol === 'owner')).toHaveLength(2);
+    expect(component.projects.filter((project) => project.rol === 'collaborator')).toHaveLength(32);
   });
 
   it('should render project roles and hide unavailable years', () => {
@@ -137,27 +128,27 @@ describe('Projects', () => {
     const yearLabels = fixture.nativeElement.querySelectorAll('.projects__card-year');
 
     expect(firstCard.querySelector('.projects__card-role')?.textContent.trim()).toBe('owner');
-    expect(yearLabels.length).toBe(1);
-    expect(cards[1].querySelector('.projects__card-role')?.textContent.trim()).toBe('collaborator');
+    expect(yearLabels.length).toBe(3);
+    expect(cards[2].querySelector('.projects__card-role')?.textContent.trim()).toBe('collaborator');
   });
 
-  it('should display nine projects per page and navigate between pages', () => {
-    expect(fixture.nativeElement.querySelectorAll('.projects__card')).toHaveLength(9);
-    expect(fixture.nativeElement.querySelectorAll('.pagination__control')).toHaveLength(7);
+  it('should display six projects per page and navigate between pages', () => {
+    expect(fixture.nativeElement.querySelectorAll('.projects__card')).toHaveLength(6);
+    expect(fixture.nativeElement.querySelectorAll('.pagination__control')).toHaveLength(8);
 
     fixture.nativeElement.querySelector('.pagination__control:last-child').click();
     fixture.detectChanges();
 
     expect(component.page()).toBe(2);
-    expect(fixture.nativeElement.querySelectorAll('.projects__card')).toHaveLength(9);
+    expect(fixture.nativeElement.querySelectorAll('.projects__card')).toHaveLength(6);
     expect(fixture.nativeElement.querySelector('.projects__card-title').textContent.trim()).toBe(
-      'Grupo Diana',
+      'Castrol',
     );
   });
 
   it('should reset pagination after sorting or filtering projects', () => {
     component.setPage(3);
-    component.setSort('Year');
+    component.setSort('Title (A–Z)');
     expect(component.page()).toBe(1);
 
     component.setPage(3);

@@ -68,7 +68,7 @@
 }
 
 .contact__button {
-  min-width: 218.5px;
+  align-self: flex-end;
 }
 
 .contact__button-icon {

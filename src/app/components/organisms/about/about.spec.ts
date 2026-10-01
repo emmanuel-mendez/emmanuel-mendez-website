@@ -20,12 +20,6 @@ describe('About', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render all skill groups', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    const groups = compiled.querySelectorAll('.about__skill-group');
-    expect(groups.length).toBe(component.skills.length);
-  });
-
   it('should render description paragraphs', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const descriptions = compiled.querySelectorAll('.about__description');

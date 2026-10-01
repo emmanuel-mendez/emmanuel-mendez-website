@@ -17,10 +17,28 @@
     }
   }
 
+  .projects__container {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+
+    @media (min-width: 768px) {
+      align-items: center;
+    }
+  }
+
   .projects__grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
+
+    .projects__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   .projects__card {
@@ -47,17 +65,6 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-  }
-
-  .projects__card-icon {
-    font-size: var(--extra-extra-large);
-    color: light-dark(var(--primary), var(--analogous--primary));
-    transition: color 0.2s ease;
-    font-variation-settings:
-      'FILL' 0,
-      'wght' 400,
-      'GRAD' 0,
-      'opsz' 24;
   }
 
   .projects__card-title {
@@ -108,10 +115,6 @@
     color: light-dark(var(--primary), var(--analogous--primary));
     text-decoration: none;
     transition: color 0.2s ease;
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 
   .projects__card-link-icon {
@@ -121,17 +124,5 @@
       'wght' 400,
       'GRAD' 0,
       'opsz' 24;
-  }
-
-  @media (min-width: 768px) {
-    .projects__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .projects__grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
   }
 }

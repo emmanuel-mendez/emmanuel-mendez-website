@@ -9,7 +9,7 @@
       (click)="openFilterDialog()"
     >
       <span class="material-symbols-outlined" aria-hidden="true">tune</span>
-      Filter projects
+      Filter
     </button>
     <div class="projects__content">
       @if (isFilterDialogOpen()) {
@@ -30,9 +30,6 @@
         (keydown.escape)="closeFilterDialog()"
       >
         <div class="projects__filter-dialog-header">
-          <h2 class="projects__filter-dialog-title" id="projects-filter-heading">
-            Filter projects
-          </h2>
           <button
             class="projects__filter-close"
             type="button"
@@ -57,7 +54,7 @@
             <app-pagination
               [items]="displayedProjects()"
               [itemTemplate]="projectTemplate"
-              [itemsPerPage]="9"
+              [itemsPerPage]="6"
               [currentPage]="page()"
               [showPageControls]="true"
               (pageChange)="setPage($event)"
@@ -70,20 +67,27 @@
     </div>
     <ng-template #projectTemplate let-project>
       <a class="projects__card" [routerLink]="['/projects', project.slug]">
-        <div class="projects__card-header">
-          <span class="material-symbols-outlined projects__card-icon">{{ project.icon }}</span>
-          <h2 class="projects__card-title">{{ project.title }}</h2>
+        <div
+          class="projects__card-image-container"
+          [style.backgroundColor]="project.imageBackgroundColor"
+        >
+          <img class="projects__card-image" [src]="project.image" [alt]="project.title" />
         </div>
-        <p class="projects__card-description">{{ project.description }}</p>
-        <p class="projects__card-role">{{ project.rol }}</p>
-        @if (project.year !== undefined) {
-          <p class="projects__card-year">{{ project.year }}</p>
-        }
-        <ul class="projects__card-tags">
-          @for (tech of project.technologies; track tech) {
-            <li class="projects__card-tag">{{ tech }}</li>
+        <div class="projects__card-body">
+          <div class="projects__card-header">
+            <h2 class="projects__card-title">{{ project.title }}</h2>
+          </div>
+          <p class="projects__card-description">{{ project.description }}</p>
+          <p class="projects__card-role">{{ project.rol }}</p>
+          @if (project.year !== undefined) {
+            <p class="projects__card-year">{{ project.year }}</p>
           }
-        </ul>
+          <ul class="projects__card-tags">
+            @for (tech of project.technologies; track tech) {
+              <li class="projects__card-tag">{{ tech }}</li>
+            }
+          </ul>
+        </div>
       </a>
     </ng-template>
   </section>

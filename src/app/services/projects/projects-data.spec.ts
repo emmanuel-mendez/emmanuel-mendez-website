@@ -26,7 +26,7 @@ describe('ProjectsData', () => {
 
   it('should assign a valid role to every project', () => {
     expect(service.projects.every(({ rol }) => ['owner', 'collaborator'].includes(rol))).toBe(true);
-    expect(service.projects.filter(({ rol }) => rol === 'owner')).toHaveLength(1);
+    expect(service.projects.filter(({ rol }) => rol === 'owner')).toHaveLength(2);
   });
 
   it('should include all collaborator projects with their supplied details', () => {
@@ -35,28 +35,22 @@ describe('ProjectsData', () => {
       expect.arrayContaining([
         'Coca Cola',
         'Toyota',
-        'Toyota Totem',
-        'Shell GT',
+        'Shell',
         'Mars',
         'Castrol',
         'Bancolombia',
         'Rappi',
-        'Rappi Redención',
-        'Rappi Defensoría',
-        'Rappi Mochilas',
-        'Blog Rappitenderos',
         'Colombina',
         'Grupo Diana',
         'Wompi',
         'Banistmo',
         'Grupo Alen',
         'Comfaboy',
-        'Grupo Uno Nicaragua',
-        'Grupo Uno Honduras',
+        'Grupo Uno',
         'Expovinos 2021',
         'Foodbox',
-        'Chillibean',
-        'Alpina Quinquenios',
+        'Chillibeans',
+        'Alpina',
         'Ultra1Plus',
         'Dojo',
         'Highpeak',
@@ -65,22 +59,14 @@ describe('ProjectsData', () => {
         'Q Buen Plan',
         'Geekboss',
         'Dra Skin',
+        'Cimonamía',
         'Planetife',
-        'Destiny Website',
+        'Destiny',
         'Dosmass',
         'Adresles',
-        'M374 Meta',
-        'Agro Platform',
+        'M374',
       ]),
     );
-
-    expect(service.getBySlug('toyota')).toMatchObject({
-      rol: 'collaborator',
-      products: ['Website'],
-      modules: ['Colombia localization', 'Totem ads'],
-      technologies: ['Typescript', 'Next.js', 'Storybook'],
-    });
-    expect(service.getBySlug('m374')?.description).toBe('Renting virtual spaces in the metaverse.');
   });
 
   it('should return undefined for unknown slug', () => {

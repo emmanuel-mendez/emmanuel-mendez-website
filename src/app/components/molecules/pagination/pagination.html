@@ -1,11 +1,15 @@
-<div class="pagination__items">
+<ng-template #itemsContent>
   @for (item of visibleItems(); track $index) {
     <ng-container
       [ngTemplateOutlet]="itemTemplate()"
       [ngTemplateOutletContext]="{ $implicit: item }"
     />
   }
-</div>
+</ng-template>
+<ng-container
+  [ngTemplateOutlet]="containerTemplate() ?? itemsContent"
+  [ngTemplateOutletContext]="{ $implicit: itemsContent }"
+/>
 @if (showPageControls() && pageCount() > 1) {
   <nav class="pagination__controls" aria-label="Project pages">
     <button
@@ -36,7 +40,4 @@
       Next
     </button>
   </nav>
-}
-@if (hasMoreItems()) {
-  <app-button [label]="buttonLabel()" [route]="buttonRoute()" />
 }
