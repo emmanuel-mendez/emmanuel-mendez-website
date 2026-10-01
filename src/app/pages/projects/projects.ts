@@ -6,53 +6,117 @@ import { Layout } from '@components/templates/layout/layout';
 import { Page } from '@services/page/page';
 import { Project, ProjectsData } from '@services/projects/projects-data';
 
-type ProjectSort =
+export type ProjectSort =
   | 'Relevance'
   | 'Title (A–Z)'
   | 'Title (Z–A)'
   | 'Year (newest first)'
   | 'Year (oldest first)';
 
+type ProjectSortStrategy = (first: Project, second: Project) => number;
+
 const RELEVANCE_ORDER: readonly string[] = [
   'Emmanuel Mendez Website',
+  'Astyimar y Emmanuel',
   'Coca Cola',
   'Toyota',
-  'Shell GT',
+  'Shell',
   'Mars',
   'Castrol',
-  'Bancolombia',
   'Rappi',
+  'Bancolombia',
+  'Banistmo',
+  'Wompi',
+  'Alpina',
   'Colombina',
   'Grupo Diana',
-  'Wompi',
-  'Banistmo',
+  'Chillibeans',
   'Grupo Alen',
+  'Grupo Uno',
   'Comfaboy',
-  'Grupo Uno Nicaragua',
-  'Grupo Uno Honduras',
   'Expovinos 2021',
-  'Foodbox',
-  'Chillibean',
-  'Alpina Quinquenios',
   'Ultra1Plus',
-  'Rappi Redención',
-  'Rappi Defensoría',
-  'Rappi Mochilas',
-  'Blog Rappitenderos',
-  'Toyota Totem',
-  'Highpeak',
-  'Grateful',
-  'Especialistas En Casa',
-  'Q Buen Plan',
-  'Geekboss',
-  'Dra Skin',
+  'Foodbox',
+  'Dojo',
   'Planetife',
-  'Agro Platform',
-  'Destiny Website',
+  'Destiny',
   'Dosmass',
+  'Geekboss',
+  'Highpeak',
   'Adresles',
-  'M374 Meta',
+  'Especialistas En Casa',
+  'Dra Skin',
+  'Cimonamía',
+  'Q Buen Plan',
+  'Grateful',
+  'M374',
 ];
+
+const compareTitleAscending: ProjectSortStrategy = (first, second) =>
+  first.title.localeCompare(second.title, undefined, { sensitivity: 'base' });
+
+const compareTitleDescending: ProjectSortStrategy = (first, second) =>
+  second.title.localeCompare(first.title, undefined, { sensitivity: 'base' });
+
+const compareYearNewestFirst: ProjectSortStrategy = (first, second) => {
+  if (first.year === undefined && second.year === undefined) {
+    return compareTitleAscending(first, second);
+  }
+
+  if (first.year === undefined) {
+    return 1;
+  }
+
+  if (second.year === undefined) {
+    return -1;
+  }
+
+  return second.year - first.year || compareTitleAscending(first, second);
+};
+
+const compareYearOldestFirst: ProjectSortStrategy = (first, second) => {
+  if (first.year === undefined && second.year === undefined) {
+    return compareTitleAscending(first, second);
+  }
+
+  if (first.year === undefined) {
+    return 1;
+  }
+
+  if (second.year === undefined) {
+    return -1;
+  }
+
+  return first.year - second.year || compareTitleAscending(first, second);
+};
+
+const compareRelevance: ProjectSortStrategy = (first, second) => {
+  const ownerOrder = Number(second.rol === 'owner') - Number(first.rol === 'owner');
+  if (ownerOrder !== 0) {
+    return ownerOrder;
+  }
+
+  const firstRelevance = RELEVANCE_ORDER.indexOf(first.title);
+  const secondRelevance = RELEVANCE_ORDER.indexOf(second.title);
+  const normalizedFirst = firstRelevance < 0 ? RELEVANCE_ORDER.length : firstRelevance;
+  const normalizedSecond = secondRelevance < 0 ? RELEVANCE_ORDER.length : secondRelevance;
+  const relevanceOrder = normalizedFirst - normalizedSecond;
+
+  return relevanceOrder || compareTitleAscending(first, second);
+};
+
+const SORT_STRATEGIES: Readonly<Record<ProjectSort, ProjectSortStrategy>> = {
+  Relevance: compareRelevance,
+  'Title (A–Z)': compareTitleAscending,
+  'Title (Z–A)': compareTitleDescending,
+  'Year (newest first)': compareYearNewestFirst,
+  'Year (oldest first)': compareYearOldestFirst,
+};
+
+const SORT_ALIASES: Readonly<Record<string, ProjectSort>> = {
+  Alphabetically: 'Title (A–Z)',
+  Year: 'Year (newest first)',
+};
 
 @Component({
   selector: 'app-projects',
@@ -96,39 +160,8 @@ export class Projects {
     },
   ]);
   public readonly displayedProjects = computed(() => {
-    const titleOrder = (first: Project, second: Project): number =>
-      first.title.localeCompare(second.title, undefined, { sensitivity: 'base' });
-
-    return [...this.filteredProjects()].sort((first, second) => {
-      const ownerOrder = Number(second.rol === 'owner') - Number(first.rol === 'owner');
-      if (ownerOrder !== 0) {
-        return ownerOrder;
-      }
-
-      const sortProperty = this.sort();
-      if (sortProperty === 'Title (A–Z)') {
-        return titleOrder(first, second);
-      }
-
-      if (sortProperty === 'Title (Z–A)') {
-        return titleOrder(second, first);
-      }
-
-      if (sortProperty === 'Year (newest first)') {
-        return (second.year ?? 0) - (first.year ?? 0) || titleOrder(first, second);
-      }
-
-      if (sortProperty === 'Year (oldest first)') {
-        return (first.year ?? 0) - (second.year ?? 0) || titleOrder(first, second);
-      }
-
-      const firstRelevance = RELEVANCE_ORDER.indexOf(first.title);
-      const secondRelevance = RELEVANCE_ORDER.indexOf(second.title);
-      const relevanceOrder =
-        (firstRelevance < 0 ? RELEVANCE_ORDER.length : firstRelevance) -
-        (secondRelevance < 0 ? RELEVANCE_ORDER.length : secondRelevance);
-      return relevanceOrder || titleOrder(first, second);
-    });
+    const strategy = SORT_STRATEGIES[this.sort()] ?? SORT_STRATEGIES.Relevance;
+    return [...this.filteredProjects()].sort(strategy);
   });
 
   private readonly DESCRIPTION =
@@ -144,11 +177,12 @@ export class Projects {
   }
 
   public setSort(sort: string): void {
-    if (!this.sortProperties.includes(sort as ProjectSort)) {
+    const resolvedSort = (SORT_ALIASES[sort] ?? sort) as ProjectSort;
+    if (!this.sortProperties.includes(resolvedSort)) {
       return;
     }
 
-    this.sort.set(sort as ProjectSort);
+    this.sort.set(resolvedSort);
     this.page.set(1);
   }
 

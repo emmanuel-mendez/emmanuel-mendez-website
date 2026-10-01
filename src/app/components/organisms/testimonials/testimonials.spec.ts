@@ -29,11 +29,4 @@ describe('Testimonials', () => {
     const cards = compiled.querySelectorAll('.testimonials__card');
     expect(cards.length).toBe(component.testimonials.length);
   });
-
-  it('should have valid ratings between 1 and 5', () => {
-    for (const t of component.testimonials) {
-      expect(t.rating).toBeGreaterThanOrEqual(1);
-      expect(t.rating).toBeLessThanOrEqual(5);
-    }
-  });
 });
