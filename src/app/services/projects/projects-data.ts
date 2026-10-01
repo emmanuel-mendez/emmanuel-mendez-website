@@ -5,6 +5,8 @@ export type ProjectRole = 'owner' | 'collaborator';
 export type Project = {
   slug: string;
   title: string;
+  image: string;
+  imageBackgroundColor: string;
   rol: ProjectRole;
   description: string;
   technologies: readonly string[];
@@ -20,6 +22,8 @@ const PROJECTS: readonly Project[] = [
   {
     slug: 'emmanuel-mendez-website',
     title: 'Emmanuel Mendez Website',
+    image: '/svg/logo--expanded--light.svg',
+    imageBackgroundColor: '#20665c40',
     rol: 'owner',
     description:
       'Personal portfolio website built with Angular featuring server-side rendering, responsive design, and light/dark theme switching.',
@@ -31,8 +35,24 @@ const PROJECTS: readonly Project[] = [
       'A personal portfolio website showcasing professional experience, skills, and projects. Built with Angular 21, it features server-side rendering for optimal SEO, responsive design with mobile-first approach, and light/dark theme support using CSS light-dark() function.',
   },
   {
+    slug: 'astyimar-y-emmanuel',
+    title: 'Astyimar y Emmanuel',
+    image: '/projects/astyimar-y-emmanuel.png',
+    imageBackgroundColor: '#6d578f',
+    rol: 'owner',
+    description:
+      'Website for Astyimar y Emmanuel built with Astro featuring server-side rendering, responsive design, and light/dark theme switching.',
+    technologies: ['Astro', 'TypeScript', 'CSS'],
+    year: 2025,
+    link: 'https://astyimar-y-emmanuel.com',
+    content:
+      'Website for Astyimar y Emmanuel showcasing professional experience, skills, and projects. Built with Astro, it features server-side rendering for optimal SEO, responsive design with mobile-first approach, and light/dark theme support using CSS light-dark() function.',
+  },
+  {
     slug: 'coca-cola',
     title: 'Coca Cola',
+    image: '/projects/coca-cola.webp',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'Email development for Coca Cola.',
     technologies: ['HTML', 'CSS'],
@@ -43,6 +63,8 @@ const PROJECTS: readonly Project[] = [
   {
     slug: 'toyota',
     title: 'Toyota',
+    image: '/projects/toyota.webp',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'Website with Colombia localization and totem ads.',
     technologies: ['Typescript', 'Next.js', 'Storybook'],
@@ -53,7 +75,9 @@ const PROJECTS: readonly Project[] = [
   },
   {
     slug: 'shell',
-    title: 'Shell GT',
+    title: 'Shell',
+    image: '/projects/shell.webp',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'Website and raffle system with Guatemala localization.',
     technologies: ['Typescript', 'Angular', 'Storybook'],
@@ -63,19 +87,10 @@ const PROJECTS: readonly Project[] = [
     content: 'Website and raffle system for Shell featuring Guatemala localization.',
   },
   {
-    slug: 'toyota-totem',
-    title: 'Toyota Totem',
-    rol: 'collaborator',
-    description: 'Totem advertising module for Toyota.',
-    technologies: ['Typescript', 'Next.js', 'Storybook'],
-    products: ['Website'],
-    modules: ['Totem ads'],
-    link: 'https://toyota.com.co',
-    content: 'Totem advertising module developed for Toyota.',
-  },
-  {
     slug: 'mars',
     title: 'Mars',
+    image: '/projects/mars.svg',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'E-commerce project for Mars.',
     technologies: ['Typescript', 'Next.js', 'Storybook'],
@@ -86,6 +101,8 @@ const PROJECTS: readonly Project[] = [
   {
     slug: 'castrol',
     title: 'Castrol',
+    image: '/projects/castrol.svg',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'E-commerce project for Castrol.',
     technologies: ['Typescript', 'Next.js', 'Storybook'],
@@ -96,6 +113,8 @@ const PROJECTS: readonly Project[] = [
   {
     slug: 'bancolombia',
     title: 'Bancolombia',
+    image: '/projects/bancolombia.svg',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'Email development for Bancolombia.',
     technologies: ['HTML', 'CSS'],
@@ -106,6 +125,8 @@ const PROJECTS: readonly Project[] = [
   {
     slug: 'rappi-colombia',
     title: 'Rappi',
+    image: '/projects/rappi.svg',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'Digital modules developed for Rappi Colombia.',
     technologies: ['Typescript', 'Next.js', 'Storybook'],
@@ -114,48 +135,10 @@ const PROJECTS: readonly Project[] = [
     content: 'A collection of digital modules developed for Rappi Colombia.',
   },
   {
-    slug: 'rappi-redencion',
-    title: 'Rappi Redención',
-    rol: 'collaborator',
-    description: 'Redención module developed for Rappi.',
-    technologies: ['Typescript', 'Next.js', 'Storybook'],
-    modules: ['Redención'],
-    link: 'https://www.rappi.com.co',
-    content: 'Redención module developed for Rappi.',
-  },
-  {
-    slug: 'rappi-defensoria',
-    title: 'Rappi Defensoría',
-    rol: 'collaborator',
-    description: 'Defensoría module developed for Rappi.',
-    technologies: ['Typescript', 'Next.js', 'Storybook'],
-    modules: ['Defensoría'],
-    link: 'https://www.rappi.com.co',
-    content: 'Defensoría module developed for Rappi.',
-  },
-  {
-    slug: 'rappi-mochilas',
-    title: 'Rappi Mochilas',
-    rol: 'collaborator',
-    description: 'Mochilas module developed for Rappi.',
-    technologies: ['Typescript', 'Next.js', 'Storybook'],
-    modules: ['Mochilas'],
-    link: 'https://www.rappi.com.co',
-    content: 'Mochilas module developed for Rappi.',
-  },
-  {
-    slug: 'blog-rappitenderos',
-    title: 'Blog Rappitenderos',
-    rol: 'collaborator',
-    description: 'Blog Rappitendero module developed for Rappi.',
-    technologies: ['Typescript', 'Next.js', 'Storybook'],
-    modules: ['Blog Rappitendero'],
-    link: 'https://www.rappi.com.co',
-    content: 'Blog Rappitendero module developed for Rappi.',
-  },
-  {
     slug: 'colombina',
     title: 'Colombina',
+    image: '/projects/colombina.svg',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'Website project for Colombina.',
     technologies: ['HTML', 'CSS', 'Javascript'],
@@ -166,6 +149,8 @@ const PROJECTS: readonly Project[] = [
   {
     slug: 'grupo-diana',
     title: 'Grupo Diana',
+    image: '/projects/grupo-diana.jpeg',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'E-commerce project for Grupo Diana.',
     technologies: ['Typescript', 'Angular', 'Storybook'],
@@ -176,6 +161,8 @@ const PROJECTS: readonly Project[] = [
   {
     slug: 'wompi',
     title: 'Wompi',
+    image: '/projects/wompi.png',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'Website project for Wompi.',
     technologies: ['Typescript', 'Angular', 'Storybook'],
@@ -186,6 +173,8 @@ const PROJECTS: readonly Project[] = [
   {
     slug: 'banistmo',
     title: 'Banistmo',
+    image: '/projects/banistmo.svg',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'Email development for Banistmo.',
     technologies: ['HTML', 'CSS'],
@@ -196,6 +185,8 @@ const PROJECTS: readonly Project[] = [
   {
     slug: 'grupo-alen',
     title: 'Grupo Alen',
+    image: '/projects/grupo-alen.png',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'E-commerce project for Grupo Alen.',
     technologies: ['Typescript', 'Next.js', 'Storybook'],
@@ -206,6 +197,8 @@ const PROJECTS: readonly Project[] = [
   {
     slug: 'comfaboy',
     title: 'Comfaboy',
+    image: '/projects/comfaboy.svg',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'Website project for Comfaboy.',
     technologies: ['Typescript', 'Next.js', 'Storybook'],
@@ -215,7 +208,9 @@ const PROJECTS: readonly Project[] = [
   },
   {
     slug: 'grupo-uno',
-    title: 'Grupo Uno Nicaragua',
+    title: 'Grupo Uno',
+    image: '/projects/grupo-uno.png',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'Website with Nicaragua localization.',
     technologies: ['Typescript', 'Angular', 'Storybook'],
@@ -224,18 +219,10 @@ const PROJECTS: readonly Project[] = [
     content: 'Website project for Grupo Uno featuring Nicaragua localization.',
   },
   {
-    slug: 'grupo-uno-honduras',
-    title: 'Grupo Uno Honduras',
-    rol: 'collaborator',
-    description: 'Website with Honduras localization.',
-    technologies: ['Typescript', 'Angular', 'Storybook'],
-    products: ['Website'],
-    modules: ['Honduras localization'],
-    content: 'Website project for Grupo Uno featuring Honduras localization.',
-  },
-  {
     slug: 'expovinos-2021',
     title: 'Expovinos 2021',
+    image: '/projects/expovinos.png',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'Website project for Expovinos 2021.',
     technologies: ['Typescript', 'Angular', 'Storybook'],
@@ -246,6 +233,8 @@ const PROJECTS: readonly Project[] = [
   {
     slug: 'foodbox',
     title: 'Foodbox',
+    image: '/projects/foodbox.png',
+    imageBackgroundColor: '#FBA2CA',
     rol: 'collaborator',
     description: 'E-commerce project for Foodbox.',
     technologies: ['Typescript', 'Next.js', 'Storybook'],
@@ -255,7 +244,9 @@ const PROJECTS: readonly Project[] = [
   },
   {
     slug: 'chillibeans',
-    title: 'Chillibean',
+    title: 'Chillibeans',
+    image: '/projects/chillibeans.svg',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'E-commerce project for Chillibean.',
     technologies: ['Typescript', 'Next.js', 'Storybook'],
@@ -265,7 +256,9 @@ const PROJECTS: readonly Project[] = [
   },
   {
     slug: 'alpina',
-    title: 'Alpina Quinquenios',
+    title: 'Alpina',
+    image: '/projects/alpina.png',
+    imageBackgroundColor: '#0152D1',
     rol: 'collaborator',
     description: 'Quinquenios event landing page for Alpina.',
     technologies: ['Typescript', 'Angular', 'Storybook'],
@@ -277,6 +270,8 @@ const PROJECTS: readonly Project[] = [
   {
     slug: 'ultra1plus',
     title: 'Ultra1Plus',
+    image: '/projects/ultra1plus.png',
+    imageBackgroundColor: '#000000',
     rol: 'collaborator',
     description: 'E-commerce project for Ultra1Plus.',
     technologies: ['Typescript', 'Next.js', 'Storybook'],
@@ -287,6 +282,8 @@ const PROJECTS: readonly Project[] = [
   {
     slug: 'dojo',
     title: 'Dojo',
+    image: '/projects/dojo.svg',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'Website and e-commerce project for Dojo.',
     technologies: ['Webflow'],
@@ -297,6 +294,8 @@ const PROJECTS: readonly Project[] = [
   {
     slug: 'highpeak',
     title: 'Highpeak',
+    image: '/projects/highpeak.svg',
+    imageBackgroundColor: '#000000',
     rol: 'collaborator',
     description: 'Website project for Highpeak.',
     technologies: ['Typescript', 'Angular', 'Storybook'],
@@ -306,6 +305,8 @@ const PROJECTS: readonly Project[] = [
   {
     slug: 'grateful',
     title: 'Grateful',
+    image: '/projects/grateful.svg',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'Web application with a movie character archetype recommendation system.',
     technologies: ['Typescript', 'Angular', 'Storybook'],
@@ -316,7 +317,9 @@ const PROJECTS: readonly Project[] = [
   },
   {
     slug: 'especialistas-en-casa',
+    image: '/projects/especialistas-en-casa.png',
     title: 'Especialistas En Casa',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'Website project for Especialistas En Casa.',
     technologies: ['Typescript', 'Angular', 'Storybook'],
@@ -326,7 +329,9 @@ const PROJECTS: readonly Project[] = [
   },
   {
     slug: 'q-buen-plan',
+    image: '/projects/qbuenplan.png',
     title: 'Q Buen Plan',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'Website with a travel agency system.',
     technologies: ['Typescript', 'Angular', 'Storybook'],
@@ -337,7 +342,9 @@ const PROJECTS: readonly Project[] = [
   },
   {
     slug: 'geekboss',
+    image: '/projects/geekboss.png',
     title: 'Geekboss',
+    imageBackgroundColor: '#000000',
     rol: 'collaborator',
     description: 'Website project for Geekboss.',
     technologies: ['Webflow'],
@@ -347,7 +354,9 @@ const PROJECTS: readonly Project[] = [
   },
   {
     slug: 'dra-skin',
+    image: '/projects/dra-skin.svg',
     title: 'Dra Skin',
+    imageBackgroundColor: '#000000',
     rol: 'collaborator',
     description: 'Website and e-commerce project for Dra Skin.',
     technologies: ['Webflow'],
@@ -356,8 +365,22 @@ const PROJECTS: readonly Project[] = [
     content: 'Website and e-commerce project for Dra Skin.',
   },
   {
+    slug: 'cimonamia',
+    image: '/projects/cimonamia.png',
+    title: 'Cimonamia',
+    imageBackgroundColor: '#ffffff',
+    rol: 'collaborator',
+    description: 'Website and e-commerce project for Cimonamia.',
+    technologies: ['Webflow'],
+    products: ['Website', 'E-commerce'],
+    link: 'https://www.cimonamia.com',
+    content: 'Website and e-commerce project for Cimonamia.',
+  },
+  {
     slug: 'planetife',
+    image: '/projects/planetife.svg',
     title: 'Planetife',
+    imageBackgroundColor: '#0F4D69',
     rol: 'collaborator',
     description: 'Website project for Planetife.',
     technologies: ['Typescript', 'Angular', 'Storybook'],
@@ -367,7 +390,9 @@ const PROJECTS: readonly Project[] = [
   },
   {
     slug: 'destiny',
+    image: '/projects/destiny.png',
     title: 'Destiny Website',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'Website project for Destiny.',
     technologies: ['Typescript', 'Angular', 'Storybook'],
@@ -377,7 +402,9 @@ const PROJECTS: readonly Project[] = [
   },
   {
     slug: 'dosmass',
+    image: '/projects/dosmass.svg',
     title: 'Dosmass',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'Website project for Dosmass.',
     technologies: ['Webflow'],
@@ -387,7 +414,9 @@ const PROJECTS: readonly Project[] = [
   },
   {
     slug: 'adresles',
+    image: '/projects/adresles.png',
     title: 'Adresles',
+    imageBackgroundColor: '#000000',
     rol: 'collaborator',
     description: 'Website project for Adresles.',
     technologies: ['Typescript', 'Angular', 'Storybook'],
@@ -397,21 +426,14 @@ const PROJECTS: readonly Project[] = [
   },
   {
     slug: 'm374',
-    title: 'M374 Meta',
+    image: '/projects/m374.svg',
+    title: 'M374',
+    imageBackgroundColor: '#ffffff',
     rol: 'collaborator',
     description: 'Renting virtual spaces in the metaverse.',
     technologies: ['Typescript', 'Angular', 'Storybook'],
     products: ['Website'],
     content: 'Renting virtual spaces in the metaverse.',
-  },
-  {
-    slug: 'agro-platform',
-    title: 'Agro Platform',
-    rol: 'collaborator',
-    description: 'Agro Platform project.',
-    technologies: [],
-    products: ['Web Application'],
-    content: 'Agro Platform project.',
   },
 ];
 

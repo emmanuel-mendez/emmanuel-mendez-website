@@ -67,22 +67,27 @@
     </div>
     <ng-template #projectTemplate let-project>
       <a class="projects__card" [routerLink]="['/projects', project.slug]">
-        <div class="projects__card-image-container">
+        <div
+          class="projects__card-image-container"
+          [style.backgroundColor]="project.imageBackgroundColor"
+        >
           <img class="projects__card-image" [src]="project.image" [alt]="project.title" />
         </div>
-        <div class="projects__card-header">
-          <h2 class="projects__card-title">{{ project.title }}</h2>
-        </div>
-        <p class="projects__card-description">{{ project.description }}</p>
-        <p class="projects__card-role">{{ project.rol }}</p>
-        @if (project.year !== undefined) {
-          <p class="projects__card-year">{{ project.year }}</p>
-        }
-        <ul class="projects__card-tags">
-          @for (tech of project.technologies; track tech) {
-            <li class="projects__card-tag">{{ tech }}</li>
+        <div class="projects__card-body">
+          <div class="projects__card-header">
+            <h2 class="projects__card-title">{{ project.title }}</h2>
+          </div>
+          <p class="projects__card-description">{{ project.description }}</p>
+          <p class="projects__card-role">{{ project.rol }}</p>
+          @if (project.year !== undefined) {
+            <p class="projects__card-year">{{ project.year }}</p>
           }
-        </ul>
+          <ul class="projects__card-tags">
+            @for (tech of project.technologies; track tech) {
+              <li class="projects__card-tag">{{ tech }}</li>
+            }
+          </ul>
+        </div>
       </a>
     </ng-template>
   </section>

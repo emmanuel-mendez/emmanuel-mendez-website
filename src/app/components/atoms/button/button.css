@@ -5,7 +5,6 @@
 .button {
   display: inline-flex;
   width: 100%;
-
   align-items: center;
   justify-content: center;
   gap: 0.25rem;
@@ -47,6 +46,7 @@
 }
 
 .button--plain {
+  min-width: unset;
   padding: 0;
   border: 0;
   color: inherit;
