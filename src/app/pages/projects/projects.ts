@@ -8,8 +8,6 @@ import { Project, ProjectsData } from '@services/projects/projects-data';
 
 type ProjectSort =
   | 'Relevance'
-  | 'Alphabetically'
-  | 'Year'
   | 'Title (A–Z)'
   | 'Title (Z–A)'
   | 'Year (newest first)'
@@ -70,8 +68,6 @@ export class Projects {
   public readonly projects = this.projectsData.projects;
   public readonly sortProperties: readonly ProjectSort[] = [
     'Relevance',
-    'Alphabetically',
-    'Year',
     'Title (A–Z)',
     'Title (Z–A)',
     'Year (newest first)',
@@ -110,7 +106,7 @@ export class Projects {
       }
 
       const sortProperty = this.sort();
-      if (sortProperty === 'Alphabetically' || sortProperty === 'Title (A–Z)') {
+      if (sortProperty === 'Title (A–Z)') {
         return titleOrder(first, second);
       }
 
@@ -118,7 +114,7 @@ export class Projects {
         return titleOrder(second, first);
       }
 
-      if (sortProperty === 'Year' || sortProperty === 'Year (newest first)') {
+      if (sortProperty === 'Year (newest first)') {
         return (second.year ?? 0) - (first.year ?? 0) || titleOrder(first, second);
       }
 

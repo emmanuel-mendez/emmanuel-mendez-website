@@ -28,11 +28,6 @@
     gap: 0.5rem;
   }
 
-  .filter__title {
-    margin: 0;
-    font-size: var(--medium);
-  }
-
   .filter__sort-label {
     font-size: var(--extra-small);
     font-weight: 600;

@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
@@ -6,17 +7,22 @@ import { Pagination } from './pagination';
 type PaginationItem = Readonly<{ name: string }>;
 
 @Component({
-  imports: [Pagination],
+  imports: [Pagination, NgTemplateOutlet],
   template: `
     <app-pagination
       [items]="items"
       [itemTemplate]="itemTemplate"
+      [containerTemplate]="containerTemplate"
       [itemsPerPage]="itemsPerPage"
       [currentPage]="currentPage"
       [showPageControls]="showPageControls"
       (pageChange)="currentPage = $event"
-      [buttonLabel]="buttonLabel"
     />
+    <ng-template #containerTemplate let-itemsContent>
+      <div class="pagination-test__wrapper">
+        <ng-container [ngTemplateOutlet]="itemsContent" />
+      </div>
+    </ng-template>
     <ng-template #itemTemplate let-item>
       <p class="pagination-test__item">{{ item.name }}</p>
     </ng-template>
@@ -27,7 +33,6 @@ class PaginationTestHost {
   public itemsPerPage = 1;
   public currentPage = 1;
   public showPageControls = false;
-  public buttonLabel = 'See more';
 }
 
 describe('Pagination', () => {
@@ -43,18 +48,14 @@ describe('Pagination', () => {
     fixture.detectChanges();
   });
 
-  it('should render only the configured number of items and show the button when more remain', () => {
+  it('should render only the configured number of items without owning a more button', () => {
     expect(fixture.nativeElement.querySelectorAll('.pagination-test__item').length).toBe(1);
-    const link = fixture.nativeElement.querySelector('app-button a');
-    expect(link.textContent.trim()).toBe('See more');
-    expect(link.getAttribute('href')).toBe('/projects');
-  });
-
-  it('should reflect a dynamic button label', () => {
-    fixture.componentInstance.buttonLabel = 'View all';
-    fixture.detectChanges();
-
-    expect(fixture.nativeElement.querySelector('app-button a').textContent.trim()).toBe('View all');
+    expect(
+      fixture.nativeElement
+        .querySelector('.pagination-test__item')
+        .parentElement.classList.contains('pagination-test__wrapper'),
+    ).toBe(true);
+    expect(fixture.nativeElement.querySelector('app-button')).toBeNull();
   });
 
   it('should hide the button when all items fit', () => {

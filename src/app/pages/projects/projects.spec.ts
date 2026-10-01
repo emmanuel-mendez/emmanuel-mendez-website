@@ -114,8 +114,6 @@ describe('Projects', () => {
 
     expect(options).toEqual([
       'Relevance',
-      'Alphabetically',
-      'Year',
       'Title (A–Z)',
       'Title (Z–A)',
       'Year (newest first)',
