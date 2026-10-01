@@ -97,31 +97,6 @@
       color 0.2s ease;
   }
 
-  .projects__sorting {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin: 1rem 0;
-  }
-
-  .projects__sorting-label {
-    font-size: var(--extra-small);
-    font-weight: 600;
-  }
-
-  .projects__sort-select {
-    min-width: 12rem;
-    padding: 0.5rem 2rem 0.5rem 0.75rem;
-    border: 1px solid light-dark(var(--primary-25), var(--analogous--primary-50));
-    border-radius: 0.375rem;
-    background-color: light-dark(var(--white), var(--monochromatic--dark-deep));
-    color: light-dark(var(--black), var(--white));
-    cursor: pointer;
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease;
-  }
-
   .projects__grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -184,6 +159,21 @@
     opacity: 0.75;
   }
 
+  .projects__card-role {
+    align-self: flex-start;
+    margin: 0;
+    padding: 0.25rem 0.625rem;
+    border-radius: 0.25rem;
+    background-color: light-dark(var(--analogous--primary), var(--analogous--secondary-50));
+    color: var(--white);
+    font-size: var(--extra-extra-small);
+    font-weight: 500;
+    text-transform: capitalize;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+
   .projects__empty {
     grid-column: 1 / -1;
     margin: 0;
@@ -231,6 +221,10 @@
       gap: 1.5rem;
     }
 
+    .projects__results {
+      min-width: 0;
+    }
+
     .projects__filter-panel,
     .projects__filter-panel--open {
       position: static;
@@ -243,10 +237,6 @@
       color: inherit;
       box-shadow: none;
       transform: none;
-    }
-
-    .projects__results {
-      min-width: 0;
     }
 
     .projects__grid {

@@ -37,6 +37,24 @@ describe('Filter', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should default the sorting property to Relevance', () => {
+    expect(component.sortProperties()).toEqual(['Relevance']);
+    expect(component.sortProperty()).toBe('Relevance');
+    expect(fixture.nativeElement.querySelector('.filter__sort').value).toBe('Relevance');
+  });
+
+  it('should emit the selected sorting property', () => {
+    const sortPropertyChange = vi.spyOn(component.sortPropertyChange, 'emit');
+    fixture.componentRef.setInput('sortProperties', ['Relevance', 'Alphabetically']);
+    fixture.detectChanges();
+
+    const select = fixture.nativeElement.querySelector('.filter__sort') as HTMLSelectElement;
+    select.value = 'Alphabetically';
+    select.dispatchEvent(new Event('change'));
+
+    expect(sortPropertyChange).toHaveBeenCalledWith('Alphabetically');
+  });
+
   it('should filter array values and intersect selections from different categories', () => {
     component.toggleProperty(categories[0], 'Angular');
     component.toggleProperty(categories[1], '2025');

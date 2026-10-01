@@ -27,6 +27,7 @@ describe('Banner', () => {
     const titleElement = element.querySelector('.banner__title') as HTMLElement | null;
     const descriptionElement = element.querySelector('.banner__description') as HTMLElement | null;
     const titleLines = Array.from(element.querySelectorAll('.banner__title-line')) as HTMLElement[];
+    const actions = Array.from(element.querySelectorAll('app-button'));
 
     expect(titleElement).toBeTruthy();
     expect(titleLines).toHaveLength(2);
@@ -35,5 +36,8 @@ describe('Banner', () => {
     expect(descriptionElement?.textContent?.trim()).toBe(
       '5+ years building high-performance web apps.',
     );
+    expect(actions).toHaveLength(2);
+    expect(actions[0]?.querySelector('a')?.textContent?.trim()).toBe('View projects');
+    expect(actions[1]?.querySelector('button')?.textContent?.trim()).toBe('Contact me');
   });
 });

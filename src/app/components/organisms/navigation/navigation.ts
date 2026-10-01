@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { ResponsiveIncludes } from '@pipes/responsive/includes/includes';
 import { Devices, Responsive } from '@services/responsive/responsive';
 import { ThemePicker } from '@components/atoms/theme-picker/theme-picker/theme-picker';
+import { Button } from '@components/atoms/button/button';
 
 type NavigationItem = {
   readonly href: string;
@@ -10,7 +11,7 @@ type NavigationItem = {
 
 @Component({
   selector: 'app-navigation',
-  imports: [ResponsiveIncludes, ThemePicker],
+  imports: [Button, ResponsiveIncludes, ThemePicker],
   templateUrl: './navigation.html',
   styleUrl: './navigation.css',
 })
