@@ -36,6 +36,13 @@ describe('Button', () => {
     expect(button?.classList.contains('button--primary')).toBe(true);
   });
 
+  it('should render a small button when requested', () => {
+    fixture.componentRef.setInput('size', 'small');
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('button')?.classList).toContain('button--small');
+  });
+
   it('should render a router link when a route is provided', () => {
     fixture.componentRef.setInput('routerLink', ['/projects']);
     fixture.detectChanges();

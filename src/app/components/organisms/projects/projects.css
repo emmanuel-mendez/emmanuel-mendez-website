@@ -24,8 +24,6 @@
   }
 
   .projects__more {
-    --button-font-size: var(--small);
-    --button-padding: 0.375rem 0.75rem;
     width: fit-content;
     margin-top: 1.5rem;
     justify-self: start;

@@ -2,6 +2,7 @@ import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 export type ButtonAppearance = 'primary' | 'secondary' | 'plain';
+export type ButtonSize = 'default' | 'small';
 export type ButtonType = 'button' | 'submit' | 'reset';
 
 @Component({
@@ -12,6 +13,7 @@ export type ButtonType = 'button' | 'submit' | 'reset';
 })
 export class Button {
   public readonly appearance = input<ButtonAppearance>('primary');
+  public readonly size = input<ButtonSize>('default');
   public readonly routerLink = input<string | string[] | null>(null);
   public readonly route = input<readonly string[] | null>(null);
   public readonly href = input<string | null>(null);
