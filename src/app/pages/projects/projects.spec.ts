@@ -128,8 +128,15 @@ describe('Projects', () => {
     const yearLabels = fixture.nativeElement.querySelectorAll('.projects__card-year');
 
     expect(firstCard.querySelector('.projects__card-role')?.textContent.trim()).toBe('owner');
+    expect(
+      firstCard
+        .querySelector('.projects__card-image-container')
+        ?.contains(firstCard.querySelector('.projects__card-role')),
+    ).toBe(true);
     expect(yearLabels.length).toBe(3);
     expect(cards[2].querySelector('.projects__card-role')?.textContent.trim()).toBe('collaborator');
+    expect(firstCard.querySelector('.projects__card-role--owner')).not.toBeNull();
+    expect(cards[2].querySelector('.projects__card-role--collaborator')).not.toBeNull();
   });
 
   it('should display six projects per page and navigate between pages', () => {

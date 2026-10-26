@@ -72,13 +72,19 @@
           [style.backgroundColor]="project.imageBackgroundColor"
         >
           <img class="projects__card-image" [src]="project.image" [alt]="project.title" />
+          <p
+            class="projects__card-role"
+            [class.projects__card-role--owner]="project.rol === 'owner'"
+            [class.projects__card-role--collaborator]="project.rol !== 'owner'"
+          >
+            {{ project.rol }}
+          </p>
         </div>
         <div class="projects__card-body">
           <div class="projects__card-header">
             <h2 class="projects__card-title">{{ project.title }}</h2>
           </div>
           <p class="projects__card-description">{{ project.description }}</p>
-          <p class="projects__card-role">{{ project.rol }}</p>
           @if (project.year !== undefined) {
             <p class="projects__card-year">{{ project.year }}</p>
           }
