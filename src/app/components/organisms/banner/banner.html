@@ -16,5 +16,39 @@
     </div>
   </section>
 
-  <app-featured-project [project]="featuredProject"></app-featured-project>
+  <div class="banner__carousel-container">
+    @if (isCarouselRendered()) {
+      <owl-carousel-o
+        #featuredProjectsCarousel
+        class="banner__carousel"
+        [options]="carouselOptions"
+        (initialized)="onCarouselInitialized(featuredProjectsCarousel)"
+        (change)="onCarouselChange()"
+      >
+        @for (project of featuredProjects; track $index) {
+          <ng-template carouselSlide>
+            <app-featured-project [project]="project"></app-featured-project>
+          </ng-template>
+        }
+      </owl-carousel-o>
+      <nav class="banner__carousel-controls" aria-label="Featured projects">
+        <button
+          class="banner__carousel-control"
+          type="button"
+          aria-label="Previous featured project"
+          (click)="featuredProjectsCarousel.prev()"
+        >
+          <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+        </button>
+        <button
+          class="banner__carousel-control"
+          type="button"
+          aria-label="Next featured project"
+          (click)="featuredProjectsCarousel.next()"
+        >
+          <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+        </button>
+      </nav>
+    }
+  </div>
 </main>
