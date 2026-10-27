@@ -161,7 +161,19 @@
   }
 
   .project-detail__action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
     font-size: var(--extra-small);
+    font-weight: 500;
+    color: light-dark(var(--primary), var(--analogous--primary));
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .project-detail__action:focus-visible {
+    outline: 2px solid light-dark(var(--primary), var(--analogous--primary));
+    outline-offset: 2px;
   }
 
   .project-detail__action-icon {

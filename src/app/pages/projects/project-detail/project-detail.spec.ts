@@ -61,7 +61,7 @@ describe('ProjectDetail', () => {
       'Modules',
       'Responsibilities',
     ]);
-    expect(component.actions().map((action) => action.label)).toEqual(['Live Demo', 'Source Code']);
+    expect(component.actions().map((action) => action.label)).toEqual(['Details', 'Source']);
   });
 
   it('should render the redesigned project detail sections and secure actions', () => {
@@ -82,8 +82,7 @@ describe('ProjectDetail', () => {
       'Technology stack',
     );
 
-    const links: NodeListOf<HTMLAnchorElement> =
-      element.querySelectorAll('app-button.project-detail__action a');
+    const links: NodeListOf<HTMLAnchorElement> = element.querySelectorAll('a.project-detail__action');
 
     expect(links).toHaveLength(2);
     links.forEach((link) => {

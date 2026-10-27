@@ -49,19 +49,18 @@
           @if (actions().length) {
             <div class="project-detail__actions" role="group" aria-label="Project links">
               @for (action of actions(); track action.label) {
-                <app-button
+                <a
                   class="project-detail__action"
-                  appearance="secondary"
                   [href]="action.href"
                   [aria-label]="action.ariaLabel"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span class="material-symbols-outlined project-detail__action-icon">
+                  <span class="material-symbols-outlined project-detail__action-icon" aria-hidden="true">
                     {{ action.icon }}
                   </span>
                   {{ action.label }}
-                </app-button>
+                </a>
               }
             </div>
           }

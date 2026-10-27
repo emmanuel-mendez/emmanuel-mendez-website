@@ -5,7 +5,6 @@ import { map } from 'rxjs';
 import { Layout } from '@components/templates/layout/layout';
 import { Page } from '@services/page/page';
 import { Project, ProjectRole, ProjectsData } from '@services/projects/projects-data';
-import { Button } from '@components/atoms/button/button';
 
 type ProjectDetailFact = Readonly<{
   label: string;
@@ -33,7 +32,7 @@ const ROLE_LABELS: Readonly<Record<ProjectRole, string>> = {
 @Component({
   selector: 'app-project-detail',
   standalone: true,
-  imports: [Button, Layout, RouterLink],
+  imports: [Layout, RouterLink],
   templateUrl: './project-detail.html',
   styleUrl: './project-detail.css',
 })
@@ -104,17 +103,17 @@ export class ProjectDetail {
       ...(currentProject.link
         ? [
             {
-              label: 'Live Demo',
+              label: 'Details',
               href: currentProject.link,
               icon: 'open_in_new',
-              ariaLabel: `Open live demo for ${currentProject.title}`,
+              ariaLabel: `Open details for ${currentProject.title}`,
             },
           ]
         : []),
       ...(currentProject.sourceCode
         ? [
             {
-              label: 'Source Code',
+              label: 'Source',
               href: currentProject.sourceCode,
               icon: 'code',
               ariaLabel: `Open source code for ${currentProject.title}`,
