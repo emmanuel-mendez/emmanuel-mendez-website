@@ -1,34 +1,36 @@
 <nav class="navigation" aria-label="Primary navigation">
   @if (responsive.device() | includes: [breakpoints.DESKTOP]) {
-    <ul class="navigation__list" aria-label="Primary navigation links">
-      @for (item of navigationItems; track item.href) {
-        @if (!item.href.startsWith('#')) {
-          <li class="navigation__item">
-            <a
-              class="navigation__link"
-              [class.navigation__link--active]="isCurrentRoute(item.href)"
-              [attr.aria-current]="isCurrentRoute(item.href) ? 'page' : null"
-              [href]="item.href"
-              >{{ item.label }}</a
-            >
-          </li>
+    <div>
+      <ul class="navigation__list" aria-label="Primary navigation links">
+        @for (item of navigationItems; track item.href) {
+          @if (!item.href.startsWith('#')) {
+            <li class="navigation__item">
+              <a
+                class="navigation__link"
+                [class.navigation__link--active]="isCurrentRoute(item.href)"
+                [attr.aria-current]="isCurrentRoute(item.href) ? 'page' : null"
+                [href]="item.href"
+                >{{ item.label }}</a
+              >
+            </li>
+          }
         }
-      }
-    </ul>
-    <ul class="navigation__section-list" aria-label="Home section links">
-      @for (item of navigationItems; track item.href) {
-        @if (item.href.startsWith('#')) {
-          <li class="navigation__item">
-            <a
-              class="navigation__link navigation__link--section"
-              [href]="item.href"
-              (click)="onNavigationLinkClick($event, item.href)"
-              >{{ item.label }}</a
-            >
-          </li>
+      </ul>
+      <ul class="navigation__section-list" aria-label="Home section links">
+        @for (item of navigationItems; track item.href) {
+          @if (item.href.startsWith('#')) {
+            <li class="navigation__item">
+              <a
+                class="navigation__link navigation__link--section"
+                [href]="item.href"
+                (click)="onNavigationLinkClick($event, item.href)"
+                >{{ item.label }}</a
+              >
+            </li>
+          }
         }
-      }
-    </ul>
+      </ul>
+    </div>
     <div class="navigation__theme-picker">
       <app-theme-picker />
     </div>
