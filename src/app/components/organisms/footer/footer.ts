@@ -1,6 +1,14 @@
-import { Component, inject, computed, signal, afterNextRender, DestroyRef } from '@angular/core';
-import { Responsive, Devices } from '@services/responsive/responsive';
-import { Theme } from '@services/theme/theme';
+import { Component } from '@angular/core';
+
+type FooterSocialLink = {
+  readonly label: string;
+  readonly href: string;
+};
+
+type FooterInfoItem = {
+  readonly icon: 'work' | 'location_on' | 'calendar_month';
+  readonly text: string;
+};
 
 @Component({
   selector: 'app-footer',
@@ -9,23 +17,16 @@ import { Theme } from '@services/theme/theme';
   styleUrl: './footer.css',
 })
 export class Footer {
-  private readonly responsive = inject(Responsive);
-  private readonly destroyRef = inject(DestroyRef);
-  public readonly theme = inject(Theme);
-  private readonly systemDark = signal(false);
+  public readonly currentYear: number = new Date().getFullYear();
 
-  constructor() {
-    afterNextRender(() => {
-      if (typeof window.matchMedia !== 'function') return;
-      const mq = window.matchMedia('(prefers-color-scheme: dark)');
-      this.systemDark.set(mq.matches);
-      const onChange = (e: MediaQueryListEvent) => this.systemDark.set(e.matches);
-      mq.addEventListener('change', onChange);
-      this.destroyRef.onDestroy(() => mq.removeEventListener('change', onChange));
-    });
-  }
+  public readonly socialLinks: readonly FooterSocialLink[] = [
+    { label: 'GitHub', href: 'https://github.com/emmanuel-mendez' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/emmanuelmendezweb' },
+  ];
 
-  public readonly isDesktop = computed((): boolean =>
-    this.responsive.device().includes(Devices.DESKTOP),
-  );
+  public readonly basicInfo: readonly FooterInfoItem[] = [
+    { icon: 'work', text: 'Computer Engineer · Frontend Developer' },
+    { icon: 'location_on', text: 'Based in Colombia · Open to remote work' },
+    { icon: 'calendar_month', text: '5+ years building web applications' },
+  ];
 }
