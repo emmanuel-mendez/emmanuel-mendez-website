@@ -95,11 +95,61 @@ const PROJECTS: readonly Project[] = [
     image: '/projects/astyimar-y-emmanuel.png',
     imageBackgroundColor: '#6d578f',
     rol: 'author',
-    description: 'Website for Astyimar y Emmanuel built with Astro featuring server-side rendering, responsive design, and light/dark theme switching.',
-    technologies: ['Astro', 'TypeScript', 'CSS'],
+    description:
+      'Wedding invitation website for Astyimar and Emmanuel, with event details and personalized guest pages.',
+    technologies: ['Astro', 'Preact', 'TypeScript', 'CSS', 'Cloudflare'],
     year: 2025,
+    timeline: 'May – November 2025',
+    scope:
+      'Wedding invitation platform with event information and personalized pages for guests.',
+    products: ['Website'],
+    modules: [
+      'Event details and itinerary',
+      'Personalized guest invitations',
+      'Table assignments',
+      'Gift information',
+    ],
+    responsibilities: [
+      'Building the wedding invitation experience with reusable Astro components.',
+      'Creating personalized guest pages from invitation and seating data.',
+      'Presenting event details, location, dress code, itinerary, and gift information.',
+      'Configuring the Astro site for deployment with the Cloudflare adapter.',
+    ],
+    highlights: [
+      {
+        metric: 'Invitation experience',
+        value: 'Personalized',
+        context: 'Guest-specific pages display invitation details and table assignments.',
+      },
+      {
+        metric: 'Event information',
+        value: 'One place',
+        context: 'The site brings together the date, location, dress code, itinerary, and gifts.',
+      },
+      {
+        metric: 'Page experience',
+        value: 'Responsive',
+        context: 'Reusable sections present the wedding information across screen sizes.',
+      },
+    ],
+    milestones: [
+      {
+        title: 'Invitation foundation',
+        detail: 'Built the shared landing page and reusable sections for wedding information.',
+      },
+      {
+        title: 'Guest personalization',
+        detail: 'Added guest-specific invitation pages with personalized details and table assignments.',
+      },
+      {
+        title: 'Deployment setup',
+        detail: 'Configured the Astro project with the Cloudflare adapter.',
+      },
+    ],
     link: 'https://astyimar-y-emmanuel.com',
-    content: 'Website for Astyimar y Emmanuel showcasing professional experience, skills, and projects. Built with Astro, it features server-side rendering for optimal SEO, responsive design with mobile-first approach, and light/dark theme support using CSS light-dark() function.',
+    sourceCode: 'https://github.com/emmanuel-mendez/astyimar-emmanuel-wedding',
+    content:
+      'A wedding invitation website for Astyimar and Emmanuel, featuring the event date, location, dress code, itinerary, and gift information. Personalized guest pages provide invitation details and table assignments. Built with Astro and Preact, with a Cloudflare adapter.',
   },
   {
     slug: 'toyota',
