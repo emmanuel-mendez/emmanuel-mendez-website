@@ -15,12 +15,16 @@
     <button
       class="pagination__control"
       type="button"
+      aria-label="Previous page"
       [disabled]="activePage() === 1"
       (click)="changePage(activePage() - 1)"
     >
-      Previous
+      <span class="material-symbols-outlined pagination__icon" aria-hidden="true">arrow_back</span>
     </button>
-    @for (page of pageNumbers(); track page) {
+    @for (page of pageNumbers(); track page; let index = $index) {
+      @if (index > 0 && page - pageNumbers()[index - 1] > 1) {
+        <span class="pagination__ellipsis" aria-hidden="true">...</span>
+      }
       <button
         class="pagination__control"
         type="button"
@@ -34,10 +38,13 @@
     <button
       class="pagination__control"
       type="button"
+      aria-label="Next page"
       [disabled]="activePage() === pageCount()"
       (click)="changePage(activePage() + 1)"
     >
-      Next
+      <span class="material-symbols-outlined pagination__icon" aria-hidden="true"
+        >arrow_forward</span
+      >
     </button>
   </nav>
 }

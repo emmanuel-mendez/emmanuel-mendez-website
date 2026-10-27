@@ -1,5 +1,5 @@
-import { NgTemplateOutlet } from '@angular/common';
-import { Component, TemplateRef, computed, input, output } from '@angular/core';
+import { DOCUMENT, NgTemplateOutlet } from '@angular/common';
+import { Component, TemplateRef, computed, effect, inject, input, output } from '@angular/core';
 
 type PaginationItemsTemplate = TemplateRef<unknown>;
 type PaginationContainerContext = { $implicit: PaginationItemsTemplate };
@@ -11,6 +11,9 @@ type PaginationContainerContext = { $implicit: PaginationItemsTemplate };
   styleUrl: './pagination.css',
 })
 export class Pagination<T> {
+  private readonly document = inject(DOCUMENT);
+  private previousPage: number | undefined;
+
   public readonly items = input.required<readonly T[]>();
   public readonly itemTemplate = input.required<TemplateRef<{ $implicit: T }>>();
   public readonly containerTemplate = input<TemplateRef<PaginationContainerContext> | null>(null);
@@ -25,14 +28,55 @@ export class Pagination<T> {
   public readonly activePage = computed(() =>
     Math.min(Math.max(1, this.currentPage()), this.pageCount()),
   );
-  public readonly pageNumbers = computed(() =>
-    Array.from({ length: this.pageCount() }, (_, index) => index + 1),
-  );
+  public readonly pageNumbers = computed(() => {
+    const activePage = this.activePage();
+    const lastPage = this.pageCount();
+    const visiblePages = new Set<number>([
+      1,
+      Math.max(1, activePage - 1),
+      activePage,
+      Math.min(lastPage, activePage + 1),
+      lastPage,
+    ]);
+
+    for (let distance = 2; visiblePages.size < Math.min(5, lastPage); distance += 1) {
+      const previousPage = activePage - distance;
+      const nextPage = activePage + distance;
+
+      if (previousPage > 1) {
+        visiblePages.add(previousPage);
+      }
+
+      if (visiblePages.size < Math.min(5, lastPage) && nextPage < lastPage) {
+        visiblePages.add(nextPage);
+      }
+    }
+
+    return [...visiblePages].sort((firstPage, secondPage) => firstPage - secondPage);
+  });
   public readonly visibleItems = computed(() => {
     const pageSize = Math.max(0, this.itemsPerPage());
     const start = this.showPageControls() ? (this.activePage() - 1) * pageSize : 0;
     return this.items().slice(start, start + pageSize);
   });
+
+  constructor() {
+    effect(() => {
+      const page = this.currentPage();
+      if (this.previousPage === undefined) {
+        this.previousPage = page;
+        return;
+      }
+
+      if (this.previousPage === page) {
+        return;
+      }
+
+      this.previousPage = page;
+      this.document.defaultView?.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
   public changePage(page: number): void {
     const nextPage = Math.min(Math.max(1, page), this.pageCount());
     if (nextPage === this.activePage()) {

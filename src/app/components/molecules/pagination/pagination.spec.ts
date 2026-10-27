@@ -29,7 +29,9 @@ type PaginationItem = Readonly<{ name: string }>;
   `,
 })
 class PaginationTestHost {
-  public readonly items: readonly PaginationItem[] = [{ name: 'First' }, { name: 'Second' }];
+  public readonly items: readonly PaginationItem[] = Array.from({ length: 8 }, (_, index) => ({
+    name: `Item ${index + 1}`,
+  }));
   public readonly itemsPerPage = signal(1);
   public readonly currentPage = signal(1);
   public readonly showPageControls = signal(false);
@@ -37,6 +39,10 @@ class PaginationTestHost {
 
 describe('Pagination', () => {
   let fixture: ComponentFixture<PaginationTestHost>;
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -67,6 +73,7 @@ describe('Pagination', () => {
   });
 
   it('should show the requested page and emit navigation changes', () => {
+    vi.spyOn(window, 'scrollTo').mockImplementation(() => undefined);
     fixture.componentInstance.showPageControls.set(true);
     fixture.detectChanges();
 
@@ -78,5 +85,76 @@ describe('Pagination', () => {
 
     expect(fixture.componentInstance.currentPage()).toBe(2);
     expect(fixture.nativeElement.querySelectorAll('.pagination-test__item')).toHaveLength(1);
+  });
+
+  it('should render accessible arrow icons for previous and next page controls', () => {
+    fixture.componentInstance.showPageControls.set(true);
+    fixture.detectChanges();
+
+    const previousButton: HTMLButtonElement = fixture.nativeElement.querySelector(
+      '.pagination__control[aria-label="Previous page"]',
+    );
+    const nextButton: HTMLButtonElement = fixture.nativeElement.querySelector(
+      '.pagination__control[aria-label="Next page"]',
+    );
+
+    expect(previousButton.querySelector('.material-symbols-outlined')?.textContent?.trim()).toBe(
+      'arrow_back',
+    );
+    expect(
+      previousButton.querySelector('.material-symbols-outlined')?.getAttribute('aria-hidden'),
+    ).toBe('true');
+    expect(previousButton.disabled).toBe(true);
+    expect(nextButton.querySelector('.material-symbols-outlined')?.textContent?.trim()).toBe(
+      'arrow_forward',
+    );
+    expect(
+      nextButton.querySelector('.material-symbols-outlined')?.getAttribute('aria-hidden'),
+    ).toBe('true');
+  });
+
+  it('should always show five pages including the first, adjacent, current, and last pages', () => {
+    fixture.componentInstance.showPageControls.set(true);
+    fixture.detectChanges();
+
+    const pageLabels = (): string[] =>
+      Array.from(
+        fixture.nativeElement.querySelectorAll('.pagination__control[aria-label^="Page "]'),
+        (button: HTMLButtonElement) => button.getAttribute('aria-label') ?? '',
+      );
+
+    expect(pageLabels()).toEqual(['Page 1', 'Page 2', 'Page 3', 'Page 4', 'Page 8']);
+    expect(fixture.nativeElement.querySelector('.pagination__ellipsis')).not.toBeNull();
+
+    fixture.componentInstance.currentPage.set(3);
+    fixture.detectChanges();
+
+    expect(pageLabels()).toEqual(['Page 1', 'Page 2', 'Page 3', 'Page 4', 'Page 8']);
+    expect(fixture.nativeElement.querySelector('.pagination__ellipsis')).not.toBeNull();
+
+    fixture.componentInstance.currentPage.set(7);
+    fixture.detectChanges();
+
+    expect(pageLabels()).toEqual(['Page 1', 'Page 5', 'Page 6', 'Page 7', 'Page 8']);
+    expect(fixture.nativeElement.querySelector('.pagination__ellipsis')).not.toBeNull();
+  });
+
+  it('should scroll to the top when the current page changes', () => {
+    const scrollToSpy = vi.spyOn(window, 'scrollTo').mockImplementation(() => undefined);
+
+    fixture.componentInstance.currentPage.set(2);
+    fixture.detectChanges();
+    expect(scrollToSpy).toHaveBeenCalledExactlyOnceWith({ top: 0, behavior: 'smooth' });
+    expect(scrollToSpy).toHaveBeenCalledExactlyOnceWith({ top: 0, behavior: 'smooth' });
+  });
+
+  it('should not scroll on initial render or when the current page stays the same', () => {
+    const scrollToSpy = vi.spyOn(window, 'scrollTo').mockImplementation(() => undefined);
+
+    fixture.detectChanges();
+    fixture.componentInstance.currentPage.set(1);
+    fixture.detectChanges();
+    expect(scrollToSpy).not.toHaveBeenCalled();
+    expect(scrollToSpy).not.toHaveBeenCalled();
   });
 });

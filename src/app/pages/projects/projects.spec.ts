@@ -75,7 +75,7 @@ describe('Projects', () => {
 
   it('should display six projects per page and navigate between pages', () => {
     expect(fixture.nativeElement.querySelectorAll('.projects__card')).toHaveLength(6);
-    expect(fixture.nativeElement.querySelectorAll('.pagination__control')).toHaveLength(8);
+    expect(fixture.nativeElement.querySelectorAll('.pagination__control')).toHaveLength(6);
 
     fixture.nativeElement.querySelector('.pagination__control:last-child').click();
     fixture.detectChanges();
