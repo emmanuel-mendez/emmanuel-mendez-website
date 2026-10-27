@@ -35,7 +35,6 @@ export class Navigation {
   public readonly mobileMenuId = 'navigation-mobile-menu';
 
   public readonly navigationItems: readonly NavigationItem[] = [
-    { href: '/projects', label: 'Projects' },
     { href: '#home-about', label: 'About' },
     { href: '#home-projects', label: 'Projects' },
     { href: '#home-experience', label: 'Experience' },
