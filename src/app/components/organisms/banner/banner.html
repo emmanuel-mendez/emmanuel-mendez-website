@@ -16,52 +16,5 @@
     </div>
   </section>
 
-  <section class="banner__featured-projects-swiper" aria-label="Featured projects swiper">
-    <div class="banner__featured-projects-swiper-viewport">
-      <div
-        class="banner__featured-projects-swiper-track"
-        [class.banner__featured-projects-swiper-track--without-transition]="!withTransition()"
-        [style.transform]="projectsTransform()"
-        (transitionend)="handleSlideTransitionEnd()"
-      >
-        @for (project of featuredProjectsSlides; track project.name + $index) {
-          <div class="banner__featured-projects-swiper-slide">
-            <app-featured-project [project]="project"></app-featured-project>
-          </div>
-        }
-      </div>
-    </div>
-
-    <div class="banner__featured-projects-swiper-controls">
-      <button
-        class="banner__featured-projects-swiper-button"
-        type="button"
-        aria-label="Show previous featured project"
-        (click)="showPreviousProject()"
-      >
-        <span class="material-symbols-outlined">chevron_left</span>
-      </button>
-      <div class="banner__featured-projects-swiper-pagination">
-        @for (project of featuredProjects; track project.name; let projectIndex = $index) {
-          <button
-            class="banner__featured-projects-swiper-bullet"
-            [class.banner__featured-projects-swiper-bullet--active]="
-              activeProjectIndex() === projectIndex
-            "
-            type="button"
-            [attr.aria-label]="'Show featured project: ' + project.name"
-            (click)="selectProject(projectIndex)"
-          ></button>
-        }
-      </div>
-      <button
-        class="banner__featured-projects-swiper-button"
-        type="button"
-        aria-label="Show next featured project"
-        (click)="showNextProject()"
-      >
-        <span class="material-symbols-outlined">chevron_right</span>
-      </button>
-    </div>
-  </section>
+  <app-featured-project [project]="featuredProject"></app-featured-project>
 </main>

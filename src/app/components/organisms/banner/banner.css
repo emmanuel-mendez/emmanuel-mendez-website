@@ -49,81 +49,6 @@
   gap: 1rem;
 }
 
-.banner__featured-projects-swiper {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  min-width: 0;
-}
-
-.banner__featured-projects-swiper-viewport {
-  overflow: hidden;
-  border-radius: 0.5rem;
-}
-
-.banner__featured-projects-swiper-track {
-  display: flex;
-  will-change: transform;
-  transition: transform 0.35s ease;
-}
-
-.banner__featured-projects-swiper-track--without-transition {
-  transition: none;
-}
-
-.banner__featured-projects-swiper-slide {
-  flex: 0 0 100%;
-  min-width: 0;
-}
-
-.banner__featured-projects-swiper-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.banner__featured-projects-swiper-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border: 1px solid light-dark(var(--analogous--secondary-75), var(--grey));
-  border-radius: 50%;
-  color: light-dark(var(--analogous--secondary-75), var(--grey));
-  background-color: transparent;
-  cursor: pointer;
-  transition:
-    color 0.2s ease,
-    background-color 0.2s ease;
-
-  &:hover {
-    color: var(--white);
-    background-color: var(--analogous--secondary-50);
-  }
-}
-
-.banner__featured-projects-swiper-pagination {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.banner__featured-projects-swiper-bullet {
-  width: 0.625rem;
-  height: 0.625rem;
-  border: 0;
-  border-radius: 50%;
-  background-color: light-dark(var(--analogous--secondary-25), var(--grey));
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.banner__featured-projects-swiper-bullet--active {
-  background-color: light-dark(var(--analogous--primary), var(--white));
-}
-
 @media (min-width: 375px) {
   .banner {
     padding: 3rem 2rem;
@@ -135,11 +60,6 @@
 
   .banner__actions {
     gap: 1.5rem;
-  }
-
-  .banner__featured-projects-swiper-button {
-    width: 3rem;
-    height: 3rem;
   }
 }
 
@@ -158,10 +78,6 @@
   .banner__title {
     font-size: var(--extra-extra-extra-large);
   }
-
-  .banner__featured-projects-swiper-controls {
-    justify-content: center;
-  }
 }
 
 @media (min-width: 1024px) {
@@ -170,10 +86,6 @@
     align-items: center;
     padding: 3.5rem 2rem;
     gap: 4rem;
-  }
-
-  .banner__featured-projects-swiper {
-    width: min(100%, 800px);
   }
 }
 
