@@ -21,7 +21,13 @@
       </app-button>
     </div>
   } @else {
-    <form class="contact__form" (ngSubmit)="onSubmit()" #contactForm="ngForm">
+    <form
+      class="contact__form"
+      #contactForm="ngForm"
+      novalidate
+      [attr.aria-busy]="status() === 'sending' ? 'true' : 'false'"
+      (ngSubmit)="onSubmit(contactForm)"
+    >
       <div class="contact__field">
         <label class="contact__label" for="contact-name">Name</label>
         <input
@@ -30,9 +36,27 @@
           type="text"
           name="name"
           [(ngModel)]="name"
+          #nameModel="ngModel"
           required
+          minlength="2"
+          maxlength="80"
+          autocomplete="name"
+          [attr.aria-invalid]="
+            nameModel.invalid && (nameModel.touched || contactForm.submitted) ? 'true' : 'false'
+          "
+          [attr.aria-describedby]="
+            nameModel.invalid && (nameModel.touched || contactForm.submitted)
+              ? 'contact-name-error'
+              : 'contact-name-hint'
+          "
           placeholder="Your full name"
         />
+        <p class="contact__hint" id="contact-name-hint">Use your full name.</p>
+        @if (nameModel.invalid && (nameModel.touched || contactForm.submitted)) {
+          <p class="contact__error" id="contact-name-error" role="alert">
+            Enter a valid name with at least 2 characters.
+          </p>
+        }
       </div>
 
       <div class="contact__field">
@@ -43,9 +67,29 @@
           type="email"
           name="email"
           [(ngModel)]="email"
+          #emailModel="ngModel"
           required
+          maxlength="120"
+          autocomplete="email"
+          inputmode="email"
+          [attr.aria-invalid]="
+            emailModel.invalid && (emailModel.touched || contactForm.submitted) ? 'true' : 'false'
+          "
+          [attr.aria-describedby]="
+            emailModel.invalid && (emailModel.touched || contactForm.submitted)
+              ? 'contact-email-error'
+              : 'contact-email-hint'
+          "
           placeholder="you@example.com"
         />
+        <p class="contact__hint" id="contact-email-hint">
+          Use an email address you check frequently.
+        </p>
+        @if (emailModel.invalid && (emailModel.touched || contactForm.submitted)) {
+          <p class="contact__error" id="contact-email-error" role="alert">
+            Enter a valid email address.
+          </p>
+        }
       </div>
 
       <div class="contact__field">
@@ -55,16 +99,41 @@
           id="contact-message"
           name="message"
           [(ngModel)]="message"
+          #messageModel="ngModel"
           required
+          minlength="20"
+          [maxlength]="messageMaxLength"
+          autocomplete="off"
+          [attr.aria-invalid]="
+            messageModel.invalid && (messageModel.touched || contactForm.submitted)
+              ? 'true'
+              : 'false'
+          "
+          [attr.aria-describedby]="
+            messageModel.invalid && (messageModel.touched || contactForm.submitted)
+              ? 'contact-message-error contact-message-counter'
+              : 'contact-message-hint contact-message-counter'
+          "
           placeholder="Write your message here..."
           rows="5"
         ></textarea>
+        <p class="contact__hint" id="contact-message-hint">
+          Add enough detail so I can understand your request.
+        </p>
+        <p class="contact__counter" id="contact-message-counter" role="status" aria-live="polite">
+          {{ message.length }}/{{ messageMaxLength }} characters
+        </p>
+        @if (messageModel.invalid && (messageModel.touched || contactForm.submitted)) {
+          <p class="contact__error" id="contact-message-error" role="alert">
+            Enter a message with at least 20 characters.
+          </p>
+        }
       </div>
 
       <app-button
         class="contact__button"
         type="submit"
-        [disabled]="status() === 'sending' || contactForm.invalid === true"
+        [disabled]="status() === 'sending' || contactForm.invalid === true || !isFormFilled()"
       >
         @if (status() === 'sending') {
           Sending...
