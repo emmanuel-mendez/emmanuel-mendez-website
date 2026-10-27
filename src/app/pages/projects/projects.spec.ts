@@ -188,6 +188,24 @@ describe('Projects', () => {
     expect(component.page()).toBe(1);
   });
 
+  it('should reset filters from the empty-state action', () => {
+    component.setSort('Title (A–Z)');
+    component.setFilteredProjects([]);
+    component.openFilterDialog();
+    fixture.detectChanges();
+
+    const emptyActionButton = fixture.nativeElement.querySelector('.projects__empty-action');
+    expect(emptyActionButton).toBeTruthy();
+
+    emptyActionButton.click();
+    fixture.detectChanges();
+
+    expect(component.filteredProjects()).toEqual(component.projects);
+    expect(component.sort()).toBe('Relevance');
+    expect(component.page()).toBe(1);
+    expect(component.isFilterDialogOpen()).toBe(false);
+  });
+
   it('should open and close the project filter dialog with focus management', async () => {
     const trigger = fixture.nativeElement.querySelector(
       '.projects__filter-trigger',
