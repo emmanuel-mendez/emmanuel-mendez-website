@@ -48,7 +48,15 @@ describe('Navigation', () => {
   });
 
   it('should expose reusable navigation items', () => {
-    expect(component.navigationItems).toEqual([{ href: '/projects', label: 'Projects' }]);
+    expect(component.navigationItems).toEqual([
+      { href: '/projects', label: 'Projects' },
+      { href: '#home-about', label: 'About' },
+      { href: '#home-projects', label: 'Projects' },
+      { href: '#home-experience', label: 'Experience' },
+      { href: '#home-skills', label: 'Skills' },
+      { href: '#home-testimonials', label: 'Testimonials' },
+      { href: '#home-contact', label: 'Contact' },
+    ]);
   });
 
   it('should render desktop list for desktop devices', () => {
@@ -60,12 +68,41 @@ describe('Navigation', () => {
     expect(navigationElement?.getAttribute('aria-label')).toBe('Primary navigation');
     expect(list).toBeTruthy();
     expect(menuButton).toBeFalsy();
+    expect(fixture.nativeElement.querySelectorAll('.navigation__list a')).toHaveLength(1);
+    expect(fixture.nativeElement.querySelectorAll('.navigation__section-list a')).toHaveLength(6);
   });
 
   it('should expose current page metadata for the active navigation link', () => {
     vi.spyOn(router, 'url', 'get').mockReturnValue('/projects');
     expect(component.isCurrentRoute('/projects')).toBe(true);
     expect(component.isCurrentRoute('/')).toBe(false);
+  });
+
+  it('should smoothly scroll to fragment links and update the URL hash', () => {
+    const target = document.createElement('section');
+    target.id = 'home-about';
+    const scrollIntoView = vi.fn();
+    target.scrollIntoView = scrollIntoView;
+    document.body.append(target);
+
+    const pushState = vi.spyOn(window.history, 'pushState');
+    const event = new MouseEvent('click', { button: 0, cancelable: true });
+
+    component.onNavigationLinkClick(event, '#home-about');
+
+    expect(event.defaultPrevented).toBe(true);
+    expect(pushState).toHaveBeenCalledWith(null, '', '#home-about');
+    expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
+    target.remove();
+    pushState.mockRestore();
+  });
+
+  it('should leave normal route links to their default navigation behavior', () => {
+    const event = new MouseEvent('click', { button: 0, cancelable: true });
+
+    component.onNavigationLinkClick(event, '/projects');
+
+    expect(event.defaultPrevented).toBe(false);
   });
 
   it('should render hamburger menu for tablet devices', () => {
@@ -93,6 +130,7 @@ describe('Navigation', () => {
 
     expect(list).toBeFalsy();
     expect(menuButton).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('.navigation__section-list')).toBeFalsy();
   });
 
   it('should open and close the mobile menu with focus management', async () => {
@@ -114,6 +152,7 @@ describe('Navigation', () => {
 
     expect(backdrop).toBeTruthy();
     expect(mobileMenu).toBeTruthy();
+    expect(mobileMenu?.querySelectorAll('.navigation__link--section')).toHaveLength(6);
     expect(document.body.classList.contains('navigation--menu-open')).toBe(true);
     expect(menuButton?.getAttribute('aria-expanded')).toBe('true');
     expect(document.activeElement).toBe(firstLink);

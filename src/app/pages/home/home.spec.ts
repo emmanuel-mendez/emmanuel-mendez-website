@@ -37,20 +37,10 @@ describe('Home', () => {
     expect(element.querySelector('app-banner')).toBeTruthy();
   });
 
-  it('should render quick links for each home section', () => {
+  it('should not render the home section quick links in the page content', () => {
     const element: HTMLElement = fixture.nativeElement;
-    const links = Array.from(element.querySelectorAll('.home__quick-nav-link')).map((link) =>
-      link.getAttribute('href'),
-    );
 
-    expect(links).toEqual([
-      '#home-about',
-      '#home-projects',
-      '#home-experience',
-      '#home-skills',
-      '#home-testimonials',
-      '#home-contact',
-    ]);
+    expect(element.querySelector('.home__quick-nav')).toBeNull();
   });
 
   it('should expose section anchors for all primary home blocks', () => {

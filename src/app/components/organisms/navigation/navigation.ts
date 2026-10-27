@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import { Component, DestroyRef, ElementRef, effect, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ResponsiveIncludes } from '@pipes/responsive/includes/includes';
@@ -22,6 +23,7 @@ const TOGGLE_BUTTON_SELECTOR = '.navigation__button button';
 })
 export class Navigation {
   private readonly destroyRef = inject(DestroyRef);
+  private readonly document = inject(DOCUMENT);
   private readonly router = inject(Router);
   private readonly hostElement = inject<ElementRef<HTMLElement>>(ElementRef);
 
@@ -34,6 +36,12 @@ export class Navigation {
 
   public readonly navigationItems: readonly NavigationItem[] = [
     { href: '/projects', label: 'Projects' },
+    { href: '#home-about', label: 'About' },
+    { href: '#home-projects', label: 'Projects' },
+    { href: '#home-experience', label: 'Experience' },
+    { href: '#home-skills', label: 'Skills' },
+    { href: '#home-testimonials', label: 'Testimonials' },
+    { href: '#home-contact', label: 'Contact' },
   ];
 
   constructor() {
@@ -71,6 +79,28 @@ export class Navigation {
   public onMenuEscape(event: Event): void {
     event.preventDefault();
     this.closeMenu();
+  }
+
+  public onNavigationLinkClick(event: MouseEvent, href: string): void {
+    if (
+      !href.startsWith('#') ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
+      return;
+    }
+
+    const target = this.document.getElementById(href.slice(1));
+    if (!target) {
+      return;
+    }
+
+    event.preventDefault();
+    this.document.defaultView?.history.pushState(null, '', href);
+    target.scrollIntoView({ behavior: 'smooth' });
   }
 
   private focusFirstMenuLink(): void {

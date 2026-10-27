@@ -2,31 +2,6 @@
   display: block;
 }
 
-.home__quick-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  padding: 1rem 1.5rem 0;
-}
-
-.home__quick-nav-link {
-  padding: 0.4rem 0.75rem;
-  border-radius: 999px;
-  border: 1px solid light-dark(var(--primary-25), var(--analogous--primary-50));
-  color: light-dark(var(--primary), var(--white));
-  background-color: light-dark(var(--white), var(--monochromatic--dark-deep));
-  text-decoration: none;
-  font-size: var(--extra-small);
-  transition:
-    color 0.2s ease,
-    background-color 0.2s ease;
-}
-
-.home__quick-nav-link:focus-visible {
-  outline: 2px solid light-dark(var(--primary), var(--analogous--primary));
-  outline-offset: 2px;
-}
-
 .home__section {
   scroll-margin-top: 5rem;
 }
