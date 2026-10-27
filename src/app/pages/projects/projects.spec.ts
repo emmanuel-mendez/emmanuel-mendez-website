@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { vi } from 'vitest';
 import { Projects } from './projects';
 
 describe('Projects', () => {
@@ -7,6 +8,11 @@ describe('Projects', () => {
   let fixture: ComponentFixture<Projects>;
 
   beforeEach(async () => {
+    vi.stubGlobal('localStorage', {
+      getItem: vi.fn(() => null),
+      setItem: vi.fn(),
+    });
+
     await TestBed.configureTestingModule({
       imports: [Projects],
       providers: [provideRouter([])],
@@ -15,6 +21,11 @@ describe('Projects', () => {
     fixture = TestBed.createComponent(Projects);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    document.body.classList.remove('projects--filter-dialog-open');
+    vi.unstubAllGlobals();
   });
 
   it('should create', () => {
@@ -32,32 +43,32 @@ describe('Projects', () => {
       'Shell',
       'Mars',
       'Castrol',
-      'Bancolombia',
       'Rappi',
+      'Bancolombia',
+      'Banistmo',
+      'Wompi',
+      'Alpina',
       'Colombina',
       'Grupo Diana',
-      'Wompi',
-      'Banistmo',
-      'Grupo Alen',
-      'Comfaboy',
-      'Grupo Uno',
-      'Expovinos 2021',
-      'Foodbox',
       'Chillibeans',
-      'Alpina',
+      'Grupo Alen',
+      'Grupo Uno',
+      'Comfaboy',
+      'Expovinos 2021',
       'Ultra1Plus',
-      'Especialistas En Casa',
-      'Planetife',
-      'Geekboss',
-      'Dra Skin',
-      'Adresles',
-      'Dosmass',
-      'Destiny',
+      'Foodbox',
       'Dojo',
-      'Cimonamía',
+      'Planetife',
+      'Destiny',
+      'Dosmass',
+      'Geekboss',
       'Highpeak',
-      'Grateful',
+      'Adresles',
+      'Especialistas En Casa',
+      'Dra Skin',
+      'Cimonamía',
       'Q Buen Plan',
+      'Grateful',
       'M374',
     ]);
   });
@@ -158,9 +169,13 @@ describe('Projects', () => {
 
   it('should open and close the project filter dialog', () => {
     component.openFilterDialog();
+    fixture.detectChanges();
     expect(component.isFilterDialogOpen()).toBe(true);
+    expect(document.body.classList.contains('projects--filter-dialog-open')).toBe(true);
 
     component.closeFilterDialog();
+    fixture.detectChanges();
     expect(component.isFilterDialogOpen()).toBe(false);
+    expect(document.body.classList.contains('projects--filter-dialog-open')).toBe(false);
   });
 });
