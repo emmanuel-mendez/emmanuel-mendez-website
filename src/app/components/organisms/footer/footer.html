@@ -1,24 +1,43 @@
-<ul class="social-list">
-  <li class="social-item">
-    <a
-      class="social-link"
-      href="https://github.com/emmanuel-mendez"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="GitHub"
-    >
-      GitHub
-    </a>
-  </li>
-  <li class="social-item">
-    <a
-      class="social-link"
-      href="https://www.linkedin.com/in/emmanuelmendezweb"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="LinkedIn"
-    >
-      LinkedIn
-    </a>
-  </li>
-</ul>
+<footer class="footer section" aria-label="Site footer">
+  <div class="footer__content container">
+    <div class="footer__identity">
+      <p class="footer__name">Emmanuel Mendez</p>
+      <p class="footer__role">Building accessible and scalable web experiences.</p>
+    </div>
+
+    <ul class="footer__info-list" aria-label="Professional details">
+      @for (item of basicInfo; track item.text) {
+        <li class="footer__info-item">
+          <span class="material-symbols-outlined footer__info-icon" aria-hidden="true">{{
+            item.icon
+          }}</span>
+          <span class="footer__info-text">{{ item.text }}</span>
+        </li>
+      }
+    </ul>
+
+    <div class="footer__social">
+      <ul class="footer__social-list" aria-label="Social media links">
+        @for (link of socialLinks; track link.href) {
+          <li class="footer__social-item">
+            <a
+              class="footer__social-link"
+              [href]="link.href"
+              target="_blank"
+              rel="noopener noreferrer"
+              [attr.aria-label]="'Open ' + link.label + ' profile'"
+            >
+              <span>{{ link.label }}</span>
+              <span
+                class="material-symbols-outlined footer__social-icon footer__social-icon--external"
+                aria-hidden="true"
+                >open_in_new</span
+              >
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+  <p class="footer__copyright">© {{ currentYear }} Emmanuel Mendez. All rights reserved.</p>
+</footer>

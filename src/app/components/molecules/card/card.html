@@ -14,8 +14,8 @@
     />
     <p
       class="projects__card-role"
-      [class.projects__card-role--owner]="project().rol === 'owner'"
-      [class.projects__card-role--collaborator]="project().rol !== 'owner'"
+      [class.projects__card-role--author]="project().rol === 'author'"
+      [class.projects__card-role--collaborator]="project().rol !== 'author'"
     >
       {{ project().rol }}
     </p>

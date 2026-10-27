@@ -1,4 +1,16 @@
+:host {
+  display: block;
+  background-color: light-dark(var(--analogous--secondary), var(--monochromatic--dark-deep));
+
+  @media (min-width: 1024px) {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+
 .skills {
+  max-width: 80rem;
+  margin: 0 auto;
   padding: 2rem 1.5rem;
   border-radius: 1rem;
 
@@ -8,7 +20,7 @@
     background-color 0.2s ease;
 
   @media (min-width: 1024px) {
-    padding: 2.5rem 2rem;
+    padding: 4rem 2rem;
   }
 }
 
@@ -17,7 +29,7 @@
   font-weight: bold;
   margin-bottom: 1.5rem;
   letter-spacing: 0.02em;
-  color: light-dark(var(--primary), var(--white));
+  color: light-dark(var(--white), var(--white));
   transition: color 0.2s ease;
 
   @media (min-width: 1204px) {
@@ -51,7 +63,6 @@
   box-shadow: var(--shadow);
   border: 1px solid var(--shadow-border);
   border-radius: 0.5rem;
-  background-color: light-dark(var(--primary), var(--monochromatic--dark-deep));
 
   transition:
     background-color 0.2s ease,
@@ -71,7 +82,7 @@
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 50%;
-  background-color: var(--analogous--primary);
+  background-color: var(--analogous--primary-25);
   color: var(--white);
   font-size: var(--extra-extra-large);
   font-variation-settings:

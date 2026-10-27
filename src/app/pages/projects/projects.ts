@@ -87,9 +87,9 @@ const compareYearOldestFirst: ProjectSortStrategy = (first, second) => {
 };
 
 const compareRelevance: ProjectSortStrategy = (first, second) => {
-  const ownerOrder = Number(second.rol === 'owner') - Number(first.rol === 'owner');
-  if (ownerOrder !== 0) {
-    return ownerOrder;
+  const authorOrder = Number(second.rol === 'author') - Number(first.rol === 'author');
+  if (authorOrder !== 0) {
+    return authorOrder;
   }
 
   const firstRelevance = RELEVANCE_ORDER.indexOf(first.title);

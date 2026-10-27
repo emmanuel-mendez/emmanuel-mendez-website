@@ -6,7 +6,7 @@
 .banner {
   width: 100%;
   display: grid;
-  gap: 4rem;
+  gap: 2rem;
   padding: 3rem 1rem;
 }
 
@@ -14,6 +14,7 @@
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  padding-inline: 2rem;
 }
 
 .banner__info {
@@ -49,9 +50,49 @@
   gap: 1rem;
 }
 
+.banner__carousel-container {
+  min-width: 0;
+  width: 100%;
+}
+
+.banner__carousel {
+  display: block;
+  min-width: 0;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.banner__carousel-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.banner__carousel-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid light-dark(var(--analogous--secondary), var(--analogous--primary-50));
+  border-radius: 0.5rem;
+  background-color: light-dark(var(--white), var(--monochromatic--dark-deep));
+  color: light-dark(var(--analogous--secondary), var(--white));
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+
+  &:hover {
+    background-color: light-dark(var(--analogous--secondary-75), var(--analogous--primary));
+    color: var(--white);
+  }
+}
+
 @media (min-width: 375px) {
   .banner {
-    padding: 3rem 2rem;
+    padding: 3rem 0;
   }
 
   .banner__title {

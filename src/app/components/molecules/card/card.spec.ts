@@ -9,7 +9,7 @@ const PROJECT: Project = {
   title: 'Test Project',
   image: '/projects/test-project.webp',
   imageBackgroundColor: '#ffffff',
-  rol: 'owner',
+  rol: 'author',
   description: 'A project used to verify the shared project card.',
   technologies: ['Angular', 'TypeScript', 'CSS', 'HTML', 'Testing'],
   year: 2026,
@@ -39,7 +39,7 @@ describe('Card', () => {
       PROJECT.description,
     );
     expect(element.querySelector('.projects__card-image')?.getAttribute('src')).toBe(PROJECT.image);
-    expect(element.querySelector('.projects__card-role--owner')?.textContent).toContain('owner');
+    expect(element.querySelector('.projects__card-role--author')?.textContent).toContain('author');
     expect(element.querySelectorAll('.projects__card-tag')).toHaveLength(4);
     expect(element.querySelector('.projects__card-year')?.textContent).toContain('2026');
   });

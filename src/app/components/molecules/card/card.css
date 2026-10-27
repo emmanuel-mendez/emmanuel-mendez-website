@@ -126,7 +126,7 @@
     color 0.2s ease;
 }
 
-.projects__card-role--owner {
+.projects__card-role--author {
   background-color: var(--analogous--primary);
 }
 

@@ -1,6 +1,17 @@
 import { Injectable } from '@angular/core';
 
-export type ProjectRole = 'owner' | 'collaborator';
+export type ProjectRole = 'author' | 'collaborator';
+
+export type ProjectHighlight = Readonly<{
+  metric: string;
+  value: string;
+  context: string;
+}>;
+
+export type ProjectMilestone = Readonly<{
+  title: string;
+  detail: string;
+}>;
 
 export type Project = {
   slug: string;
@@ -11,8 +22,13 @@ export type Project = {
   description: string;
   technologies: readonly string[];
   year?: number;
+  timeline?: string;
+  scope?: string;
   products?: readonly string[];
   modules?: readonly string[];
+  responsibilities?: readonly string[];
+  highlights?: readonly ProjectHighlight[];
+  milestones?: readonly ProjectMilestone[];
   link?: string;
   sourceCode?: string;
   content: string;
@@ -24,12 +40,51 @@ const PROJECTS: readonly Project[] = [
     title: 'Emmanuel Mendez Website',
     image: '/svg/logo--expanded--light.svg',
     imageBackgroundColor: '#20665c40',
-    rol: 'owner',
+    rol: 'author',
     description: 'Personal portfolio website built with Angular featuring server-side rendering, responsive design, and light/dark theme switching.',
     technologies: ['Angular', 'TypeScript', 'CSS', 'SSR'],
     year: 2026,
+    timeline: 'Q1 2025 – Q4 2026',
+    scope: 'Personal brand platform with case studies, writing, and project storytelling.',
     products: ['Website'],
     modules: ['Server-side rendering', 'Theme switching'],
+    responsibilities: [
+      'Designing the information architecture for portfolio and case-study navigation.',
+      'Building reusable Angular standalone components with signal-driven state.',
+      'Implementing responsive layouts and theme support with CSS light-dark().',
+      'Maintaining test coverage and deployment pipelines for iterative releases.',
+    ],
+    highlights: [
+      {
+        metric: 'Lighthouse Performance',
+        value: '95+',
+        context: 'Sustained on primary pages after optimizing SSR and image loading.',
+      },
+      {
+        metric: 'Reusable UI blocks',
+        value: '18',
+        context: 'Composable components powering pages, cards, filters, and dialogs.',
+      },
+      {
+        metric: 'Release cadence',
+        value: '2x / month',
+        context: 'Continuous improvements shipped through small, test-backed iterations.',
+      },
+    ],
+    milestones: [
+      {
+        title: 'Foundation',
+        detail: 'Set up Angular SSR, routing, design tokens, and the baseline project structure.',
+      },
+      {
+        title: 'Experience polish',
+        detail: 'Added responsive project browsing, filtering, sorting, and dark/light theming.',
+      },
+      {
+        title: 'Content scale-up',
+        detail: 'Expanded project narratives and detail layouts to support richer storytelling.',
+      },
+    ],
     link: 'https://emmanuel-mendez-website.vercel.app/',
     sourceCode: 'https://github.com/emmanuel-mendez/emmanuel-mendez-website',
     content: 'A personal portfolio website showcasing professional experience, skills, and projects. Built with Angular 21, it features server-side rendering for optimal SEO, responsive design with mobile-first approach, and light/dark theme support using CSS light-dark() function.',
@@ -39,12 +94,62 @@ const PROJECTS: readonly Project[] = [
     title: 'Astyimar y Emmanuel',
     image: '/projects/astyimar-y-emmanuel.png',
     imageBackgroundColor: '#6d578f',
-    rol: 'owner',
-    description: 'Website for Astyimar y Emmanuel built with Astro featuring server-side rendering, responsive design, and light/dark theme switching.',
-    technologies: ['Astro', 'TypeScript', 'CSS'],
+    rol: 'author',
+    description:
+      'Wedding invitation website for Astyimar and Emmanuel, with event details and personalized guest pages.',
+    technologies: ['Astro', 'Preact', 'TypeScript', 'CSS', 'Cloudflare'],
     year: 2025,
+    timeline: 'May – November 2025',
+    scope:
+      'Wedding invitation platform with event information and personalized pages for guests.',
+    products: ['Website'],
+    modules: [
+      'Event details and itinerary',
+      'Personalized guest invitations',
+      'Table assignments',
+      'Gift information',
+    ],
+    responsibilities: [
+      'Building the wedding invitation experience with reusable Astro components.',
+      'Creating personalized guest pages from invitation and seating data.',
+      'Presenting event details, location, dress code, itinerary, and gift information.',
+      'Configuring the Astro site for deployment with the Cloudflare adapter.',
+    ],
+    highlights: [
+      {
+        metric: 'Invitation experience',
+        value: 'Personalized',
+        context: 'Guest-specific pages display invitation details and table assignments.',
+      },
+      {
+        metric: 'Event information',
+        value: 'One place',
+        context: 'The site brings together the date, location, dress code, itinerary, and gifts.',
+      },
+      {
+        metric: 'Page experience',
+        value: 'Responsive',
+        context: 'Reusable sections present the wedding information across screen sizes.',
+      },
+    ],
+    milestones: [
+      {
+        title: 'Invitation foundation',
+        detail: 'Built the shared landing page and reusable sections for wedding information.',
+      },
+      {
+        title: 'Guest personalization',
+        detail: 'Added guest-specific invitation pages with personalized details and table assignments.',
+      },
+      {
+        title: 'Deployment setup',
+        detail: 'Configured the Astro project with the Cloudflare adapter.',
+      },
+    ],
     link: 'https://astyimar-y-emmanuel.com',
-    content: 'Website for Astyimar y Emmanuel showcasing professional experience, skills, and projects. Built with Astro, it features server-side rendering for optimal SEO, responsive design with mobile-first approach, and light/dark theme support using CSS light-dark() function.',
+    sourceCode: 'https://github.com/emmanuel-mendez/astyimar-emmanuel-wedding',
+    content:
+      'A wedding invitation website for Astyimar and Emmanuel, featuring the event date, location, dress code, itinerary, and gift information. Personalized guest pages provide invitation details and table assignments. Built with Astro and Preact, with a Cloudflare adapter.',
   },
   {
     slug: 'toyota',
