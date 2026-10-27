@@ -1,6 +1,8 @@
 <article class="projects__card">
-  <div
+  <a
     class="projects__card-image-container"
+    [routerLink]="['/projects', project().slug]"
+    [attr.aria-label]="'View details for ' + project().title"
     [style.backgroundColor]="project().imageBackgroundColor"
   >
     <img
@@ -22,7 +24,7 @@
         <li class="projects__card-tag">{{ tech }}</li>
       }
     </ul>
-  </div>
+  </a>
   <div class="projects__card-body">
     <div class="projects__card-header">
       @if (titleLevel() === 2) {
