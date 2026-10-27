@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Button } from '@components/atoms/button/button';
 
 type ContactStatus = 'idle' | 'sending' | 'sent' | 'error';
+const MESSAGE_MAX_LENGTH = 1000;
 
 @Component({
   selector: 'app-contact',
@@ -12,6 +13,7 @@ type ContactStatus = 'idle' | 'sending' | 'sent' | 'error';
 })
 export class Contact implements OnDestroy {
   public readonly status = signal<ContactStatus>('idle');
+  public readonly messageMaxLength = MESSAGE_MAX_LENGTH;
   public name = '';
   public email = '';
   public message = '';

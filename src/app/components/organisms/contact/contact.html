@@ -56,9 +56,14 @@
           name="message"
           [(ngModel)]="message"
           required
+          [maxlength]="messageMaxLength"
+          aria-describedby="contact-message-counter"
           placeholder="Write your message here..."
           rows="5"
         ></textarea>
+        <p class="contact__counter" id="contact-message-counter" role="status" aria-live="polite">
+          {{ message.length }}/{{ messageMaxLength }} characters
+        </p>
       </div>
 
       <app-button

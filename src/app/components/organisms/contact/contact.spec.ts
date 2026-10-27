@@ -42,7 +42,7 @@ describe('Contact', () => {
 
     expect(nativeElement.querySelector('.contact__title')?.textContent?.trim()).toBe('Contact');
     expect(nativeElement.querySelector('.contact__subtitle')?.textContent?.trim()).toBe(
-      'Do you have a project in mind? Send me a message.',
+      'Looking for a dedicated professional to join your team? Send me a message.',
     );
     expect(nativeElement.querySelector('#contact-name')?.getAttribute('placeholder')).toBe(
       'Your full name',
@@ -53,6 +53,26 @@ describe('Contact', () => {
     expect(nativeElement.querySelector('#contact-message')?.getAttribute('placeholder')).toBe(
       'Write your message here...',
     );
+  });
+
+  it('should expose an accessible message counter with explicit max length', () => {
+    const nativeElement: HTMLElement = fixture.nativeElement;
+    const textarea = nativeElement.querySelector('#contact-message');
+    const counter = nativeElement.querySelector('#contact-message-counter');
+
+    expect(component.messageMaxLength).toBe(1000);
+    expect(textarea?.getAttribute('maxlength')).toBe('1000');
+    expect(textarea?.getAttribute('aria-describedby')).toBe('contact-message-counter');
+    expect(counter?.getAttribute('role')).toBe('status');
+    expect(counter?.textContent?.trim()).toBe('0/1000 characters');
+  });
+
+  it('should update the message counter as the user writes', () => {
+    component.message = 'Accessibility improvements requested.';
+    fixture.detectChanges();
+
+    const counter = fixture.nativeElement.querySelector('#contact-message-counter');
+    expect(counter?.textContent?.trim()).toBe('37/1000 characters');
   });
 
   it('should set status to sending on submit', () => {

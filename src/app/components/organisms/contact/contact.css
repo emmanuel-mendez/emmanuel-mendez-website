@@ -67,6 +67,14 @@
   min-height: 7.5rem;
 }
 
+.contact__counter {
+  margin: 0;
+  text-align: right;
+  font-size: var(--extra-extra-small);
+  color: light-dark(var(--grey), var(--grey));
+  transition: color 0.2s ease;
+}
+
 .contact__button {
   align-self: flex-end;
 }
