@@ -59,15 +59,15 @@ export class ProjectDetail {
     const currentProject = this.project();
     return currentProject
       ? [
-          { label: 'Role', value: ROLE_LABELS[currentProject.rol] },
-          ...(currentProject.year === undefined
-            ? []
-            : [{ label: 'Year', value: String(currentProject.year) }]),
-          ...(currentProject.timeline
-            ? [{ label: 'Timeline', value: currentProject.timeline }]
-            : []),
-          ...(currentProject.scope ? [{ label: 'Scope', value: currentProject.scope }] : []),
-        ]
+        { label: 'Role', value: ROLE_LABELS[currentProject.rol] },
+        ...(currentProject.year === undefined
+          ? []
+          : [{ label: 'Year', value: String(currentProject.year) }]),
+        ...(currentProject.timeline
+          ? [{ label: 'Timeline', value: currentProject.timeline }]
+          : []),
+        ...(currentProject.scope ? [{ label: 'Scope', value: currentProject.scope }] : []),
+      ]
       : [];
   });
 
@@ -100,25 +100,15 @@ export class ProjectDetail {
     }
 
     return [
-      ...(currentProject.link
-        ? [
-            {
-              label: 'Details',
-              href: currentProject.link,
-              icon: 'open_in_new',
-              ariaLabel: `Open details for ${currentProject.title}`,
-            },
-          ]
-        : []),
       ...(currentProject.sourceCode
         ? [
-            {
-              label: 'Source',
-              href: currentProject.sourceCode,
-              icon: 'code',
-              ariaLabel: `Open source code for ${currentProject.title}`,
-            },
-          ]
+          {
+            label: 'Source',
+            href: currentProject.sourceCode,
+            icon: 'code',
+            ariaLabel: `Open source code for ${currentProject.title}`,
+          },
+        ]
         : []),
     ];
   });

@@ -34,18 +34,6 @@
           <p class="project-detail__eyebrow">Project detail</p>
           <h1 class="project-detail__title" id="project-detail-title">{{ project.title }}</h1>
           <p class="project-detail__description">{{ project.description }}</p>
-
-          @if (factItems().length) {
-            <dl class="project-detail__facts">
-              @for (fact of factItems(); track fact.label) {
-                <div class="project-detail__fact">
-                  <dt class="project-detail__fact-label">{{ fact.label }}</dt>
-                  <dd class="project-detail__fact-value">{{ fact.value }}</dd>
-                </div>
-              }
-            </dl>
-          }
-
           @if (actions().length) {
             <div class="project-detail__actions" role="group" aria-label="Project links">
               @for (action of actions(); track action.label) {
@@ -56,13 +44,27 @@
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span class="material-symbols-outlined project-detail__action-icon" aria-hidden="true">
+                  <span
+                    class="material-symbols-outlined project-detail__action-icon"
+                    aria-hidden="true"
+                  >
                     {{ action.icon }}
                   </span>
                   {{ action.label }}
                 </a>
               }
             </div>
+          }
+
+          @if (factItems().length) {
+            <dl class="project-detail__facts">
+              @for (fact of factItems(); track fact.label) {
+                <div class="project-detail__fact">
+                  <dt class="project-detail__fact-label">{{ fact.label }}</dt>
+                  <dd class="project-detail__fact-value">{{ fact.value }}</dd>
+                </div>
+              }
+            </dl>
           }
         </div>
       </header>
