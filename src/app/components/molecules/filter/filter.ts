@@ -21,6 +21,8 @@ export class Filter<T extends object> {
   public readonly sortProperty = input('Relevance');
   public readonly filteredListChange = output<readonly T[]>();
   public readonly sortPropertyChange = output<string>();
+  public readonly filtersApplied = output<void>();
+  public readonly filtersCleared = output<void>();
 
   private readonly selectedProperties = signal<Readonly<Record<string, readonly string[]>>>({});
 
@@ -62,6 +64,7 @@ export class Filter<T extends object> {
   public clearFilters(): void {
     this.selectedProperties.set({});
     this.filteredListChange.emit(this.filteredList());
+    this.filtersCleared.emit();
   }
 
   public changeSortProperty(event: Event): void {

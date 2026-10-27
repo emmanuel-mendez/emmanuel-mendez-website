@@ -1,3 +1,7 @@
 :host {
   display: block;
 }
+
+.home__section {
+  scroll-margin-top: 5rem;
+}

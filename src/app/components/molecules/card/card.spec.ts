@@ -46,6 +46,9 @@ describe('Card', () => {
 
   it('should link to project details and source code when available', () => {
     const element: HTMLElement = fixture.nativeElement;
+    const imageLink: HTMLAnchorElement | null = element.querySelector(
+      '.projects__card-image-container',
+    );
     const detailsLink: HTMLAnchorElement | null = element.querySelector(
       '.projects__card-link:not([target])',
     );
@@ -53,6 +56,8 @@ describe('Card', () => {
       '.projects__card-link[target="_blank"]',
     );
 
+    expect(imageLink?.getAttribute('href')).toBe('/projects/test-project');
+    expect(imageLink?.getAttribute('aria-label')).toBe('View details for Test Project');
     expect(detailsLink?.getAttribute('href')).toBe('/projects/test-project');
     expect(sourceLink?.getAttribute('href')).toBe(PROJECT.sourceCode);
     expect(sourceLink?.getAttribute('rel')).toBe('noopener noreferrer');

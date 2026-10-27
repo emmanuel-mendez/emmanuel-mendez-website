@@ -1,13 +1,15 @@
 <app-layout>
   @if (project(); as project) {
-    <article class="project-detail">
+    <article class="project-detail" aria-labelledby="project-detail-title">
       <a class="project-detail__back" routerLink="/projects">
-        <span class="material-symbols-outlined project-detail__back-icon">arrow_back</span>
+        <span class="material-symbols-outlined project-detail__back-icon" aria-hidden="true"
+          >arrow_back</span
+        >
         Back to Projects
       </a>
 
       <div class="project-detail__header">
-        <h1 class="project-detail__title">{{ project.title }}</h1>
+        <h1 class="project-detail__title" id="project-detail-title">{{ project.title }}</h1>
       </div>
 
       <p class="project-detail__role">Role: {{ project.rol }}</p>
@@ -16,7 +18,7 @@
       @if (project.products?.length) {
         <section class="project-detail__section">
           <h2 class="project-detail__section-title">Products</h2>
-          <ul class="project-detail__list">
+          <ul class="project-detail__list" aria-label="Products list">
             @for (product of project.products; track product) {
               <li>{{ product }}</li>
             }
@@ -27,7 +29,7 @@
       @if (project.modules?.length) {
         <section class="project-detail__section">
           <h2 class="project-detail__section-title">Modules</h2>
-          <ul class="project-detail__list">
+          <ul class="project-detail__list" aria-label="Modules list">
             @for (module of project.modules; track module) {
               <li>{{ module }}</li>
             }
@@ -41,12 +43,13 @@
         }
       </ul>
 
-      <div class="project-detail__actions">
+      <div class="project-detail__actions" role="group" aria-label="Project links">
         @if (project.link) {
           <app-button
             class="project-detail__link"
             appearance="secondary"
             [href]="project.link"
+            [aria-label]="'Open live demo for ' + project.title"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -59,6 +62,7 @@
             class="project-detail__link"
             appearance="secondary"
             [href]="project.sourceCode"
+            [aria-label]="'Open source code for ' + project.title"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -70,9 +74,11 @@
     </article>
   } @else {
     <div class="project-detail project-detail--not-found">
-      <p>Project not found.</p>
+      <h1 class="project-detail__title">Project not found</h1>
       <a class="project-detail__back" routerLink="/projects">
-        <span class="material-symbols-outlined project-detail__back-icon">arrow_back</span>
+        <span class="material-symbols-outlined project-detail__back-icon" aria-hidden="true"
+          >arrow_back</span
+        >
         Back to Projects
       </a>
     </div>

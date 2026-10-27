@@ -1,6 +1,7 @@
+import { DOCUMENT } from '@angular/common';
 import { Navigation } from '@components/organisms/navigation/navigation';
 import { Component, inject, computed, signal, afterNextRender, DestroyRef } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Responsive, Devices } from '@services/responsive/responsive';
 import { Theme, ThemeMode } from '@services/theme/theme';
 
@@ -11,6 +12,8 @@ import { Theme, ThemeMode } from '@services/theme/theme';
   styleUrl: './header.css',
 })
 export class Header {
+  private readonly document = inject(DOCUMENT);
+  private readonly router = inject(Router);
   private readonly responsive = inject(Responsive);
   private readonly destroyRef = inject(DestroyRef);
   public readonly theme = inject(Theme);
@@ -42,4 +45,11 @@ export class Header {
     }
     return isDark ? '/svg/logo.svg' : '/svg/logo--light.svg';
   });
+
+  public scrollToTopOnHome(): void {
+    const currentPath = this.router.url.split('?')[0].split('#')[0];
+    if (currentPath !== '/') return;
+
+    this.document.defaultView?.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }

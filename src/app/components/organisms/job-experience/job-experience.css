@@ -40,11 +40,13 @@
     gap: 1rem;
     padding: 1.25rem;
     border-radius: 0.5rem;
+    border: 1px solid var(--shadow-border);
     background-color: light-dark(var(--white), var(--monochromatic--dark-deep));
-    box-shadow: 0 0 24px #ebebeb;
+    box-shadow: var(--shadow);
     transition:
       background-color 0.2s ease,
-      border-color 0.2s ease;
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
   }
 
   .job-experience__item-header {

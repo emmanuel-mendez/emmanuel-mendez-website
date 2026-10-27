@@ -59,10 +59,24 @@ describe('Filter', () => {
     expect(component.filteredList()[0]).toBe(list[2]);
   });
 
-  it('should clear selected properties', () => {
+  it('should clear selected properties and emit that filters were cleared', () => {
+    const filtersCleared = vi.spyOn(component.filtersCleared, 'emit');
     component.toggleProperty(categories[0], 'Angular');
     component.clearFilters();
 
     expect(component.filteredList()).toHaveLength(list.length);
+    expect(filtersCleared).toHaveBeenCalledOnce();
+  });
+
+  it('should emit when the Filter button is clicked', () => {
+    const filtersApplied = vi.spyOn(component.filtersApplied, 'emit');
+    const filterButton = fixture.nativeElement.querySelector(
+      '.filter app-button button.button--primary',
+    ) as HTMLButtonElement;
+
+    filterButton.click();
+
+    expect(filterButton.textContent?.trim()).toBe('Filter');
+    expect(filtersApplied).toHaveBeenCalledOnce();
   });
 });
