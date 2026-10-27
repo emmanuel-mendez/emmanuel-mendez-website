@@ -41,8 +41,12 @@
   gap: 0.75rem;
   padding: 1.25rem;
   border-radius: 0.5rem;
-  transition: background-color 0.2s ease;
-  box-shadow: 0 0 24px #ebebeb;
+  border: 1px solid var(--shadow-border);
+  box-shadow: var(--shadow);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .skills__category-header {
