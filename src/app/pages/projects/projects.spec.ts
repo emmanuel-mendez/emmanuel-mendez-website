@@ -157,6 +157,28 @@ describe('Projects', () => {
     );
   });
 
+  it('should announce the visible result count and active sort', () => {
+    const summary = fixture.nativeElement.querySelector(
+      '.projects__results-summary',
+    ) as HTMLElement;
+    expect(summary.textContent?.trim()).toBe('34 projects shown. Sorted by Relevance.');
+
+    component.setSort('Title (A–Z)');
+    fixture.detectChanges();
+
+    expect(summary.textContent?.trim()).toBe('34 projects shown. Sorted by Title (A–Z).');
+  });
+
+  it('should expose accessible labels and lazy-loading metadata on project cards', () => {
+    const firstCard = fixture.nativeElement.querySelector('.projects__card') as HTMLElement;
+    const cardTitle = firstCard.querySelector('.projects__card-title')?.textContent?.trim();
+    const cardImage = firstCard.querySelector('.projects__card-image');
+
+    expect(firstCard.getAttribute('aria-label')).toBe(`View details for ${cardTitle}`);
+    expect(cardImage?.getAttribute('loading')).toBe('lazy');
+    expect(cardImage?.getAttribute('decoding')).toBe('async');
+  });
+
   it('should reset pagination after sorting or filtering projects', () => {
     component.setPage(3);
     component.setSort('Title (A–Z)');
@@ -167,14 +189,44 @@ describe('Projects', () => {
     expect(component.page()).toBe(1);
   });
 
-  it('should open and close the project filter dialog', () => {
-    component.openFilterDialog();
+  it('should open and close the project filter dialog with focus management', async () => {
+    const trigger = fixture.nativeElement.querySelector(
+      '.projects__filter-trigger',
+    ) as HTMLButtonElement;
+    expect(trigger.getAttribute('aria-controls')).toBe(component.filterPanelId);
+
+    trigger.click();
     fixture.detectChanges();
+    await fixture.whenStable();
+
+    const panel = fixture.nativeElement.querySelector(
+      `#${component.filterPanelId}`,
+    ) as HTMLElement | null;
+    const heading = panel?.querySelector('#projects-filter-heading') as HTMLElement | null;
+
     expect(component.isFilterDialogOpen()).toBe(true);
     expect(document.body.classList.contains('projects--filter-dialog-open')).toBe(true);
+    expect(panel).toBeTruthy();
+    expect(panel?.getAttribute('role')).toBe('dialog');
+    expect(heading?.textContent?.trim()).toBe('Project filters');
+    expect(document.activeElement).toBe(panel);
 
-    component.closeFilterDialog();
+    panel?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
     fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(component.isFilterDialogOpen()).toBe(false);
+    expect(document.activeElement).toBe(trigger);
+
+    trigger.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const backdrop = fixture.nativeElement.querySelector('.projects__backdrop');
+    backdrop?.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
     expect(component.isFilterDialogOpen()).toBe(false);
     expect(document.body.classList.contains('projects--filter-dialog-open')).toBe(false);
   });

@@ -42,7 +42,7 @@ describe('Contact', () => {
 
     expect(nativeElement.querySelector('.contact__title')?.textContent?.trim()).toBe('Contact');
     expect(nativeElement.querySelector('.contact__subtitle')?.textContent?.trim()).toBe(
-      'Do you have a project in mind? Send me a message.',
+      'Looking for a dedicated professional to join your team? Send me a message.',
     );
     expect(nativeElement.querySelector('#contact-name')?.getAttribute('placeholder')).toBe(
       'Your full name',
@@ -53,6 +53,68 @@ describe('Contact', () => {
     expect(nativeElement.querySelector('#contact-message')?.getAttribute('placeholder')).toBe(
       'Write your message here...',
     );
+  });
+
+  it('should expose an accessible message counter with explicit max length', () => {
+    const nativeElement: HTMLElement = fixture.nativeElement;
+    const textarea = nativeElement.querySelector('#contact-message');
+    const counter = nativeElement.querySelector('#contact-message-counter');
+
+    expect(component.messageMaxLength).toBe(1000);
+    expect(textarea?.getAttribute('maxlength')).toBe('1000');
+    expect(textarea?.getAttribute('aria-describedby')).toContain('contact-message-counter');
+    expect(counter?.getAttribute('role')).toBe('status');
+    expect(counter?.textContent?.trim()).toBe('0/1000 characters');
+  });
+
+  it('should update the message counter as the user writes', () => {
+    component.message = 'Accessibility improvements requested.';
+    fixture.detectChanges();
+
+    const counter = fixture.nativeElement.querySelector('#contact-message-counter');
+    expect(counter?.textContent?.trim()).toBe('37/1000 characters');
+  });
+
+  it('should expose accessible form metadata and field autocompletion', () => {
+    const nativeElement: HTMLElement = fixture.nativeElement;
+    const form = nativeElement.querySelector('.contact__form');
+    const nameInput = nativeElement.querySelector('#contact-name');
+    const emailInput = nativeElement.querySelector('#contact-email');
+    const messageInput = nativeElement.querySelector('#contact-message');
+
+    expect(form?.getAttribute('novalidate')).not.toBeNull();
+    expect(form?.getAttribute('aria-busy')).toBe('false');
+    expect(nameInput?.getAttribute('autocomplete')).toBe('name');
+    expect(emailInput?.getAttribute('autocomplete')).toBe('email');
+    expect(emailInput?.getAttribute('inputmode')).toBe('email');
+    expect(messageInput?.getAttribute('maxlength')).toBe('1000');
+  });
+
+  it('should prevent submit and show validation errors for invalid form values', () => {
+    const nativeElement: HTMLElement = fixture.nativeElement;
+    const form = nativeElement.querySelector('.contact__form') as HTMLFormElement;
+
+    form.dispatchEvent(new Event('submit'));
+    fixture.detectChanges();
+
+    const invalidFields = nativeElement.querySelectorAll('.contact__input[aria-invalid="true"]');
+    const validationMessages = nativeElement.querySelectorAll('.contact__error');
+
+    expect(component.status()).toBe('idle');
+    expect(invalidFields.length).toBe(3);
+    expect(validationMessages.length).toBe(3);
+  });
+
+  it('should mark the form as busy while sending', () => {
+    vi.useFakeTimers();
+    component.onSubmit();
+    fixture.detectChanges();
+    const form = fixture.nativeElement.querySelector('.contact__form') as HTMLFormElement;
+
+    expect(component.status()).toBe('sending');
+    expect(form.getAttribute('aria-busy')).toBe('true');
+    vi.advanceTimersByTime(2000);
+    vi.useRealTimers();
   });
 
   it('should set status to sending on submit', () => {

@@ -1,9 +1,15 @@
-<nav class="navigation">
+<nav class="navigation" aria-label="Primary navigation">
   @if (responsive.device() | includes: [breakpoints.DESKTOP]) {
-    <ul class="navigation__list">
+    <ul class="navigation__list" aria-label="Primary navigation links">
       @for (item of navigationItems; track item.href) {
         <li class="navigation__item">
-          <a class="navigation__link" [href]="item.href">{{ item.label }}</a>
+          <a
+            class="navigation__link"
+            [class.navigation__link--active]="isCurrentRoute(item.href)"
+            [attr.aria-current]="isCurrentRoute(item.href) ? 'page' : null"
+            [href]="item.href"
+            >{{ item.label }}</a
+          >
         </li>
       }
     </ul>
@@ -13,19 +19,38 @@
   } @else {
     <app-theme-picker />
 
-    <app-button class="navigation__button" appearance="plain" type="button" (click)="toggleMenu()">
-      <span class="material-symbols-outlined navigation__icon">{{
+    <app-button
+      class="navigation__button"
+      appearance="plain"
+      type="button"
+      [aria-label]="opened() ? 'Close navigation menu' : 'Open navigation menu'"
+      [aria-expanded]="opened() ? 'true' : 'false'"
+      [aria-controls]="mobileMenuId"
+      (click)="toggleMenu()"
+    >
+      <span class="material-symbols-outlined navigation__icon" aria-hidden="true">{{
         opened() ? 'close' : 'menu'
       }}</span>
     </app-button>
 
     @if (opened()) {
-      <ul class="navigation__menu">
-        @for (item of navigationItems; track item.href) {
+      <ul
+        class="navigation__menu"
+        [id]="mobileMenuId"
+        aria-label="Primary navigation links"
+        (keydown.escape)="onMenuEscape($event)"
+      >
+        @for (item of navigationItems; track item.href; let isFirst = $first) {
           <li class="navigation__item">
-            <a class="navigation__link" [href]="item.href" (click)="closeMenu()">{{
-              item.label
-            }}</a>
+            <a
+              class="navigation__link"
+              [class.navigation__link--active]="isCurrentRoute(item.href)"
+              [attr.aria-current]="isCurrentRoute(item.href) ? 'page' : null"
+              [href]="item.href"
+              [attr.data-navigation-first-link]="isFirst ? 'true' : null"
+              (click)="closeMenu()"
+              >{{ item.label }}</a
+            >
           </li>
         }
       </ul>
