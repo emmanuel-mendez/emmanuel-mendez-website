@@ -26,6 +26,11 @@
     transition: color 0.2s ease;
   }
 
+  .project-detail__back:focus-visible {
+    outline: 2px solid light-dark(var(--primary), var(--analogous--primary));
+    outline-offset: 2px;
+  }
+
   .project-detail__back-icon {
     font-size: var(--medium);
     font-variation-settings:
