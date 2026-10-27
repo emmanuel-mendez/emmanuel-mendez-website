@@ -52,8 +52,9 @@
 
 .projects__card-header {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
 }
 
 .projects__card-title {
