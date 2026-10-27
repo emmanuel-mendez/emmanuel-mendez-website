@@ -102,7 +102,7 @@
           #messageModel="ngModel"
           required
           minlength="20"
-          maxlength="1000"
+          [maxlength]="messageMaxLength"
           autocomplete="off"
           [attr.aria-invalid]="
             messageModel.invalid && (messageModel.touched || contactForm.submitted)
@@ -111,14 +111,17 @@
           "
           [attr.aria-describedby]="
             messageModel.invalid && (messageModel.touched || contactForm.submitted)
-              ? 'contact-message-error'
-              : 'contact-message-hint'
+              ? 'contact-message-error contact-message-counter'
+              : 'contact-message-hint contact-message-counter'
           "
           placeholder="Write your message here..."
           rows="5"
         ></textarea>
         <p class="contact__hint" id="contact-message-hint">
           Add enough detail so I can understand your request.
+        </p>
+        <p class="contact__counter" id="contact-message-counter" role="status" aria-live="polite">
+          {{ message.length }}/{{ messageMaxLength }} characters
         </p>
         @if (messageModel.invalid && (messageModel.touched || contactForm.submitted)) {
           <p class="contact__error" id="contact-message-error" role="alert">

@@ -69,6 +69,26 @@ describe('Contact', () => {
     expect(submitButton.disabled).toBe(true);
   });
 
+  it('should expose an accessible message counter with explicit max length', () => {
+    const nativeElement: HTMLElement = fixture.nativeElement;
+    const textarea = nativeElement.querySelector('#contact-message');
+    const counter = nativeElement.querySelector('#contact-message-counter');
+
+    expect(component.messageMaxLength).toBe(1000);
+    expect(textarea?.getAttribute('maxlength')).toBe('1000');
+    expect(textarea?.getAttribute('aria-describedby')).toContain('contact-message-counter');
+    expect(counter?.getAttribute('role')).toBe('status');
+    expect(counter?.textContent?.trim()).toBe('0/1000 characters');
+  });
+
+  it('should update the message counter as the user writes', () => {
+    component.message = 'Accessibility improvements requested.';
+    fixture.detectChanges();
+
+    const counter = fixture.nativeElement.querySelector('#contact-message-counter');
+    expect(counter?.textContent?.trim()).toBe('37/1000 characters');
+  });
+
   it('should expose accessible form metadata and field autocompletion', () => {
     const nativeElement: HTMLElement = fixture.nativeElement;
     const form = nativeElement.querySelector('.contact__form');
