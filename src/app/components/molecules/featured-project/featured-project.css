@@ -8,6 +8,7 @@
   flex-direction: column;
   border: 1px solid var(--shadow-border);
   box-shadow: var(--shadow);
+  border-radius: 0.5rem;
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease;

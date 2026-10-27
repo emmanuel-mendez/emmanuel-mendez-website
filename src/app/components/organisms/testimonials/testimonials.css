@@ -65,7 +65,7 @@
     'wght' 400,
     'GRAD' 0,
     'opsz' 24;
-  color: light-dark(var(--analogous--secondary), var(--analogous--secondary));
+  color: light-dark(var(--analogous--secondary), var(--analogous--primary));
   transition: color 0.2s ease;
 }
 
