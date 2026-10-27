@@ -3,7 +3,13 @@
     <ul class="navigation__list">
       @for (item of navigationItems; track item.href) {
         <li class="navigation__item">
-          <a class="navigation__link" [href]="item.href">{{ item.label }}</a>
+          <a
+            class="navigation__link"
+            [class.navigation__link--active]="isCurrentRoute(item.href)"
+            [attr.aria-current]="isCurrentRoute(item.href) ? 'page' : null"
+            [href]="item.href"
+            >{{ item.label }}</a
+          >
         </li>
       }
     </ul>
@@ -23,9 +29,14 @@
       <ul class="navigation__menu">
         @for (item of navigationItems; track item.href) {
           <li class="navigation__item">
-            <a class="navigation__link" [href]="item.href" (click)="closeMenu()">{{
-              item.label
-            }}</a>
+            <a
+              class="navigation__link"
+              [class.navigation__link--active]="isCurrentRoute(item.href)"
+              [attr.aria-current]="isCurrentRoute(item.href) ? 'page' : null"
+              [href]="item.href"
+              (click)="closeMenu()"
+              >{{ item.label }}</a
+            >
           </li>
         }
       </ul>

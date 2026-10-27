@@ -1,19 +1,27 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { signal, WritableSignal } from '@angular/core';
+import { provideRouter, Router } from '@angular/router';
 import { Devices, Responsive } from '@services/responsive/responsive';
+import { vi } from 'vitest';
 import { Navigation } from './navigation';
 
 describe('Navigation', () => {
   let component: Navigation;
   let fixture: ComponentFixture<Navigation>;
   let device: WritableSignal<Devices[]>;
+  let router: Router;
 
   beforeEach(async () => {
+    vi.stubGlobal('localStorage', {
+      getItem: vi.fn(() => null),
+      setItem: vi.fn(),
+    });
     device = signal<Devices[]>([Devices.DESKTOP]);
 
     await TestBed.configureTestingModule({
       imports: [Navigation],
       providers: [
+        provideRouter([]),
         {
           provide: Responsive,
           useValue: {
@@ -26,7 +34,12 @@ describe('Navigation', () => {
 
     fixture = TestBed.createComponent(Navigation);
     component = fixture.componentInstance;
+    router = TestBed.inject(Router);
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
   });
 
   it('should create', () => {
@@ -43,6 +56,12 @@ describe('Navigation', () => {
 
     expect(list).toBeTruthy();
     expect(menuButton).toBeFalsy();
+  });
+
+  it('should expose current page metadata for the active navigation link', () => {
+    vi.spyOn(router, 'url', 'get').mockReturnValue('/projects');
+    expect(component.isCurrentRoute('/projects')).toBe(true);
+    expect(component.isCurrentRoute('/')).toBe(false);
   });
 
   it('should render hamburger menu for tablet devices', () => {

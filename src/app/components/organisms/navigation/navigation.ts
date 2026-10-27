@@ -1,4 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { ResponsiveIncludes } from '@pipes/responsive/includes/includes';
 import { Devices, Responsive } from '@services/responsive/responsive';
 import { ThemePicker } from '@components/atoms/theme-picker/theme-picker/theme-picker';
@@ -16,6 +17,7 @@ type NavigationItem = {
   styleUrl: './navigation.css',
 })
 export class Navigation {
+  private readonly router = inject(Router);
   public readonly responsive: Responsive = inject(Responsive);
 
   public readonly breakpoints: typeof Devices = Devices;
@@ -32,5 +34,10 @@ export class Navigation {
 
   public closeMenu(): void {
     this.opened.set(false);
+  }
+
+  public isCurrentRoute(href: string): boolean {
+    const currentPath = this.router.url.split('?')[0].split('#')[0];
+    return currentPath === href;
   }
 }
