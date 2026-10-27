@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { signal, WritableSignal } from '@angular/core';
 import { Devices, Responsive } from '@services/responsive/responsive';
+import { vi } from 'vitest';
 import { Navigation } from './navigation';
 
 describe('Navigation', () => {
@@ -9,6 +10,10 @@ describe('Navigation', () => {
   let device: WritableSignal<Devices[]>;
 
   beforeEach(async () => {
+    vi.stubGlobal('localStorage', {
+      getItem: vi.fn(() => null),
+      setItem: vi.fn(),
+    });
     device = signal<Devices[]>([Devices.DESKTOP]);
 
     await TestBed.configureTestingModule({
@@ -27,6 +32,11 @@ describe('Navigation', () => {
     fixture = TestBed.createComponent(Navigation);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    document.body.classList.remove('navigation--menu-open');
+    vi.unstubAllGlobals();
   });
 
   it('should create', () => {
@@ -80,6 +90,7 @@ describe('Navigation', () => {
     const mobileMenu = fixture.nativeElement.querySelector('.navigation__menu');
     expect(backdrop).toBeTruthy();
     expect(mobileMenu).toBeTruthy();
+    expect(document.body.classList.contains('navigation--menu-open')).toBe(true);
 
     const homeLink = fixture.nativeElement.querySelector('.navigation__menu .navigation__link');
     homeLink.click();
@@ -90,6 +101,7 @@ describe('Navigation', () => {
     expect(hiddenMenu).toBeFalsy();
     expect(hiddenBackdrop).toBeFalsy();
     expect(component.opened()).toBe(false);
+    expect(document.body.classList.contains('navigation--menu-open')).toBe(false);
 
     menuButton.click();
     fixture.detectChanges();
@@ -100,5 +112,6 @@ describe('Navigation', () => {
 
     expect(fixture.nativeElement.querySelector('.navigation__menu')).toBeFalsy();
     expect(component.opened()).toBe(false);
+    expect(document.body.classList.contains('navigation--menu-open')).toBe(false);
   });
 });
