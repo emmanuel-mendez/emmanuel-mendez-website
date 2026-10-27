@@ -11,6 +11,7 @@
   }
 }
 
-body.projects--filter-dialog-open {
+body.projects--filter-dialog-open,
+body.navigation--menu-open {
   overflow: hidden;
 }

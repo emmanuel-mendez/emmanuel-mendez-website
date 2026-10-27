@@ -239,4 +239,11 @@ export class Projects {
         ?.focus();
     });
   }
+
+  public resetFilters(): void {
+    this.filteredProjects.set(this.projects);
+    this.sort.set('Relevance');
+    this.page.set(1);
+    this.closeFilterDialog();
+  }
 }

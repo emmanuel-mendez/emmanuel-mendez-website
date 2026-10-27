@@ -133,7 +133,7 @@
       <app-button
         class="contact__button"
         type="submit"
-        [disabled]="status() === 'sending' || contactForm.invalid === true"
+        [disabled]="status() === 'sending' || contactForm.invalid === true || !isFormFilled()"
       >
         @if (status() === 'sending') {
           Sending...

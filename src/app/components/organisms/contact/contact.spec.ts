@@ -55,6 +55,20 @@ describe('Contact', () => {
     );
   });
 
+  it('should keep submit disabled when fields only contain whitespace', () => {
+    component.name = '   ';
+    component.email = '   ';
+    component.message = '   ';
+    fixture.detectChanges();
+
+    const submitButton = fixture.nativeElement.querySelector(
+      'app-button.contact__button button',
+    ) as HTMLButtonElement;
+
+    expect(component.isFormFilled()).toBe(false);
+    expect(submitButton.disabled).toBe(true);
+  });
+
   it('should expose an accessible message counter with explicit max length', () => {
     const nativeElement: HTMLElement = fixture.nativeElement;
     const textarea = nativeElement.querySelector('#contact-message');
@@ -107,6 +121,9 @@ describe('Contact', () => {
 
   it('should mark the form as busy while sending', () => {
     vi.useFakeTimers();
+    component.name = 'John';
+    component.email = 'john@example.com';
+    component.message = 'Message';
     component.onSubmit();
     fixture.detectChanges();
     const form = fixture.nativeElement.querySelector('.contact__form') as HTMLFormElement;
@@ -119,6 +136,9 @@ describe('Contact', () => {
 
   it('should set status to sending on submit', () => {
     vi.useFakeTimers();
+    component.name = 'John';
+    component.email = 'john@example.com';
+    component.message = 'Message';
     component.onSubmit();
     expect(component.status()).toBe('sending');
     vi.useRealTimers();
@@ -126,6 +146,9 @@ describe('Contact', () => {
 
   it('should set status to sent after timeout', () => {
     vi.useFakeTimers();
+    component.name = 'John';
+    component.email = 'john@example.com';
+    component.message = 'Message';
     component.onSubmit();
     expect(component.status()).toBe('sending');
     vi.advanceTimersByTime(2000);
@@ -135,6 +158,9 @@ describe('Contact', () => {
 
   it('should not resubmit while already sending', () => {
     vi.useFakeTimers();
+    component.name = 'John';
+    component.email = 'john@example.com';
+    component.message = 'Message';
     component.onSubmit();
     expect(component.status()).toBe('sending');
     component.onSubmit();
@@ -145,9 +171,9 @@ describe('Contact', () => {
 
   it('should reset status and fields on reset()', () => {
     vi.useFakeTimers();
-    component.name = 'John';
-    component.email = 'john@example.com';
-    component.message = 'Hello';
+    component.name = ' John ';
+    component.email = ' john@example.com ';
+    component.message = ' Hello ';
     component.onSubmit();
     vi.advanceTimersByTime(2000);
     expect(component.status()).toBe('sent');
@@ -157,6 +183,22 @@ describe('Contact', () => {
     expect(component.name).toBe('');
     expect(component.email).toBe('');
     expect(component.message).toBe('');
+    vi.useRealTimers();
+  });
+
+  it('should trim user fields before sending the message', () => {
+    vi.useFakeTimers();
+    component.name = ' John ';
+    component.email = ' john@example.com ';
+    component.message = ' Message with spaces ';
+
+    component.onSubmit();
+
+    expect(component.name).toBe('John');
+    expect(component.email).toBe('john@example.com');
+    expect(component.message).toBe('Message with spaces');
+    expect(component.status()).toBe('sending');
+    vi.advanceTimersByTime(2000);
     vi.useRealTimers();
   });
 });
