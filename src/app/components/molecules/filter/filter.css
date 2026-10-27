@@ -107,5 +107,10 @@
   .filter__buttons {
     display: flex;
     gap: 0.5rem;
+
+    @media (min-width: 1024px) {
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
 }
