@@ -1,4 +1,4 @@
-import { Component, DestroyRef, effect, inject, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, effect, inject, signal } from '@angular/core';
 import { ResponsiveIncludes } from '@pipes/responsive/includes/includes';
 import { Devices, Responsive } from '@services/responsive/responsive';
 import { ThemePicker } from '@components/atoms/theme-picker/theme-picker/theme-picker';
@@ -10,6 +10,8 @@ type NavigationItem = {
 };
 
 const BODY_SCROLL_LOCK_CLASS = 'navigation--menu-open';
+const FIRST_MENU_LINK_SELECTOR = '[data-navigation-first-link="true"]';
+const TOGGLE_BUTTON_SELECTOR = '.navigation__button button';
 
 @Component({
   selector: 'app-navigation',
@@ -19,12 +21,14 @@ const BODY_SCROLL_LOCK_CLASS = 'navigation--menu-open';
 })
 export class Navigation {
   private readonly destroyRef = inject(DestroyRef);
+  private readonly hostElement = inject<ElementRef<HTMLElement>>(ElementRef);
 
   public readonly responsive: Responsive = inject(Responsive);
 
   public readonly breakpoints: typeof Devices = Devices;
 
   public readonly opened = signal<boolean>(false);
+  public readonly mobileMenuId = 'navigation-mobile-menu';
 
   public readonly navigationItems: readonly NavigationItem[] = [
     { href: '/projects', label: 'Projects' },
@@ -43,10 +47,36 @@ export class Navigation {
   }
 
   public toggleMenu(): void {
-    this.opened.update((status) => !status);
+    const nextStatus = !this.opened();
+    this.opened.set(nextStatus);
+    nextStatus ? this.focusFirstMenuLink() : this.focusToggleButton();
   }
 
   public closeMenu(): void {
+    if (this.opened() === false) {
+      return;
+    }
+
     this.opened.set(false);
+    this.focusToggleButton();
+  }
+
+  public onMenuEscape(event: Event): void {
+    event.preventDefault();
+    this.closeMenu();
+  }
+
+  private focusFirstMenuLink(): void {
+    queueMicrotask(() => {
+      this.hostElement.nativeElement
+        .querySelector<HTMLElement>(FIRST_MENU_LINK_SELECTOR)
+        ?.focus();
+    });
+  }
+
+  private focusToggleButton(): void {
+    queueMicrotask(() => {
+      this.hostElement.nativeElement.querySelector<HTMLButtonElement>(TOGGLE_BUTTON_SELECTOR)?.focus();
+    });
   }
 }
