@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { vi } from 'vitest';
 import { Projects } from './projects';
 
 describe('Projects', () => {
@@ -7,6 +8,11 @@ describe('Projects', () => {
   let fixture: ComponentFixture<Projects>;
 
   beforeEach(async () => {
+    vi.stubGlobal('localStorage', {
+      getItem: vi.fn(() => null),
+      setItem: vi.fn(),
+    });
+
     await TestBed.configureTestingModule({
       imports: [Projects],
       providers: [provideRouter([])],
@@ -15,6 +21,10 @@ describe('Projects', () => {
     fixture = TestBed.createComponent(Projects);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
   });
 
   it('should create', () => {
@@ -32,32 +42,32 @@ describe('Projects', () => {
       'Shell',
       'Mars',
       'Castrol',
-      'Bancolombia',
       'Rappi',
+      'Bancolombia',
+      'Banistmo',
+      'Wompi',
+      'Alpina',
       'Colombina',
       'Grupo Diana',
-      'Wompi',
-      'Banistmo',
-      'Grupo Alen',
-      'Comfaboy',
-      'Grupo Uno',
-      'Expovinos 2021',
-      'Foodbox',
       'Chillibeans',
-      'Alpina',
+      'Grupo Alen',
+      'Grupo Uno',
+      'Comfaboy',
+      'Expovinos 2021',
       'Ultra1Plus',
-      'Especialistas En Casa',
-      'Planetife',
-      'Geekboss',
-      'Dra Skin',
-      'Adresles',
-      'Dosmass',
-      'Destiny',
+      'Foodbox',
       'Dojo',
-      'Cimonamía',
+      'Planetife',
+      'Destiny',
+      'Dosmass',
+      'Geekboss',
       'Highpeak',
-      'Grateful',
+      'Adresles',
+      'Especialistas En Casa',
+      'Dra Skin',
+      'Cimonamía',
       'Q Buen Plan',
+      'Grateful',
       'M374',
     ]);
   });
@@ -154,6 +164,24 @@ describe('Projects', () => {
     component.setPage(3);
     component.setFilteredProjects(component.projects.slice(0, 5));
     expect(component.page()).toBe(1);
+  });
+
+  it('should reset filters from the empty-state action', () => {
+    component.setSort('Title (A–Z)');
+    component.setFilteredProjects([]);
+    component.openFilterDialog();
+    fixture.detectChanges();
+
+    const emptyActionButton = fixture.nativeElement.querySelector('.projects__empty-action');
+    expect(emptyActionButton).toBeTruthy();
+
+    emptyActionButton.click();
+    fixture.detectChanges();
+
+    expect(component.filteredProjects()).toEqual(component.projects);
+    expect(component.sort()).toBe('Relevance');
+    expect(component.page()).toBe(1);
+    expect(component.isFilterDialogOpen()).toBe(false);
   });
 
   it('should open and close the project filter dialog', () => {

@@ -61,7 +61,12 @@
             />
           </div>
         } @else {
-          <p class="projects__empty">No projects match these filters.</p>
+          <div class="projects__empty-state">
+            <p class="projects__empty">No projects match these filters.</p>
+            <button class="projects__empty-action" type="button" (click)="resetFilters()">
+              Reset filters
+            </button>
+          </div>
         }
       </div>
     </div>

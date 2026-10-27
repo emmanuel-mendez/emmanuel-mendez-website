@@ -7,11 +7,7 @@ import { Page } from '@services/page/page';
 import { Project, ProjectsData } from '@services/projects/projects-data';
 
 export type ProjectSort =
-  | 'Relevance'
-  | 'Title (A–Z)'
-  | 'Title (Z–A)'
-  | 'Year (newest first)'
-  | 'Year (oldest first)';
+  'Relevance' | 'Title (A–Z)' | 'Title (Z–A)' | 'Year (newest first)' | 'Year (oldest first)';
 
 type ProjectSortStrategy = (first: Project, second: Project) => number;
 
@@ -196,5 +192,12 @@ export class Projects {
 
   public closeFilterDialog(): void {
     this.isFilterDialogOpen.set(false);
+  }
+
+  public resetFilters(): void {
+    this.filteredProjects.set(this.projects);
+    this.sort.set('Relevance');
+    this.page.set(1);
+    this.closeFilterDialog();
   }
 }
