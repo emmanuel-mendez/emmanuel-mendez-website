@@ -49,7 +49,6 @@ describe('Navigation', () => {
 
   it('should expose reusable navigation items', () => {
     expect(component.navigationItems).toEqual([
-      { href: '/projects', label: 'Projects' },
       { href: '#home-about', label: 'About' },
       { href: '#home-projects', label: 'Projects' },
       { href: '#home-experience', label: 'Experience' },
