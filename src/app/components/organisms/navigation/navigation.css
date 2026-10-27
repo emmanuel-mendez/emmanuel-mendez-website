@@ -133,6 +133,14 @@
   }
 }
 
+.navigation__link--active {
+  font-weight: 600;
+
+  &::before {
+    transform: scaleX(1);
+  }
+}
+
 .navigation__theme-picker {
   display: flex;
   justify-content: flex-end;
