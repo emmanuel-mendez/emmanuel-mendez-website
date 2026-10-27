@@ -26,6 +26,8 @@ export class Contact implements OnDestroy {
       form.control.markAllAsTouched();
       return;
     }
+    this.normalizeFields();
+    if (this.isFormFilled() === false) return;
 
     this.status.set('sending');
 
@@ -42,9 +44,21 @@ export class Contact implements OnDestroy {
     this.message = '';
   }
 
+  public isFormFilled(): boolean {
+    return (
+      this.name.trim().length > 0 && this.email.trim().length > 0 && this.message.trim().length > 0
+    );
+  }
+
   ngOnDestroy(): void {
     if (this.sendTimeout !== null) {
       clearTimeout(this.sendTimeout);
     }
+  }
+
+  private normalizeFields(): void {
+    this.name = this.name.trim();
+    this.email = this.email.trim();
+    this.message = this.message.trim();
   }
 }
