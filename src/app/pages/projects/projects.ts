@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Card } from '@components/molecules/card/card';
 import { Filter, FilterCategory } from '@components/molecules/filter/filter';
 import { Pagination } from '@components/molecules/pagination/pagination';
 import { Layout } from '@components/templates/layout/layout';
@@ -117,7 +117,7 @@ const SORT_ALIASES: Readonly<Record<string, ProjectSort>> = {
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [Layout, RouterLink, Filter, Pagination],
+  imports: [Layout, Card, Filter, Pagination],
   templateUrl: './projects.html',
   styleUrl: './projects.css',
 })

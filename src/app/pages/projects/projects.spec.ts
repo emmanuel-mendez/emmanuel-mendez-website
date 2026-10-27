@@ -63,21 +63,48 @@ describe('Projects', () => {
     expect(cards[2].querySelector('.projects__card-role--collaborator')).not.toBeNull();
   });
 
-  it('should display at most three technology tags on each project card', () => {
+  it('should render a details link and a source link only when source code is available', () => {
+    const cards: NodeListOf<HTMLElement> =
+      fixture.nativeElement.querySelectorAll('.projects__card');
+
+    component.projects.slice(0, cards.length).forEach((project, index) => {
+      const card: HTMLElement = cards[index];
+      const detailsLink: HTMLAnchorElement | null = card.querySelector(
+        '.projects__card-link:not([target])',
+      );
+      const sourceLink: HTMLAnchorElement | null = card.querySelector(
+        '.projects__card-link[target="_blank"]',
+      );
+
+      expect(detailsLink?.getAttribute('href')).toBe(`/projects/${project.slug}`);
+      expect(detailsLink?.textContent).toContain('Details');
+      expect(sourceLink !== null).toBe(Boolean(project.sourceCode));
+      expect(sourceLink ? sourceLink.getAttribute('href') : null).toBe(project.sourceCode ?? null);
+      expect(sourceLink?.getAttribute('rel')).toBe(
+        project.sourceCode ? 'noopener noreferrer' : undefined,
+      );
+    });
+  });
+
+  it('should display at most four technology tags on each project card', () => {
     const cards: NodeListOf<HTMLElement> =
       fixture.nativeElement.querySelectorAll('.projects__card');
 
     expect(
       Array.from(cards).every((card) => card.querySelectorAll('.projects__card-tag').length <= 4),
     ).toBe(true);
-    expect(cards[0].querySelectorAll('.projects__card-tag')).toHaveLength(3);
+    expect(cards[0].querySelectorAll('.projects__card-tag')).toHaveLength(
+      Math.min(4, component.projects[0].technologies.length),
+    );
   });
 
   it('should display six projects per page and navigate between pages', () => {
     expect(fixture.nativeElement.querySelectorAll('.projects__card')).toHaveLength(6);
-    expect(fixture.nativeElement.querySelectorAll('.pagination__control')).toHaveLength(6);
+    expect(fixture.nativeElement.querySelectorAll('.pagination__control')).toHaveLength(
+      Math.min(5, Math.ceil(component.projects.length / 6)) + 2,
+    );
 
-    fixture.nativeElement.querySelector('.pagination__control:last-child').click();
+    fixture.nativeElement.querySelector('.pagination__control[aria-label="Next page"]').click();
     fixture.detectChanges();
 
     expect(component.page()).toBe(2);

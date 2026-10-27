@@ -1,13 +1,13 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { Button } from '@components/atoms/button/button';
+import { Card } from '@components/molecules/card/card';
 import { Pagination } from '@components/molecules/pagination/pagination';
 import { ProjectsData } from '@services/projects/projects-data';
 
 @Component({
   selector: 'app-projects-section',
-  imports: [Button, NgTemplateOutlet, Pagination, RouterLink],
+  imports: [Button, Card, NgTemplateOutlet, Pagination],
   templateUrl: './projects.html',
   styleUrl: './projects.css',
 })

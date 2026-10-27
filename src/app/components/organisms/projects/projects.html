@@ -17,33 +17,6 @@
     </div>
   </ng-template>
   <ng-template #projectTemplate let-project>
-    <article class="projects__card">
-      <div class="projects__card-header">
-        <h3 class="projects__card-title">{{ project.title }}</h3>
-      </div>
-      <p class="projects__card-description">{{ project.description }}</p>
-      <ul class="projects__card-tags">
-        @for (tech of project.technologies; track tech) {
-          <li class="projects__card-tag">{{ tech }}</li>
-        }
-      </ul>
-      <div class="projects__card-actions">
-        <a class="projects__card-link" [routerLink]="['/projects', project.slug]">
-          <span class="material-symbols-outlined projects__card-link-icon">open_in_new</span>
-          Details
-        </a>
-        @if (project.sourceCode) {
-          <a
-            class="projects__card-link"
-            [href]="project.sourceCode"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span class="material-symbols-outlined projects__card-link-icon">code</span>
-            Source
-          </a>
-        }
-      </div>
-    </article>
+    <app-card [project]="project" [titleLevel]="3" />
   </ng-template>
 </section>
