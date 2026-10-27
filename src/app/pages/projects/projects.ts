@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, computed, effect, inject, signal } from '@angular/core';
 import { Card } from '@components/molecules/card/card';
 import { Filter, FilterCategory } from '@components/molecules/filter/filter';
 import { Pagination } from '@components/molecules/pagination/pagination';
@@ -114,6 +114,9 @@ const SORT_ALIASES: Readonly<Record<string, ProjectSort>> = {
   Year: 'Year (newest first)',
 };
 
+const FILTER_DIALOG_OPEN_CLASS = 'projects--filter-dialog-open';
+const FILTER_TRIGGER_SELECTOR = '.projects__filter-trigger';
+
 @Component({
   selector: 'app-projects',
   standalone: true,
@@ -122,10 +125,13 @@ const SORT_ALIASES: Readonly<Record<string, ProjectSort>> = {
   styleUrl: './projects.css',
 })
 export class Projects {
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly hostElement = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly pageService = inject(Page);
   private readonly projectsData = inject(ProjectsData);
 
   public readonly projects = this.projectsData.projects;
+  public readonly filterPanelId = 'projects-filter-panel';
   public readonly sortProperties: readonly ProjectSort[] = [
     'Relevance',
     'Title (A–Z)',
@@ -159,12 +165,28 @@ export class Projects {
     const strategy = SORT_STRATEGIES[this.sort()] ?? SORT_STRATEGIES.Relevance;
     return [...this.filteredProjects()].sort(strategy);
   });
+  public readonly resultsSummary = computed(() => {
+    const totalProjects = this.displayedProjects().length;
+    const label = totalProjects === 1 ? 'project' : 'projects';
+
+    return `${totalProjects} ${label} shown. Sorted by ${this.sort()}.`;
+  });
 
   private readonly DESCRIPTION =
     'Projects - Emmanuel Mendez / +3 years of experience creating web applications using TypeScript and frontend frameworks, managing global states, documenting UI components and unit testing them. Expert using CSS frameworks and UI component libraries. Advanced knowledge of best practices, programming principles, object-oriented, reactive and functional programming, design patterns and atomic design.';
 
   constructor() {
     this.pageService.setMetaTags(this.DESCRIPTION);
+
+    effect(() => {
+      if (typeof document === 'undefined') return;
+      document.body.classList.toggle(FILTER_DIALOG_OPEN_CLASS, this.isFilterDialogOpen());
+    });
+
+    this.destroyRef.onDestroy(() => {
+      if (typeof document === 'undefined') return;
+      document.body.classList.remove(FILTER_DIALOG_OPEN_CLASS);
+    });
   }
 
   public setFilteredProjects(projects: readonly Project[]): void {
@@ -187,10 +209,41 @@ export class Projects {
   }
 
   public openFilterDialog(): void {
+    if (this.isFilterDialogOpen()) {
+      return;
+    }
+
     this.isFilterDialogOpen.set(true);
+    this.focusFilterPanel();
   }
 
   public closeFilterDialog(): void {
+    if (this.isFilterDialogOpen() === false) {
+      return;
+    }
+
     this.isFilterDialogOpen.set(false);
+    this.focusFilterTrigger();
+  }
+
+  private focusFilterPanel(): void {
+    queueMicrotask(() => {
+      this.hostElement.nativeElement.querySelector<HTMLElement>(`#${this.filterPanelId}`)?.focus();
+    });
+  }
+
+  private focusFilterTrigger(): void {
+    queueMicrotask(() => {
+      this.hostElement.nativeElement
+        .querySelector<HTMLButtonElement>(FILTER_TRIGGER_SELECTOR)
+        ?.focus();
+    });
+  }
+
+  public resetFilters(): void {
+    this.filteredProjects.set(this.projects);
+    this.sort.set('Relevance');
+    this.page.set(1);
+    this.closeFilterDialog();
   }
 }

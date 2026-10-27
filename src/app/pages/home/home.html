@@ -1,13 +1,33 @@
 <app-layout>
-  <div>
+  <main class="home" id="home-main-content" aria-label="Home page content">
     <app-banner />
+    <nav class="home__quick-nav container" aria-label="Home sections">
+      <a class="home__quick-nav-link" href="#home-about">About</a>
+      <a class="home__quick-nav-link" href="#home-projects">Projects</a>
+      <a class="home__quick-nav-link" href="#home-experience">Experience</a>
+      <a class="home__quick-nav-link" href="#home-skills">Skills</a>
+      <a class="home__quick-nav-link" href="#home-testimonials">Testimonials</a>
+      <a class="home__quick-nav-link" href="#home-contact">Contact</a>
+    </nav>
     <div class="container">
-      <app-about />
-      <app-projects-section />
-      <app-job-experience />
-      <app-skills />
-      <app-testimonials />
-      <app-contact />
+      <section class="home__section" id="home-about" aria-label="About section">
+        <app-about />
+      </section>
+      <section class="home__section" id="home-projects" aria-label="Projects section">
+        <app-projects-section />
+      </section>
+      <section class="home__section" id="home-experience" aria-label="Experience section">
+        <app-job-experience />
+      </section>
+      <section class="home__section" id="home-skills" aria-label="Skills section">
+        <app-skills />
+      </section>
+      <section class="home__section" id="home-testimonials" aria-label="Testimonials section">
+        <app-testimonials />
+      </section>
+      <section class="home__section" id="home-contact" aria-label="Contact section">
+        <app-contact />
+      </section>
     </div>
-  </div>
+  </main>
 </app-layout>

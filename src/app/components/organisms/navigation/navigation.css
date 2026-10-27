@@ -25,6 +25,12 @@
     background-color 0.2s ease;
 }
 
+.navigation__button:focus-within,
+.navigation__backdrop:focus-within {
+  outline: 2px solid light-dark(var(--white), var(--analogous--primary));
+  outline-offset: 0.125rem;
+}
+
 .navigation__icon {
   font-size: var(--extra-extra-extra-large);
 }
@@ -118,9 +124,20 @@
   }
 
   &:focus-visible {
+    outline: 2px solid light-dark(var(--white), var(--analogous--primary));
+    outline-offset: 0.125rem;
+
     &::before {
       transform: scaleX(1);
     }
+  }
+}
+
+.navigation__link--active {
+  font-weight: 600;
+
+  &::before {
+    transform: scaleX(1);
   }
 }
 

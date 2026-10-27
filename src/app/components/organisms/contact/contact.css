@@ -21,6 +21,11 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  transition: opacity 0.2s ease;
+}
+
+.contact__form[aria-busy='true'] {
+  opacity: 0.85;
 }
 
 .contact__field {
@@ -33,6 +38,20 @@
   font-size: var(--extra-small);
   font-weight: 500;
   color: light-dark(var(--primary), var(--white));
+  transition: color 0.2s ease;
+}
+
+.contact__hint {
+  margin: 0;
+  font-size: var(--extra-extra-small);
+  color: light-dark(var(--grey), var(--grey));
+  transition: color 0.2s ease;
+}
+
+.contact__error {
+  margin: 0;
+  font-size: var(--extra-extra-small);
+  color: light-dark(var(--analogous--secondary), var(--white));
   transition: color 0.2s ease;
 }
 
@@ -60,11 +79,28 @@
     outline: none;
     border-color: var(--primary);
   }
+
+  &:focus-visible {
+    outline: 2px solid light-dark(var(--primary), var(--analogous--primary));
+    outline-offset: 1px;
+  }
+}
+
+.contact__input[aria-invalid='true'] {
+  border-color: light-dark(var(--analogous--secondary), var(--analogous--secondary));
 }
 
 .contact__input--textarea {
   resize: vertical;
   min-height: 7.5rem;
+}
+
+.contact__counter {
+  margin: 0;
+  text-align: right;
+  font-size: var(--extra-extra-small);
+  color: light-dark(var(--grey), var(--grey));
+  transition: color 0.2s ease;
 }
 
 .contact__button {
