@@ -14,4 +14,14 @@ describe('ProjectsData', () => {
     expect(project).toBeTruthy();
     expect(service.getBySlug('nonexistent')).toBeUndefined();
   });
+
+  it('should provide extended project detail data for the redesigned flagship case study', () => {
+    const project = service.getBySlug('emmanuel-mendez-website');
+
+    expect(project?.timeline).toBeTruthy();
+    expect(project?.scope).toBeTruthy();
+    expect(project?.responsibilities?.length).toBeGreaterThan(0);
+    expect(project?.highlights?.length).toBeGreaterThan(0);
+    expect(project?.milestones?.length).toBeGreaterThan(0);
+  });
 });
