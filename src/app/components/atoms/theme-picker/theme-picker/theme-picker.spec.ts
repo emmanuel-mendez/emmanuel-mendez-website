@@ -16,11 +16,11 @@ describe('ThemePicker', () => {
     await fixture.whenStable();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('should apply the selected theme and close the menu', () => {
+    component.dropdownStatus.set(true);
 
-  it('should render the shared Button component for the theme toggle', () => {
-    expect(fixture.nativeElement.querySelector('app-button.button button')?.type).toBe('button');
+    component.selectTheme(component.modes[1].value);
+
+    expect(component.dropdownStatus()).toBe(false);
   });
 });

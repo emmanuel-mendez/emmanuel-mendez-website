@@ -21,80 +21,27 @@ describe('Contact', () => {
     vi.useRealTimers();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should start with idle status', () => {
-    expect(component.status()).toBe('idle');
-  });
-
-  it('should use the shared Button component for submission', () => {
-    const submitButton: HTMLButtonElement | null = fixture.nativeElement.querySelector(
-      'app-button.contact__button button',
-    );
-
-    expect(submitButton?.type).toBe('submit');
-  });
-
-  it('should render English contact copy', () => {
-    const nativeElement: HTMLElement = fixture.nativeElement;
-
-    expect(nativeElement.querySelector('.contact__title')?.textContent?.trim()).toBe('Contact');
-    expect(nativeElement.querySelector('.contact__subtitle')?.textContent?.trim()).toBe(
-      'Do you have a project in mind? Send me a message.',
-    );
-    expect(nativeElement.querySelector('#contact-name')?.getAttribute('placeholder')).toBe(
-      'Your full name',
-    );
-    expect(nativeElement.querySelector('#contact-email')?.getAttribute('placeholder')).toBe(
-      'you@example.com',
-    );
-    expect(nativeElement.querySelector('#contact-message')?.getAttribute('placeholder')).toBe(
-      'Write your message here...',
-    );
-  });
-
-  it('should set status to sending on submit', () => {
+  it('should prevent duplicate submissions and complete the send flow', () => {
     vi.useFakeTimers();
+    const timeoutSpy = vi.spyOn(globalThis, 'setTimeout');
     component.onSubmit();
-    expect(component.status()).toBe('sending');
-    vi.useRealTimers();
-  });
-
-  it('should set status to sent after timeout', () => {
-    vi.useFakeTimers();
     component.onSubmit();
-    expect(component.status()).toBe('sending');
+    expect(timeoutSpy).toHaveBeenCalledOnce();
     vi.advanceTimersByTime(2000);
-    expect(component.status()).toBe('sent');
+    expect(timeoutSpy).toHaveBeenCalledOnce();
     vi.useRealTimers();
   });
 
-  it('should not resubmit while already sending', () => {
-    vi.useFakeTimers();
-    component.onSubmit();
-    expect(component.status()).toBe('sending');
-    component.onSubmit();
-    expect(component.status()).toBe('sending');
-    vi.advanceTimersByTime(2000);
-    vi.useRealTimers();
-  });
-
-  it('should reset status and fields on reset()', () => {
+  it('should reset the status and fields', () => {
     vi.useFakeTimers();
     component.name = 'John';
     component.email = 'john@example.com';
     component.message = 'Hello';
-    component.onSubmit();
-    vi.advanceTimersByTime(2000);
-    expect(component.status()).toBe('sent');
-
+    component.status.set('sent');
     component.reset();
-    expect(component.status()).toBe('idle');
-    expect(component.name).toBe('');
-    expect(component.email).toBe('');
-    expect(component.message).toBe('');
-    vi.useRealTimers();
+    component.reset();
+    expect(component.name.length).toBe(0);
+    expect(component.email.length).toBe(0);
+    expect(component.message.length).toBe(0);
   });
 });

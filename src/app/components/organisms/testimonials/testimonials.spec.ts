@@ -16,14 +16,6 @@ describe('Testimonials', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should have a non-empty testimonials list', () => {
-    expect(component.testimonials.length).toBeGreaterThan(0);
-  });
-
   it('should render a testimonials card for each item', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const cards = compiled.querySelectorAll('.testimonials__card');

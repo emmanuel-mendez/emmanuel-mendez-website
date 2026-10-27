@@ -29,51 +29,20 @@ describe('Navigation', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should expose reusable navigation items', () => {
-    expect(component.navigationItems).toEqual([{ href: '/projects', label: 'Projects' }]);
-  });
-
-  it('should render desktop list for desktop devices', () => {
+  it('should switch between desktop and mobile navigation and close the mobile menu', () => {
     const list = fixture.nativeElement.querySelector('.navigation__list');
     const menuButton = fixture.nativeElement.querySelector('.navigation__button');
 
     expect(list).toBeTruthy();
     expect(menuButton).toBeFalsy();
-  });
-
-  it('should render hamburger menu for tablet devices', () => {
-    device.set([Devices.TABLET]);
-    fixture.detectChanges();
-
-    const list = fixture.nativeElement.querySelector('.navigation__list');
-    const menuButton = fixture.nativeElement.querySelector('.navigation__button');
-
-    expect(list).toBeFalsy();
-    expect(menuButton).toBeTruthy();
-    expect(menuButton.querySelector('button')?.type).toBe('button');
-  });
-
-  it('should render hamburger menu for mobile devices', () => {
     device.set([Devices.MOBILE]);
     fixture.detectChanges();
 
-    const list = fixture.nativeElement.querySelector('.navigation__list');
-    const menuButton = fixture.nativeElement.querySelector('.navigation__button');
-
-    expect(list).toBeFalsy();
-    expect(menuButton).toBeTruthy();
-  });
-
-  it('should open and close the mobile menu', () => {
-    device.set([Devices.MOBILE]);
-    fixture.detectChanges();
-
-    const menuButton = fixture.nativeElement.querySelector('.navigation__button');
-    menuButton.click();
+    const mobileMenuButton: HTMLElement =
+      fixture.nativeElement.querySelector('.navigation__button');
+    expect(fixture.nativeElement.querySelector('.navigation__list')).toBeFalsy();
+    expect(mobileMenuButton.querySelector('button')).not.toBeNull();
+    mobileMenuButton.click();
     fixture.detectChanges();
 
     const backdrop = fixture.nativeElement.querySelector('.navigation__backdrop');
@@ -81,20 +50,18 @@ describe('Navigation', () => {
     expect(backdrop).toBeTruthy();
     expect(mobileMenu).toBeTruthy();
 
-    const homeLink = fixture.nativeElement.querySelector('.navigation__menu .navigation__link');
-    homeLink.click();
+    const mobileLink: HTMLAnchorElement = mobileMenu.querySelector('.navigation__link');
+    mobileLink.click();
     fixture.detectChanges();
 
-    const hiddenMenu = fixture.nativeElement.querySelector('.navigation__menu');
-    const hiddenBackdrop = fixture.nativeElement.querySelector('.navigation__backdrop');
-    expect(hiddenMenu).toBeFalsy();
-    expect(hiddenBackdrop).toBeFalsy();
+    expect(fixture.nativeElement.querySelector('.navigation__menu')).toBeFalsy();
     expect(component.opened()).toBe(false);
 
-    menuButton.click();
+    mobileMenuButton.click();
     fixture.detectChanges();
 
-    const reopenedBackdrop = fixture.nativeElement.querySelector('.navigation__backdrop');
+    const reopenedBackdrop: HTMLElement =
+      fixture.nativeElement.querySelector('.navigation__backdrop');
     reopenedBackdrop.click();
     fixture.detectChanges();
 

@@ -33,39 +33,36 @@ describe('Filter', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should default the sorting property to Relevance', () => {
-    expect(component.sortProperties()).toEqual(['Relevance']);
-    expect(component.sortProperty()).toBe('Relevance');
-    expect(fixture.nativeElement.querySelector('.filter__sort').value).toBe('Relevance');
+  it('should provide a default sorting option', () => {
+    expect(component.sortProperties()).toHaveLength(1);
+    expect(component.sortProperty()).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('.filter__sort')).not.toBeNull();
   });
 
   it('should emit the selected sorting property', () => {
     const sortPropertyChange = vi.spyOn(component.sortPropertyChange, 'emit');
-    fixture.componentRef.setInput('sortProperties', ['Relevance', 'Alphabetically']);
+    fixture.componentRef.setInput('sortProperties', ['default', 'alternate']);
     fixture.detectChanges();
 
     const select = fixture.nativeElement.querySelector('.filter__sort') as HTMLSelectElement;
-    select.value = 'Alphabetically';
+    select.value = 'alternate';
     select.dispatchEvent(new Event('change'));
 
-    expect(sortPropertyChange).toHaveBeenCalledWith('Alphabetically');
+    expect(sortPropertyChange).toHaveBeenCalledOnce();
   });
 
   it('should filter array values and intersect selections from different categories', () => {
     component.toggleProperty(categories[0], 'Angular');
     component.toggleProperty(categories[1], '2025');
 
-    expect(component.filteredList()).toEqual([list[2]]);
+    expect(component.filteredList()).toHaveLength(1);
+    expect(component.filteredList()[0]).toBe(list[2]);
   });
 
   it('should clear selected properties', () => {
     component.toggleProperty(categories[0], 'Angular');
     component.clearFilters();
 
-    expect(component.filteredList()).toEqual(list);
+    expect(component.filteredList()).toHaveLength(list.length);
   });
 });

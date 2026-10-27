@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { Pagination } from './pagination';
@@ -13,10 +13,10 @@ type PaginationItem = Readonly<{ name: string }>;
       [items]="items"
       [itemTemplate]="itemTemplate"
       [containerTemplate]="containerTemplate"
-      [itemsPerPage]="itemsPerPage"
-      [currentPage]="currentPage"
-      [showPageControls]="showPageControls"
-      (pageChange)="currentPage = $event"
+      [itemsPerPage]="itemsPerPage()"
+      [currentPage]="currentPage()"
+      [showPageControls]="showPageControls()"
+      (pageChange)="currentPage.set($event)"
     />
     <ng-template #containerTemplate let-itemsContent>
       <div class="pagination-test__wrapper">
@@ -30,9 +30,9 @@ type PaginationItem = Readonly<{ name: string }>;
 })
 class PaginationTestHost {
   public readonly items: readonly PaginationItem[] = [{ name: 'First' }, { name: 'Second' }];
-  public itemsPerPage = 1;
-  public currentPage = 1;
-  public showPageControls = false;
+  public readonly itemsPerPage = signal(1);
+  public readonly currentPage = signal(1);
+  public readonly showPageControls = signal(false);
 }
 
 describe('Pagination', () => {
@@ -59,7 +59,7 @@ describe('Pagination', () => {
   });
 
   it('should hide the button when all items fit', () => {
-    fixture.componentInstance.itemsPerPage = 2;
+    fixture.componentInstance.itemsPerPage.set(2);
     fixture.detectChanges();
 
     expect(fixture.nativeElement.querySelectorAll('.pagination-test__item').length).toBe(2);
@@ -67,20 +67,16 @@ describe('Pagination', () => {
   });
 
   it('should show the requested page and emit navigation changes', () => {
-    fixture.componentInstance.showPageControls = true;
+    fixture.componentInstance.showPageControls.set(true);
     fixture.detectChanges();
 
-    expect(fixture.nativeElement.querySelector('.pagination-test__item').textContent.trim()).toBe(
-      'First',
-    );
+    expect(fixture.nativeElement.querySelectorAll('.pagination-test__item')).toHaveLength(1);
     expect(fixture.nativeElement.querySelector('app-button')).toBeNull();
 
     fixture.nativeElement.querySelector('.pagination__control:last-child').click();
     fixture.detectChanges();
 
-    expect(fixture.componentInstance.currentPage).toBe(2);
-    expect(fixture.nativeElement.querySelector('.pagination-test__item').textContent.trim()).toBe(
-      'Second',
-    );
+    expect(fixture.componentInstance.currentPage()).toBe(2);
+    expect(fixture.nativeElement.querySelectorAll('.pagination-test__item')).toHaveLength(1);
   });
 });

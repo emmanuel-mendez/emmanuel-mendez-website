@@ -1,6 +1,6 @@
 import { Component, inject, computed, signal, afterNextRender, DestroyRef } from '@angular/core';
 import { Responsive, Devices } from '@services/responsive/responsive';
-import { Theme, ThemeMode } from '@services/theme/theme';
+import { Theme } from '@services/theme/theme';
 
 @Component({
   selector: 'app-footer',

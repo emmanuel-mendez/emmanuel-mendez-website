@@ -7,11 +7,7 @@ import { Page } from '@services/page/page';
 import { Project, ProjectsData } from '@services/projects/projects-data';
 
 export type ProjectSort =
-  | 'Relevance'
-  | 'Title (A–Z)'
-  | 'Title (Z–A)'
-  | 'Year (newest first)'
-  | 'Year (oldest first)';
+  'Relevance' | 'Title (A–Z)' | 'Title (Z–A)' | 'Year (newest first)' | 'Year (oldest first)';
 
 type ProjectSortStrategy = (first: Project, second: Project) => number;
 
@@ -23,32 +19,32 @@ const RELEVANCE_ORDER: readonly string[] = [
   'Shell',
   'Mars',
   'Castrol',
-  'Rappi',
   'Bancolombia',
-  'Banistmo',
-  'Wompi',
-  'Alpina',
+  'Rappi',
   'Colombina',
   'Grupo Diana',
-  'Chillibeans',
+  'Wompi',
+  'Banistmo',
   'Grupo Alen',
-  'Grupo Uno',
   'Comfaboy',
+  'Grupo Uno',
   'Expovinos 2021',
-  'Ultra1Plus',
   'Foodbox',
-  'Dojo',
-  'Planetife',
-  'Destiny',
-  'Dosmass',
-  'Geekboss',
-  'Highpeak',
-  'Adresles',
+  'Chillibeans',
+  'Alpina',
+  'Ultra1Plus',
   'Especialistas En Casa',
+  'Planetife',
+  'Geekboss',
   'Dra Skin',
+  'Adresles',
+  'Dosmass',
+  'Destiny',
+  'Dojo',
   'Cimonamía',
-  'Q Buen Plan',
+  'Highpeak',
   'Grateful',
+  'Q Buen Plan',
   'M374',
 ];
 

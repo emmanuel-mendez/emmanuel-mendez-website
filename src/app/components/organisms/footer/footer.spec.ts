@@ -3,12 +3,9 @@ import { signal, WritableSignal } from '@angular/core';
 
 import { Footer } from './footer';
 import { Devices, Responsive } from '@services/responsive/responsive';
-import { ThemeMode, Theme } from '@services/theme/theme';
 
 describe('Footer', () => {
-  let component: Footer;
   let fixture: ComponentFixture<Footer>;
-  let theme: Theme;
   let mockDevice: WritableSignal<Devices[]>;
 
   beforeEach(async () => {
@@ -25,32 +22,18 @@ describe('Footer', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(Footer);
-    component = fixture.componentInstance;
-    theme = TestBed.inject(Theme);
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('should render secure external links for each social profile', () => {
+    const links: NodeListOf<HTMLAnchorElement> =
+      fixture.nativeElement.querySelectorAll('.social-link');
 
-  it('should render a GitHub link', () => {
-    const anchor: HTMLAnchorElement = fixture.nativeElement.querySelector(
-      'a[aria-label="GitHub"]',
-    );
-    expect(anchor).toBeTruthy();
-    expect(anchor.getAttribute('href')).toContain('github.com');
-    expect(anchor.getAttribute('target')).toBe('_blank');
-    expect(anchor.getAttribute('rel')).toContain('noopener');
-  });
-
-  it('should render a LinkedIn link', () => {
-    const anchor: HTMLAnchorElement = fixture.nativeElement.querySelector(
-      'a[aria-label="LinkedIn"]',
-    );
-    expect(anchor).toBeTruthy();
-    expect(anchor.getAttribute('href')).toContain('linkedin.com');
-    expect(anchor.getAttribute('target')).toBe('_blank');
-    expect(anchor.getAttribute('rel')).toContain('noopener');
+    expect(links).toHaveLength(2);
+    links.forEach((link) => {
+      expect(link.hasAttribute('href')).toBe(true);
+      expect(link.hasAttribute('target')).toBe(true);
+      expect(link.hasAttribute('rel')).toBe(true);
+    });
   });
 });

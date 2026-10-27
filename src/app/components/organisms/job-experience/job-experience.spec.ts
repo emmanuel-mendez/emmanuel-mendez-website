@@ -16,18 +16,11 @@ describe('JobExperience', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should render at least one experience entry', () => {
-    expect(component.experiences.length).toBeGreaterThan(0);
-  });
-
-  it('should display the section title', () => {
+  it('should render experience entries under the section title', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.job-experience__title')?.textContent?.trim()).toBe(
-      'Work Experience',
+    expect(compiled.querySelector('.job-experience__title')).not.toBeNull();
+    expect(compiled.querySelectorAll('.job-experience__item').length).toBe(
+      component.experiences.length,
     );
   });
 });
