@@ -19,6 +19,8 @@ export class Button {
   public readonly disabled = input(false);
   public readonly label = input<string | undefined>(undefined);
   public readonly ariaLabel = input<string | undefined>(undefined, { alias: 'aria-label' });
+  public readonly ariaExpanded = input<string | undefined>(undefined, { alias: 'aria-expanded' });
+  public readonly ariaControls = input<string | undefined>(undefined, { alias: 'aria-controls' });
   public readonly target = input<string | undefined>(undefined);
   public readonly rel = input<string | undefined>(undefined);
 }
