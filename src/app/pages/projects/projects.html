@@ -79,6 +79,11 @@
           >
             {{ project.rol }}
           </p>
+          <ul class="projects__card-tags">
+            @for (tech of project.technologies.slice(0, 4); track tech) {
+              <li class="projects__card-tag">{{ tech }}</li>
+            }
+          </ul>
         </div>
         <div class="projects__card-body">
           <div class="projects__card-header">
@@ -88,11 +93,6 @@
           @if (project.year !== undefined) {
             <p class="projects__card-year">{{ project.year }}</p>
           }
-          <ul class="projects__card-tags">
-            @for (tech of project.technologies; track tech) {
-              <li class="projects__card-tag">{{ tech }}</li>
-            }
-          </ul>
         </div>
       </a>
     </ng-template>

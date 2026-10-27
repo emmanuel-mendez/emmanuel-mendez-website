@@ -63,6 +63,16 @@ describe('Projects', () => {
     expect(cards[2].querySelector('.projects__card-role--collaborator')).not.toBeNull();
   });
 
+  it('should display at most three technology tags on each project card', () => {
+    const cards: NodeListOf<HTMLElement> =
+      fixture.nativeElement.querySelectorAll('.projects__card');
+
+    expect(
+      Array.from(cards).every((card) => card.querySelectorAll('.projects__card-tag').length <= 4),
+    ).toBe(true);
+    expect(cards[0].querySelectorAll('.projects__card-tag')).toHaveLength(3);
+  });
+
   it('should display six projects per page and navigate between pages', () => {
     expect(fixture.nativeElement.querySelectorAll('.projects__card')).toHaveLength(6);
     expect(fixture.nativeElement.querySelectorAll('.pagination__control')).toHaveLength(8);
