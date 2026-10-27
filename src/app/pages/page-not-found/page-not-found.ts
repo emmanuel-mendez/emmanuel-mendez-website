@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Layout } from '@components/templates/layout/layout';
 import { Page } from '@services/page/page';
 
 @Component({
   selector: 'app-page-not-found',
-  imports: [Layout],
+  imports: [Layout, RouterLink],
   templateUrl: './page-not-found.html',
   styleUrl: './page-not-found.css',
 })

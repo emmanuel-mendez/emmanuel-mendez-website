@@ -1,3 +1,17 @@
 <app-layout>
-  <p>page-not-found</p>
+  <section class="page-not-found section" aria-labelledby="page-not-found-title">
+    <p class="page-not-found__status" aria-hidden="true">404</p>
+    <h1 class="page-not-found__title" id="page-not-found-title">Page not found</h1>
+    <p class="page-not-found__description">
+      The page you are looking for does not exist or may have been moved.
+    </p>
+    <div class="page-not-found__actions">
+      <a class="page-not-found__action page-not-found__action--primary" routerLink="/">
+        Go to home
+      </a>
+      <a class="page-not-found__action page-not-found__action--secondary" routerLink="/projects">
+        View projects
+      </a>
+    </div>
+  </section>
 </app-layout>
