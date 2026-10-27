@@ -58,17 +58,16 @@ describe('Navigation', () => {
     ]);
   });
 
-  it('should render desktop list for desktop devices', () => {
+  it('should render desktop navigation for desktop devices', () => {
     const navigationElement: HTMLElement | null =
       fixture.nativeElement.querySelector('nav.navigation');
-    const list = fixture.nativeElement.querySelector('.navigation__list');
+    const sectionList = fixture.nativeElement.querySelector('.navigation__section-list');
     const menuButton = fixture.nativeElement.querySelector('.navigation__button');
 
     expect(navigationElement?.getAttribute('aria-label')).toBe('Primary navigation');
-    expect(list).toBeTruthy();
+    expect(sectionList).toBeTruthy();
     expect(menuButton).toBeFalsy();
-    expect(fixture.nativeElement.querySelectorAll('.navigation__list a')).toHaveLength(1);
-    expect(fixture.nativeElement.querySelectorAll('.navigation__section-list a')).toHaveLength(6);
+    expect(sectionList?.querySelectorAll('a')).toHaveLength(6);
   });
 
   it('should expose current page metadata for the active navigation link', () => {
