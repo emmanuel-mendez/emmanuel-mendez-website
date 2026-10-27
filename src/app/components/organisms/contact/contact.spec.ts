@@ -69,6 +69,51 @@ describe('Contact', () => {
     expect(submitButton.disabled).toBe(true);
   });
 
+  it('should expose accessible form metadata and field autocompletion', () => {
+    const nativeElement: HTMLElement = fixture.nativeElement;
+    const form = nativeElement.querySelector('.contact__form');
+    const nameInput = nativeElement.querySelector('#contact-name');
+    const emailInput = nativeElement.querySelector('#contact-email');
+    const messageInput = nativeElement.querySelector('#contact-message');
+
+    expect(form?.getAttribute('novalidate')).not.toBeNull();
+    expect(form?.getAttribute('aria-busy')).toBe('false');
+    expect(nameInput?.getAttribute('autocomplete')).toBe('name');
+    expect(emailInput?.getAttribute('autocomplete')).toBe('email');
+    expect(emailInput?.getAttribute('inputmode')).toBe('email');
+    expect(messageInput?.getAttribute('maxlength')).toBe('1000');
+  });
+
+  it('should prevent submit and show validation errors for invalid form values', () => {
+    const nativeElement: HTMLElement = fixture.nativeElement;
+    const form = nativeElement.querySelector('.contact__form') as HTMLFormElement;
+
+    form.dispatchEvent(new Event('submit'));
+    fixture.detectChanges();
+
+    const invalidFields = nativeElement.querySelectorAll('.contact__input[aria-invalid="true"]');
+    const validationMessages = nativeElement.querySelectorAll('.contact__error');
+
+    expect(component.status()).toBe('idle');
+    expect(invalidFields.length).toBe(3);
+    expect(validationMessages.length).toBe(3);
+  });
+
+  it('should mark the form as busy while sending', () => {
+    vi.useFakeTimers();
+    component.name = 'John';
+    component.email = 'john@example.com';
+    component.message = 'Message';
+    component.onSubmit();
+    fixture.detectChanges();
+    const form = fixture.nativeElement.querySelector('.contact__form') as HTMLFormElement;
+
+    expect(component.status()).toBe('sending');
+    expect(form.getAttribute('aria-busy')).toBe('true');
+    vi.advanceTimersByTime(2000);
+    vi.useRealTimers();
+  });
+
   it('should set status to sending on submit', () => {
     vi.useFakeTimers();
     component.name = 'John';

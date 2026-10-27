@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { vi } from 'vitest';
 import { Projects } from './projects';
 
 describe('Projects', () => {
@@ -7,6 +8,11 @@ describe('Projects', () => {
   let fixture: ComponentFixture<Projects>;
 
   beforeEach(async () => {
+    vi.stubGlobal('localStorage', {
+      getItem: vi.fn(() => null),
+      setItem: vi.fn(),
+    });
+
     await TestBed.configureTestingModule({
       imports: [Projects],
       providers: [provideRouter([])],
@@ -15,6 +21,10 @@ describe('Projects', () => {
     fixture = TestBed.createComponent(Projects);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
   });
 
   it('should create', () => {
@@ -32,32 +42,32 @@ describe('Projects', () => {
       'Shell',
       'Mars',
       'Castrol',
-      'Bancolombia',
       'Rappi',
+      'Bancolombia',
+      'Banistmo',
+      'Wompi',
+      'Alpina',
       'Colombina',
       'Grupo Diana',
-      'Wompi',
-      'Banistmo',
-      'Grupo Alen',
-      'Comfaboy',
-      'Grupo Uno',
-      'Expovinos 2021',
-      'Foodbox',
       'Chillibeans',
-      'Alpina',
+      'Grupo Alen',
+      'Grupo Uno',
+      'Comfaboy',
+      'Expovinos 2021',
       'Ultra1Plus',
-      'Especialistas En Casa',
-      'Planetife',
-      'Geekboss',
-      'Dra Skin',
-      'Adresles',
-      'Dosmass',
-      'Destiny',
+      'Foodbox',
       'Dojo',
-      'Cimonamía',
+      'Planetife',
+      'Destiny',
+      'Dosmass',
+      'Geekboss',
       'Highpeak',
-      'Grateful',
+      'Adresles',
+      'Especialistas En Casa',
+      'Dra Skin',
+      'Cimonamía',
       'Q Buen Plan',
+      'Grateful',
       'M374',
     ]);
   });
@@ -146,6 +156,28 @@ describe('Projects', () => {
     );
   });
 
+  it('should announce the visible result count and active sort', () => {
+    const summary = fixture.nativeElement.querySelector(
+      '.projects__results-summary',
+    ) as HTMLElement;
+    expect(summary.textContent?.trim()).toBe('34 projects shown. Sorted by Relevance.');
+
+    component.setSort('Title (A–Z)');
+    fixture.detectChanges();
+
+    expect(summary.textContent?.trim()).toBe('34 projects shown. Sorted by Title (A–Z).');
+  });
+
+  it('should expose accessible labels and lazy-loading metadata on project cards', () => {
+    const firstCard = fixture.nativeElement.querySelector('.projects__card') as HTMLElement;
+    const cardTitle = firstCard.querySelector('.projects__card-title')?.textContent?.trim();
+    const cardImage = firstCard.querySelector('.projects__card-image');
+
+    expect(firstCard.getAttribute('aria-label')).toBe(`View details for ${cardTitle}`);
+    expect(cardImage?.getAttribute('loading')).toBe('lazy');
+    expect(cardImage?.getAttribute('decoding')).toBe('async');
+  });
+
   it('should reset pagination after sorting or filtering projects', () => {
     component.setPage(3);
     component.setSort('Title (A–Z)');
@@ -156,11 +188,43 @@ describe('Projects', () => {
     expect(component.page()).toBe(1);
   });
 
-  it('should open and close the project filter dialog', () => {
-    component.openFilterDialog();
-    expect(component.isFilterDialogOpen()).toBe(true);
+  it('should open and close the project filter dialog with focus management', async () => {
+    const trigger = fixture.nativeElement.querySelector(
+      '.projects__filter-trigger',
+    ) as HTMLButtonElement;
+    expect(trigger.getAttribute('aria-controls')).toBe(component.filterPanelId);
 
-    component.closeFilterDialog();
+    trigger.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const panel = fixture.nativeElement.querySelector(
+      `#${component.filterPanelId}`,
+    ) as HTMLElement | null;
+    const heading = panel?.querySelector('#projects-filter-heading') as HTMLElement | null;
+
+    expect(component.isFilterDialogOpen()).toBe(true);
+    expect(panel).toBeTruthy();
+    expect(panel?.getAttribute('role')).toBe('dialog');
+    expect(heading?.textContent?.trim()).toBe('Project filters');
+    expect(document.activeElement).toBe(panel);
+
+    panel?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(component.isFilterDialogOpen()).toBe(false);
+    expect(document.activeElement).toBe(trigger);
+
+    trigger.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const backdrop = fixture.nativeElement.querySelector('.projects__backdrop');
+    backdrop?.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
     expect(component.isFilterDialogOpen()).toBe(false);
   });
 });
