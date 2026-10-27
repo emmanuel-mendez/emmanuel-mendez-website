@@ -1,5 +1,5 @@
 import { Component, OnDestroy, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Button } from '@components/atoms/button/button';
 
 type ContactStatus = 'idle' | 'sending' | 'sent' | 'error';
@@ -20,8 +20,13 @@ export class Contact implements OnDestroy {
 
   private sendTimeout: ReturnType<typeof setTimeout> | null = null;
 
-  public onSubmit(): void {
+  public onSubmit(form?: NgForm): void {
     if (this.status() === 'sending') return;
+    if (form?.invalid) {
+      form.control.markAllAsTouched();
+      return;
+    }
+
     this.status.set('sending');
 
     this.sendTimeout = setTimeout(() => {

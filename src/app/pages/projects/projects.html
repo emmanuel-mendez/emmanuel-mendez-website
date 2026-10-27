@@ -6,6 +6,7 @@
       type="button"
       aria-haspopup="dialog"
       [attr.aria-expanded]="isFilterDialogOpen()"
+      [attr.aria-controls]="filterPanelId"
       (click)="openFilterDialog()"
     >
       <span class="material-symbols-outlined" aria-hidden="true">tune</span>
@@ -21,6 +22,7 @@
         ></button>
       }
       <div
+        [id]="filterPanelId"
         class="projects__filter-panel"
         [class.projects__filter-panel--open]="isFilterDialogOpen()"
         [attr.role]="isFilterDialogOpen() ? 'dialog' : null"
@@ -30,6 +32,9 @@
         (keydown.escape)="closeFilterDialog()"
       >
         <div class="projects__filter-dialog-header">
+          <h2 class="projects__filter-dialog-title" id="projects-filter-heading">
+            Project filters
+          </h2>
           <button
             class="projects__filter-close"
             type="button"
@@ -49,6 +54,9 @@
         />
       </div>
       <div class="projects__results">
+        <p class="projects__results-summary" role="status" aria-live="polite">
+          {{ resultsSummary() }}
+        </p>
         @if (displayedProjects().length) {
           <div class="projects__grid">
             <app-pagination
@@ -66,12 +74,22 @@
       </div>
     </div>
     <ng-template #projectTemplate let-project>
-      <a class="projects__card" [routerLink]="['/projects', project.slug]">
+      <a
+        class="projects__card"
+        [routerLink]="['/projects', project.slug]"
+        [attr.aria-label]="'View details for ' + project.title"
+      >
         <div
           class="projects__card-image-container"
           [style.backgroundColor]="project.imageBackgroundColor"
         >
-          <img class="projects__card-image" [src]="project.image" [alt]="project.title" />
+          <img
+            class="projects__card-image"
+            [src]="project.image"
+            [alt]="project.title"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
         <div class="projects__card-body">
           <div class="projects__card-header">
