@@ -93,7 +93,7 @@
       color 0.2s ease;
   }
 
-  .project-detail__role--owner {
+  .project-detail__role--author {
     background-color: var(--analogous--primary);
   }
 

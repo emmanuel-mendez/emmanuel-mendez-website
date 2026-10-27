@@ -23,8 +23,8 @@
           />
           <p
             class="project-detail__role"
-            [class.project-detail__role--owner]="project.rol === 'owner'"
-            [class.project-detail__role--collaborator]="project.rol !== 'owner'"
+            [class.project-detail__role--author]="project.rol === 'author'"
+            [class.project-detail__role--collaborator]="project.rol !== 'author'"
           >
             {{ roleLabel() }}
           </p>

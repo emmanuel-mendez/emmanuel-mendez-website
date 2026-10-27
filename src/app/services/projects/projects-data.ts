@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-export type ProjectRole = 'owner' | 'collaborator';
+export type ProjectRole = 'author' | 'collaborator';
 
 export type ProjectHighlight = Readonly<{
   metric: string;
@@ -40,7 +40,7 @@ const PROJECTS: readonly Project[] = [
     title: 'Emmanuel Mendez Website',
     image: '/svg/logo--expanded--light.svg',
     imageBackgroundColor: '#20665c40',
-    rol: 'owner',
+    rol: 'author',
     description: 'Personal portfolio website built with Angular featuring server-side rendering, responsive design, and light/dark theme switching.',
     technologies: ['Angular', 'TypeScript', 'CSS', 'SSR'],
     year: 2026,
@@ -94,7 +94,7 @@ const PROJECTS: readonly Project[] = [
     title: 'Astyimar y Emmanuel',
     image: '/projects/astyimar-y-emmanuel.png',
     imageBackgroundColor: '#6d578f',
-    rol: 'owner',
+    rol: 'author',
     description: 'Website for Astyimar y Emmanuel built with Astro featuring server-side rendering, responsive design, and light/dark theme switching.',
     technologies: ['Astro', 'TypeScript', 'CSS'],
     year: 2025,

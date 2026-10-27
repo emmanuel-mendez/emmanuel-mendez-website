@@ -49,7 +49,7 @@ describe('ProjectDetail', () => {
   it('should resolve project from slug', () => {
     expect(component.project()).toBeTruthy();
     expect(component.project()?.title).toBe('Emmanuel Mendez Website');
-    expect(component.roleLabel()).toBe('Owner');
+    expect(component.roleLabel()).toBe('Author');
     expect(component.factItems().map((fact) => fact.label)).toEqual([
       'Role',
       'Year',
@@ -73,7 +73,7 @@ describe('ProjectDetail', () => {
       'Emmanuel Mendez Website',
     );
     expect(element.querySelector('.project-detail__image')?.getAttribute('loading')).toBe('lazy');
-    expect(element.querySelector('.project-detail__role')?.textContent?.trim()).toBe('Owner');
+    expect(element.querySelector('.project-detail__role')?.textContent?.trim()).toBe('Author');
     expect(element.querySelectorAll('.project-detail__fact')).toHaveLength(4);
     expect(element.querySelectorAll('.project-detail__highlight')).toHaveLength(3);
     expect(element.querySelectorAll('.project-detail__list-block')).toHaveLength(3);

@@ -129,7 +129,7 @@ describe('Projects', () => {
     ).toBe(true);
     expect(yearLabels.length).toBe(3);
     expect(cards[2].querySelector('.projects__card-role')).not.toBeNull();
-    expect(firstCard.querySelector('.projects__card-role--owner')).not.toBeNull();
+    expect(firstCard.querySelector('.projects__card-role--author')).not.toBeNull();
     expect(cards[2].querySelector('.projects__card-role--collaborator')).not.toBeNull();
   });
 

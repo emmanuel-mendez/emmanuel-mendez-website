@@ -25,7 +25,7 @@ type ProjectDetailAction = Readonly<{
 }>;
 
 const ROLE_LABELS: Readonly<Record<ProjectRole, string>> = {
-  owner: 'Owner',
+  author: 'Author',
   collaborator: 'Collaborator',
 };
 
