@@ -1,4 +1,4 @@
-import { Component, ElementRef, computed, inject, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, computed, effect, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Filter, FilterCategory } from '@components/molecules/filter/filter';
 import { Pagination } from '@components/molecules/pagination/pagination';
@@ -114,6 +114,7 @@ const SORT_ALIASES: Readonly<Record<string, ProjectSort>> = {
   Year: 'Year (newest first)',
 };
 
+const FILTER_DIALOG_OPEN_CLASS = 'projects--filter-dialog-open';
 const FILTER_TRIGGER_SELECTOR = '.projects__filter-trigger';
 
 @Component({
@@ -124,6 +125,7 @@ const FILTER_TRIGGER_SELECTOR = '.projects__filter-trigger';
   styleUrl: './projects.css',
 })
 export class Projects {
+  private readonly destroyRef = inject(DestroyRef);
   private readonly hostElement = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly pageService = inject(Page);
   private readonly projectsData = inject(ProjectsData);
@@ -175,6 +177,16 @@ export class Projects {
 
   constructor() {
     this.pageService.setMetaTags(this.DESCRIPTION);
+
+    effect(() => {
+      if (typeof document === 'undefined') return;
+      document.body.classList.toggle(FILTER_DIALOG_OPEN_CLASS, this.isFilterDialogOpen());
+    });
+
+    this.destroyRef.onDestroy(() => {
+      if (typeof document === 'undefined') return;
+      document.body.classList.remove(FILTER_DIALOG_OPEN_CLASS);
+    });
   }
 
   public setFilteredProjects(projects: readonly Project[]): void {

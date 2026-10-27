@@ -24,6 +24,7 @@ describe('Projects', () => {
   });
 
   afterEach(() => {
+    document.body.classList.remove('projects--filter-dialog-open');
     vi.unstubAllGlobals();
   });
 
@@ -222,6 +223,7 @@ describe('Projects', () => {
     const heading = panel?.querySelector('#projects-filter-heading') as HTMLElement | null;
 
     expect(component.isFilterDialogOpen()).toBe(true);
+    expect(document.body.classList.contains('projects--filter-dialog-open')).toBe(true);
     expect(panel).toBeTruthy();
     expect(panel?.getAttribute('role')).toBe('dialog');
     expect(heading?.textContent?.trim()).toBe('Project filters');
@@ -244,5 +246,6 @@ describe('Projects', () => {
     await fixture.whenStable();
 
     expect(component.isFilterDialogOpen()).toBe(false);
+    expect(document.body.classList.contains('projects--filter-dialog-open')).toBe(false);
   });
 });
