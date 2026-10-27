@@ -14,8 +14,8 @@ type ProjectSortStrategy = (first: Project, second: Project) => number;
 const RELEVANCE_ORDER: readonly string[] = [
   'Emmanuel Mendez Website',
   'Astyimar y Emmanuel',
-  'Coca Cola',
   'Toyota',
+  'Coca Cola',
   'Shell',
   'Mars',
   'Castrol',

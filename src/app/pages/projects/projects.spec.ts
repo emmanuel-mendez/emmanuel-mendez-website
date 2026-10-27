@@ -41,8 +41,8 @@ describe('Projects', () => {
     expect(titles).toEqual([
       'Emmanuel Mendez Website',
       'Astyimar y Emmanuel',
-      'Coca Cola',
       'Toyota',
+      'Coca Cola',
       'Shell',
       'Mars',
       'Castrol',
