@@ -10,3 +10,7 @@
     padding: 3.5rem 2rem;
   }
 }
+
+body.navigation--menu-open {
+  overflow: hidden;
+}

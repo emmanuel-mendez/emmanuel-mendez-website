@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, effect, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ResponsiveIncludes } from '@pipes/responsive/includes/includes';
 import { Devices, Responsive } from '@services/responsive/responsive';
@@ -10,6 +10,7 @@ type NavigationItem = {
   readonly label: string;
 };
 
+const BODY_SCROLL_LOCK_CLASS = 'navigation--menu-open';
 const FIRST_MENU_LINK_SELECTOR = '[data-navigation-first-link="true"]';
 const TOGGLE_BUTTON_SELECTOR = '.navigation__button button';
 
@@ -20,6 +21,7 @@ const TOGGLE_BUTTON_SELECTOR = '.navigation__button button';
   styleUrl: './navigation.css',
 })
 export class Navigation {
+  private readonly destroyRef = inject(DestroyRef);
   private readonly router = inject(Router);
   private readonly hostElement = inject<ElementRef<HTMLElement>>(ElementRef);
 
@@ -33,6 +35,18 @@ export class Navigation {
   public readonly navigationItems: readonly NavigationItem[] = [
     { href: '/projects', label: 'Projects' },
   ];
+
+  constructor() {
+    effect(() => {
+      if (typeof document === 'undefined') return;
+      document.body.classList.toggle(BODY_SCROLL_LOCK_CLASS, this.opened());
+    });
+
+    this.destroyRef.onDestroy(() => {
+      if (typeof document === 'undefined') return;
+      document.body.classList.remove(BODY_SCROLL_LOCK_CLASS);
+    });
+  }
 
   public toggleMenu(): void {
     const nextStatus = !this.opened();

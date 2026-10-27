@@ -39,6 +39,7 @@ describe('Navigation', () => {
   });
 
   afterEach(() => {
+    document.body.classList.remove('navigation--menu-open');
     vi.unstubAllGlobals();
   });
 
@@ -111,6 +112,7 @@ describe('Navigation', () => {
 
     expect(backdrop).toBeTruthy();
     expect(mobileMenu).toBeTruthy();
+    expect(document.body.classList.contains('navigation--menu-open')).toBe(true);
     expect(menuButton?.getAttribute('aria-expanded')).toBe('true');
     expect(document.activeElement).toBe(firstLink);
 
@@ -124,6 +126,7 @@ describe('Navigation', () => {
     expect(hiddenMenu).toBeFalsy();
     expect(hiddenBackdrop).toBeFalsy();
     expect(component.opened()).toBe(false);
+    expect(document.body.classList.contains('navigation--menu-open')).toBe(false);
     expect(document.activeElement).toBe(menuButton);
   });
 
@@ -159,5 +162,6 @@ describe('Navigation', () => {
 
     expect(fixture.nativeElement.querySelector('.navigation__menu')).toBeFalsy();
     expect(component.opened()).toBe(false);
+    expect(document.body.classList.contains('navigation--menu-open')).toBe(false);
   });
 });
