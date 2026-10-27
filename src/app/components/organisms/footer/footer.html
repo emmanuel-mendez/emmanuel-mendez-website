@@ -17,7 +17,6 @@
     </ul>
 
     <div class="footer__social">
-      <p class="footer__social-title">Social</p>
       <ul class="footer__social-list" aria-label="Social media links">
         @for (link of socialLinks; track link.href) {
           <li class="footer__social-item">
@@ -28,9 +27,6 @@
               rel="noopener noreferrer"
               [attr.aria-label]="'Open ' + link.label + ' profile'"
             >
-              <span class="material-symbols-outlined footer__social-icon" aria-hidden="true"
-                >link_2</span
-              >
               <span>{{ link.label }}</span>
               <span
                 class="material-symbols-outlined footer__social-icon footer__social-icon--external"
@@ -42,7 +38,6 @@
         }
       </ul>
     </div>
-
-    <p class="footer__copyright">© {{ currentYear }} Emmanuel Mendez. All rights reserved.</p>
   </div>
+  <p class="footer__copyright">© {{ currentYear }} Emmanuel Mendez. All rights reserved.</p>
 </footer>

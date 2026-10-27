@@ -3,6 +3,10 @@
 }
 
 .footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
   background-color: light-dark(var(--primary), var(--monochromatic--dark-deep));
   color: light-dark(var(--white), var(--white));
   transition:
@@ -42,7 +46,8 @@
 }
 
 .footer__info-list {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 0.75rem;
 }
 
@@ -50,6 +55,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-size: var(--extra-small);
 }
 
 .footer__info-icon {
@@ -66,12 +72,6 @@
   gap: 0.75rem;
 }
 
-.footer__social-title {
-  margin: 0;
-  font-size: var(--small);
-  font-weight: 600;
-}
-
 .footer__social-list {
   display: grid;
   gap: 0.75rem;
@@ -83,17 +83,13 @@
   align-items: center;
   gap: 0.5rem;
   border-radius: 0.5rem;
-  padding: 0.5rem 0.75rem;
   color: light-dark(var(--white), var(--white));
+  font-size: var(--extra-small);
   background-color: light-dark(var(--primary-50), var(--analogous--secondary-50));
   text-decoration: none;
   transition:
     color 0.2s ease,
     background-color 0.2s ease;
-
-  &:hover {
-    background-color: light-dark(var(--analogous--primary-50), var(--primary-75));
-  }
 
   &:focus-visible {
     outline: 2px solid light-dark(var(--white), var(--analogous--primary));
@@ -101,16 +97,12 @@
   }
 }
 
-.footer__social-icon {
-  font-size: var(--medium);
-}
-
 .footer__social-icon--external {
   font-size: var(--small);
 }
 
 .footer__copyright {
-  margin: 0;
+  margin: 0 auto;
   padding-top: 0.5rem;
   border-top: 1px solid light-dark(var(--primary-25), var(--analogous--secondary-50));
   color: light-dark(#e3f2fd, #cfd8dc);
@@ -122,15 +114,13 @@
 
 @media (min-width: 768px) {
   .footer__content {
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     align-items: start;
     gap: 2rem;
   }
 
   .footer__social {
-    justify-self: end;
     width: 100%;
-    max-width: 14rem;
   }
 
   .footer__copyright {
@@ -145,9 +135,5 @@
 
   .footer__name {
     font-size: var(--extra-extra-large);
-  }
-
-  .footer__info-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
