@@ -34,5 +34,8 @@
       </fieldset>
     }
   </div>
-  <app-button appearance="secondary" (click)="clearFilters()">Clear filters</app-button>
+  <div class="filter__buttons">
+    <app-button appearance="primary" (click)="filtersApplied.emit()">Filter</app-button>
+    <app-button appearance="secondary" (click)="clearFilters()">Clear</app-button>
+  </div>
 </section>

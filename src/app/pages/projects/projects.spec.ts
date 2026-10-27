@@ -237,6 +237,49 @@ describe('Projects', () => {
     expect(component.isFilterDialogOpen()).toBe(false);
   });
 
+  it('should close the filter dialog when filters are cleared', async () => {
+    component.openFilterDialog();
+    fixture.detectChanges();
+
+    const clearFiltersButton = fixture.nativeElement.querySelector(
+      '.filter app-button button',
+    ) as HTMLButtonElement;
+    expect(clearFiltersButton).toBeTruthy();
+
+    clearFiltersButton.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(component.filteredProjects()).toEqual(component.projects);
+    expect(component.isFilterDialogOpen()).toBe(false);
+    expect(document.activeElement).toBe(
+      fixture.nativeElement.querySelector('.projects__filter-trigger'),
+    );
+  });
+
+  it('should apply selected filters and close the dialog from the Filter button', async () => {
+    component.openFilterDialog();
+    fixture.detectChanges();
+
+    const technologyCheckbox = fixture.nativeElement.querySelector(
+      '.filter__checkbox',
+    ) as HTMLInputElement;
+    technologyCheckbox.click();
+    fixture.detectChanges();
+
+    const filteredProjects = component.filteredProjects();
+    const filterButton = fixture.nativeElement.querySelector(
+      '.filter app-button button.button--primary',
+    ) as HTMLButtonElement;
+    filterButton.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(filteredProjects.length).toBeLessThan(component.projects.length);
+    expect(component.filteredProjects()).toEqual(filteredProjects);
+    expect(component.isFilterDialogOpen()).toBe(false);
+  });
+
   it('should open and close the project filter dialog with focus management', async () => {
     const trigger = fixture.nativeElement.querySelector(
       '.projects__filter-trigger',

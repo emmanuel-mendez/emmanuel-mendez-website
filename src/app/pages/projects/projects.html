@@ -51,6 +51,8 @@
           [sortProperty]="sort()"
           (filteredListChange)="setFilteredProjects($event)"
           (sortPropertyChange)="setSort($event)"
+          (filtersApplied)="closeFilterDialog()"
+          (filtersCleared)="closeFilterDialog()"
         />
       </div>
       <div class="projects__results">
