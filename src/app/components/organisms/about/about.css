@@ -15,7 +15,6 @@
 
 .about__description {
   margin: 0;
-  line-height: 1.75;
   font-size: var(--small);
 
   @media (min-width: 1024px) {

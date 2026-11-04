@@ -120,7 +120,6 @@
   .project-detail__description {
     margin: 0;
     font-size: var(--small);
-    line-height: 1.7;
     opacity: 0.9;
   }
 
@@ -209,7 +208,6 @@
   .project-detail__content {
     margin: 0;
     font-size: var(--small);
-    line-height: 1.8;
     opacity: 0.9;
   }
 
@@ -248,7 +246,6 @@
   .project-detail__highlight-context {
     margin: 0;
     font-size: var(--extra-extra-small);
-    line-height: 1.5;
     opacity: 0.85;
   }
 
@@ -286,7 +283,6 @@
     position: relative;
     padding-left: 1rem;
     font-size: var(--extra-small);
-    line-height: 1.6;
   }
 
   .project-detail__list-item::before {
@@ -334,7 +330,6 @@
   .project-detail__timeline-description {
     margin: 0;
     font-size: var(--extra-extra-small);
-    line-height: 1.6;
     opacity: 0.9;
   }
 
