@@ -25,22 +25,22 @@
 }
 
 .button--primary {
-  color: var(--white);
-  background-color: light-dark(var(--primary), var(--analogous--primary));
+  color: var(--color-white);
+  background-color: light-dark(var(--color-primary), var(--color-analogous--primary));
 
   &:hover {
-    background-color: var(--analogous--primary);
+    background-color: var(--color-analogous--primary);
   }
 }
 
 .button--secondary {
-  color: light-dark(var(--analogous--secondary-75), var(--grey));
+  color: light-dark(var(--color-analogous--secondary-75), var(--color-grey));
   background-color: transparent;
-  border: 1px solid light-dark(var(--analogous--secondary-75), var(--grey));
+  border: 1px solid light-dark(var(--color-analogous--secondary-75), var(--color-grey));
 
   &:hover {
-    color: var(--white);
-    background-color: var(--analogous--secondary-50);
+    color: var(--color-white);
+    background-color: var(--color-analogous--secondary-50);
     border-color: transparent;
   }
 }

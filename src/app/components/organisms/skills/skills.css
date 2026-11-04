@@ -1,6 +1,9 @@
 :host {
   display: block;
-  background-color: light-dark(var(--analogous--secondary), var(--monochromatic--dark-deep));
+  background-color: light-dark(
+    var(--color-analogous--secondary-75),
+    var(--color-monochromatic--dark-deep)
+  );
 
   @media (min-width: 1024px) {
     margin-top: 2rem;
@@ -14,7 +17,7 @@
   padding: 2rem 1.5rem;
   border-radius: 1rem;
 
-  color: var(--white);
+  color: var(--color-white);
   transition:
     color 0.2s ease,
     background-color 0.2s ease;
@@ -29,7 +32,7 @@
   font-weight: bold;
   margin-bottom: 1.5rem;
   letter-spacing: 0.02em;
-  color: light-dark(var(--white), var(--white));
+  color: light-dark(var(--color-white), var(--color-white));
   transition: color 0.2s ease;
 
   @media (min-width: 1204px) {
@@ -60,8 +63,9 @@
   flex-direction: column;
   gap: 1.5rem;
   padding: 1.75rem;
+  background-color: var(--color-analogous--secondary-50);
   box-shadow: var(--shadow);
-  border: 1px solid var(--shadow-border);
+  border: 0.0625rem solid light-dark(unset, var(--color-border));
   border-radius: 0.5rem;
 
   transition:
@@ -82,8 +86,8 @@
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 50%;
-  background-color: var(--analogous--primary-25);
-  color: var(--white);
+  background-color: var(--color-analogous--secondary);
+  color: var(--color-white);
   font-size: var(--extra-extra-large);
   font-variation-settings:
     'FILL' 0,
@@ -96,7 +100,7 @@
 }
 
 .skills__category-name {
-  color: var(--white);
+  color: var(--color-white);
   font-size: var(--medium);
   font-weight: 600;
   transition: color 0.2s ease;
@@ -118,8 +122,8 @@
   padding: 0.35rem 0.75rem;
   border: 1px solid rgb(252 252 253 / 0.24);
   border-radius: 999px;
-  background-color: light-dark(var(--white), rgb(252 252 253 / 0.1));
-  color: light-dark(var(--analogous--secondary), var(--white));
+  background-color: light-dark(var(--color-white), rgb(252 252 253 / 0.1));
+  color: light-dark(var(--color-analogous--secondary), var(--color-white));
   font-size: var(--extra-extra-small);
   font-weight: 500;
   transition:

@@ -7,7 +7,7 @@
   justify-items: center;
   gap: 1rem;
   text-align: center;
-  color: light-dark(var(--black), var(--white));
+  color: light-dark(var(--color-black), var(--color-white));
   transition:
     color 0.2s ease,
     background-color 0.2s ease;
@@ -17,14 +17,14 @@
   margin: 0;
   font-size: var(--xxxxl);
   font-weight: 700;
-  color: light-dark(var(--primary), var(--analogous--primary));
+  color: light-dark(var(--color-primary), var(--color-analogous--primary));
   transition: color 0.2s ease;
 }
 
 .page-not-found__title {
   margin: 0;
   font-size: var(--extra-extra-large);
-  color: light-dark(var(--primary), var(--white));
+  color: light-dark(var(--color-primary), var(--color-white));
   transition: color 0.2s ease;
 }
 
@@ -55,17 +55,17 @@
 }
 
 .page-not-found__action:focus-visible {
-  outline: 2px solid light-dark(var(--primary), var(--analogous--primary));
+  outline: 2px solid light-dark(var(--color-primary), var(--color-analogous--primary));
   outline-offset: 2px;
 }
 
 .page-not-found__action--primary {
-  color: var(--white);
-  background-color: light-dark(var(--primary), var(--analogous--primary));
+  color: var(--color-white);
+  background-color: light-dark(var(--color-primary), var(--color-analogous--primary));
 }
 
 .page-not-found__action--secondary {
-  color: light-dark(var(--primary), var(--white));
-  border: 1px solid light-dark(var(--primary-25), var(--analogous--primary-50));
-  background-color: light-dark(var(--white), var(--monochromatic--dark-deep));
+  color: light-dark(var(--color-primary), var(--color-white));
+  border: 1px solid light-dark(var(--color-primary-25), var(--color-analogous--primary-50));
+  background-color: light-dark(var(--color-white), var(--color-monochromatic--dark-deep));
 }

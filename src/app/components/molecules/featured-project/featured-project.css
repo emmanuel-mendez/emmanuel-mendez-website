@@ -11,7 +11,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--shadow-border);
+  border: 0.0625rem solid light-dark(unset, var(--color-border));
   box-shadow: var(--shadow);
   border-radius: 0.5rem;
   transition:
@@ -25,7 +25,7 @@
 
 .featured-project__image-wrapper {
   padding: 1.5rem;
-  background-color: var(--analogous--primary-25);
+  background-color: var(--color-analogous--primary-25);
   border-radius: 0.5rem 0.5rem 0 0;
 }
 
@@ -44,14 +44,14 @@
 }
 
 .featured-project__image--desktop {
-  border: 1px solid light-dark(var(--monochromatic--light-soft), var(--grey));
+  border: 1px solid light-dark(var(--color-monochromatic--light-soft), var(--color-grey));
 }
 
 .featured-project__image--mobile,
 .featured-project__image--tablet {
   position: absolute;
   min-width: 2rem;
-  border: 1px solid light-dark(var(--monochromatic--light-soft), var(--grey));
+  border: 1px solid light-dark(var(--color-monochromatic--light-soft), var(--color-grey));
 }
 
 .featured-project__images > .featured-project__image--mobile {
@@ -81,7 +81,7 @@
   justify-content: space-between;
   gap: 1rem;
   padding: 1rem;
-  color: var(--analogous--primary);
+  color: var(--color-analogous--primary);
 }
 
 .featured-project__name {
@@ -101,7 +101,7 @@
 
 .featured-project__icon--badge {
   font-size: var(--xxxxl);
-  color: var(--analogous--primary);
+  color: var(--color-analogous--primary);
   line-height: 80%;
   font-variation-settings:
     'FILL' 1,

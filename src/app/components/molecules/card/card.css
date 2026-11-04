@@ -7,9 +7,9 @@
   flex-direction: column;
   height: 100%;
   border-radius: 0.5rem;
-  border: 1px solid var(--shadow-border);
-  background-color: light-dark(var(--white), var(--monochromatic--dark-deep));
-  color: light-dark(var(--black), var(--white));
+  border: 0.0625rem solid light-dark(unset, var(--color-border));
+  background-color: light-dark(var(--color-white), var(--color-monochromatic--dark-deep));
+  color: light-dark(var(--color-black), var(--color-white));
   box-shadow: var(--shadow);
   transition:
     background-color 0.2s ease,
@@ -96,7 +96,7 @@
   gap: 0.25rem;
   font-size: var(--extra-small);
   font-weight: 500;
-  color: light-dark(var(--primary), var(--analogous--primary));
+  color: light-dark(var(--color-primary), var(--color-analogous--primary));
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -117,7 +117,7 @@
   margin: 0;
   padding: 0.25rem 0.625rem;
   border-radius: 0.25rem;
-  color: var(--white);
+  color: var(--color-white);
   font-size: var(--extra-extra-small);
   font-weight: 500;
   text-transform: capitalize;
@@ -127,11 +127,11 @@
 }
 
 .projects__card-role--author {
-  background-color: var(--analogous--primary);
+  background-color: var(--color-analogous--primary);
 }
 
 .projects__card-role--collaborator {
-  background-color: var(--analogous--secondary);
+  background-color: var(--color-analogous--secondary);
 }
 
 .projects__card-tags {
@@ -150,8 +150,8 @@
 .projects__card-tag {
   padding: 0.25rem 0.625rem;
   border-radius: 0.25rem;
-  background-color: var(--analogous--secondary-50);
-  color: var(--white);
+  background-color: var(--color-analogous--secondary-50);
+  color: var(--color-white);
   font-size: var(--extra-extra-small);
   font-weight: 500;
   transition:

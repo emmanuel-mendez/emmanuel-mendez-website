@@ -17,7 +17,7 @@
   align-items: center;
   gap: 0.25rem;
   border-radius: 0.5rem;
-  color: var(--white);
+  color: var(--color-white);
   background-color: transparent;
 
   transition:
@@ -27,7 +27,7 @@
 
 .navigation__button:focus-within,
 .navigation__backdrop:focus-within {
-  outline: 2px solid light-dark(var(--white), var(--analogous--primary));
+  outline: 2px solid light-dark(var(--color-white), var(--color-analogous--primary));
   outline-offset: 0.125rem;
 }
 
@@ -62,8 +62,8 @@
   min-height: 75%;
   padding-block: 2.5rem;
   border-radius: 0 0 0 0.5rem;
-  border: 1px solid light-dark(var(--analogous--primary-100), var(--primary));
-  background-color: light-dark(var(--primary), var(--monochromatic--dark-deep));
+  border: 1px solid light-dark(var(--color-analogous--primary-100), var(--color-primary));
+  background-color: light-dark(var(--color-primary), var(--color-monochromatic--dark-deep));
   transform-origin: top right;
   animation: slide-in 0.2s ease-out forwards;
   transition:
@@ -108,14 +108,14 @@
 .navigation__item {
   display: flex;
   justify-content: center;
-  color: var(--white);
+  color: var(--color-white);
 }
 
 .navigation__link {
   position: relative;
   width: 100%;
   padding: 1rem 1.25rem;
-  color: var(--white);
+  color: var(--color-white);
   font-size: var(--large);
   text-decoration: none;
   text-align: center;
@@ -131,7 +131,7 @@
     bottom: 0.5rem;
     left: 0;
     height: 0;
-    background-color: light-dark(var(--white), var(--primary));
+    background-color: light-dark(var(--color-white), var(--color-primary));
     transform: scaleX(0);
     transform-origin: center;
     transition: transform 0.25s ease;
@@ -148,7 +148,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid light-dark(var(--white), var(--analogous--primary));
+    outline: 2px solid light-dark(var(--color-white), var(--color-analogous--primary));
     outline-offset: 0.125rem;
 
     &::before {
