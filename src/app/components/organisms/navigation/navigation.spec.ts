@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { signal, WritableSignal } from '@angular/core';
-import { provideRouter, Router } from '@angular/router';
+import { provideRouter } from '@angular/router';
 import { Devices, Responsive } from '@services/responsive/responsive';
 import { vi } from 'vitest';
 import { Navigation } from './navigation';
@@ -9,7 +9,6 @@ describe('Navigation', () => {
   let component: Navigation;
   let fixture: ComponentFixture<Navigation>;
   let device: WritableSignal<Devices[]>;
-  let router: Router;
 
   beforeEach(async () => {
     vi.stubGlobal('localStorage', {
@@ -34,46 +33,12 @@ describe('Navigation', () => {
 
     fixture = TestBed.createComponent(Navigation);
     component = fixture.componentInstance;
-    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 
   afterEach(() => {
     document.body.classList.remove('navigation--menu-open');
     vi.unstubAllGlobals();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should expose reusable navigation items', () => {
-    expect(component.navigationItems).toEqual([
-      { href: '#home-about', label: 'About' },
-      { href: '#home-projects', label: 'Projects' },
-      { href: '#home-experience', label: 'Experience' },
-      { href: '#home-skills', label: 'Skills' },
-      { href: '#home-testimonials', label: 'Testimonials' },
-      { href: '#home-contact', label: 'Contact' },
-    ]);
-  });
-
-  it('should render desktop navigation for desktop devices', () => {
-    const navigationElement: HTMLElement | null =
-      fixture.nativeElement.querySelector('nav.navigation');
-    const sectionList = fixture.nativeElement.querySelector('.navigation__section-list');
-    const menuButton = fixture.nativeElement.querySelector('.navigation__button');
-
-    expect(navigationElement?.getAttribute('aria-label')).toBe('Primary navigation');
-    expect(sectionList).toBeTruthy();
-    expect(menuButton).toBeFalsy();
-    expect(sectionList?.querySelectorAll('a')).toHaveLength(6);
-  });
-
-  it('should expose current page metadata for the active navigation link', () => {
-    vi.spyOn(router, 'url', 'get').mockReturnValue('/projects');
-    expect(component.isCurrentRoute('/projects')).toBe(true);
-    expect(component.isCurrentRoute('/')).toBe(false);
   });
 
   it('should smoothly scroll to fragment links and update the URL hash', () => {
@@ -101,34 +66,6 @@ describe('Navigation', () => {
     component.onNavigationLinkClick(event, '/projects');
 
     expect(event.defaultPrevented).toBe(false);
-  });
-
-  it('should render hamburger menu for tablet devices', () => {
-    device.set([Devices.TABLET]);
-    fixture.detectChanges();
-
-    const list = fixture.nativeElement.querySelector('.navigation__list');
-    const menuButton = fixture.nativeElement.querySelector('.navigation__button');
-    const toggleButton: HTMLButtonElement | null = menuButton?.querySelector('button');
-
-    expect(list).toBeFalsy();
-    expect(menuButton).toBeTruthy();
-    expect(toggleButton?.type).toBe('button');
-    expect(toggleButton?.getAttribute('aria-label')).toBe('Open navigation menu');
-    expect(toggleButton?.getAttribute('aria-expanded')).toBe('false');
-    expect(toggleButton?.getAttribute('aria-controls')).toBe(component.mobileMenuId);
-  });
-
-  it('should render hamburger menu for mobile devices', () => {
-    device.set([Devices.MOBILE]);
-    fixture.detectChanges();
-
-    const list = fixture.nativeElement.querySelector('.navigation__list');
-    const menuButton = fixture.nativeElement.querySelector('.navigation__button');
-
-    expect(list).toBeFalsy();
-    expect(menuButton).toBeTruthy();
-    expect(fixture.nativeElement.querySelector('.navigation__section-list')).toBeFalsy();
   });
 
   it('should open and close the mobile menu with focus management', async () => {

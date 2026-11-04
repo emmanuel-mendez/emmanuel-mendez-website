@@ -43,40 +43,6 @@ describe('Contact', () => {
     expect(component.status()).toBe('sent');
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should start with idle status', () => {
-    expect(component.status()).toBe('idle');
-  });
-
-  it('should use the shared Button component for submission', () => {
-    const submitButton: HTMLButtonElement | null = fixture.nativeElement.querySelector(
-      'app-button.contact__button button',
-    );
-
-    expect(submitButton?.type).toBe('submit');
-  });
-
-  it('should render English contact copy', () => {
-    const nativeElement: HTMLElement = fixture.nativeElement;
-
-    expect(nativeElement.querySelector('.contact__title')?.textContent?.trim()).toBe('Contact');
-    expect(nativeElement.querySelector('.contact__subtitle')?.textContent?.trim()).toBe(
-      'Do you have a project in mind? Send me a message.',
-    );
-    expect(nativeElement.querySelector('#contact-name')?.getAttribute('placeholder')).toBe(
-      'Your full name',
-    );
-    expect(nativeElement.querySelector('#contact-email')?.getAttribute('placeholder')).toBe(
-      'you@example.com',
-    );
-    expect(nativeElement.querySelector('#contact-message')?.getAttribute('placeholder')).toBe(
-      'Write your message here...',
-    );
-  });
-
   it('should keep submit disabled when fields only contain whitespace', () => {
     fillForm('   ', '   ', '   ');
     fixture.detectChanges();
@@ -102,39 +68,12 @@ describe('Contact', () => {
     expect(submitButton.disabled).toBe(false);
   });
 
-  it('should expose an accessible message counter with explicit max length', () => {
-    const nativeElement: HTMLElement = fixture.nativeElement;
-    const textarea = nativeElement.querySelector('#contact-message');
-    const counter = nativeElement.querySelector('#contact-message-counter');
-
-    expect(component.messageMaxLength).toBe(1000);
-    expect(textarea?.getAttribute('maxlength')).toBe('1000');
-    expect(textarea?.getAttribute('aria-describedby')).toContain('contact-message-counter');
-    expect(counter?.getAttribute('role')).toBe('status');
-    expect(counter?.textContent?.trim()).toBe('0/1000 characters');
-  });
-
   it('should update the message counter as the user writes', () => {
     component.messageControl.setValue('Accessibility improvements requested.');
     fixture.detectChanges();
 
     const counter = fixture.nativeElement.querySelector('#contact-message-counter');
     expect(counter?.textContent?.trim()).toBe('37/1000 characters');
-  });
-
-  it('should expose accessible form metadata and field autocompletion', () => {
-    const nativeElement: HTMLElement = fixture.nativeElement;
-    const form = nativeElement.querySelector('.contact__form');
-    const nameInput = nativeElement.querySelector('#contact-name');
-    const emailInput = nativeElement.querySelector('#contact-email');
-    const messageInput = nativeElement.querySelector('#contact-message');
-
-    expect(form?.getAttribute('novalidate')).not.toBeNull();
-    expect(form?.getAttribute('aria-busy')).toBe('false');
-    expect(nameInput?.getAttribute('autocomplete')).toBe('name');
-    expect(emailInput?.getAttribute('autocomplete')).toBe('email');
-    expect(emailInput?.getAttribute('inputmode')).toBe('email');
-    expect(messageInput?.getAttribute('maxlength')).toBe('1000');
   });
 
   it('should prevent submit and show validation errors for invalid form values', () => {

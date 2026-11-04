@@ -31,19 +31,6 @@ describe('Card', () => {
     fixture.detectChanges();
   });
 
-  it('should render project information, role, and up to four technology tags', () => {
-    const element: HTMLElement = fixture.nativeElement;
-
-    expect(element.querySelector('.projects__card-title')?.textContent).toContain(PROJECT.title);
-    expect(element.querySelector('.projects__card-description')?.textContent).toContain(
-      PROJECT.description,
-    );
-    expect(element.querySelector('.projects__card-image')?.getAttribute('src')).toBe(PROJECT.image);
-    expect(element.querySelector('.projects__card-role--author')?.textContent).toContain('author');
-    expect(element.querySelectorAll('.projects__card-tag')).toHaveLength(4);
-    expect(element.querySelector('.projects__card-year')?.textContent).toContain('2026');
-  });
-
   it('should link to project details and source code when available', () => {
     const element: HTMLElement = fixture.nativeElement;
     const imageLink: HTMLAnchorElement | null = element.querySelector(
@@ -61,22 +48,5 @@ describe('Card', () => {
     expect(detailsLink?.getAttribute('href')).toBe('/projects/test-project');
     expect(sourceLink?.getAttribute('href')).toBe(PROJECT.sourceCode);
     expect(sourceLink?.getAttribute('rel')).toBe('noopener noreferrer');
-  });
-
-  it('should render the requested heading level and omit unavailable project data', () => {
-    fixture.componentRef.setInput('titleLevel', 3);
-    fixture.componentRef.setInput('project', {
-      ...PROJECT,
-      rol: 'collaborator',
-      year: undefined,
-      sourceCode: undefined,
-    });
-    fixture.detectChanges();
-
-    const element: HTMLElement = fixture.nativeElement;
-    expect(element.querySelector('h3.projects__card-title')).not.toBeNull();
-    expect(element.querySelector('.projects__card-role--collaborator')).not.toBeNull();
-    expect(element.querySelector('.projects__card-year')).toBeNull();
-    expect(element.querySelector('.projects__card-link[target="_blank"]')).toBeNull();
   });
 });

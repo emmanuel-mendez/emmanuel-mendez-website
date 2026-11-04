@@ -21,12 +21,7 @@ export class Skills {
     {
       name: 'Languages',
       icon: 'code',
-      skills: [
-        { name: 'HTML5' },
-        { name: 'CSS3' },
-        { name: 'JavaScript' },
-        { name: 'TypeScript' },
-      ],
+      skills: [{ name: 'HTML5' }, { name: 'CSS3' }, { name: 'JavaScript' }, { name: 'TypeScript' }],
     },
     {
       name: 'Frontend',
@@ -68,12 +63,7 @@ export class Skills {
     {
       name: 'Backend & Databases',
       icon: 'dns',
-      skills: [
-        { name: 'Node.js' },
-        { name: 'Express.js' },
-        { name: 'MongoDB' },
-        { name: 'MySQL' },
-      ],
+      skills: [{ name: 'Node.js' }, { name: 'Express.js' }, { name: 'MongoDB' }, { name: 'MySQL' }],
     },
     {
       name: 'Principles & Patterns',

@@ -41,7 +41,8 @@ const PROJECTS: readonly Project[] = [
     image: '/svg/logo--expanded--light.svg',
     imageBackgroundColor: '#20665c40',
     rol: 'author',
-    description: 'Personal portfolio website built with Angular featuring server-side rendering, responsive design, and light/dark theme switching.',
+    description:
+      'Personal portfolio website built with Angular featuring server-side rendering, responsive design, and light/dark theme switching.',
     technologies: ['Angular', 'TypeScript', 'CSS', 'SSR'],
     year: 2026,
     timeline: 'Q1 2025 – Q4 2026',
@@ -87,7 +88,8 @@ const PROJECTS: readonly Project[] = [
     ],
     link: 'https://emmanuel-mendez-website.vercel.app/',
     sourceCode: 'https://github.com/emmanuel-mendez/emmanuel-mendez-website',
-    content: 'A personal portfolio website showcasing professional experience, skills, and projects. Built with Angular 21, it features server-side rendering for optimal SEO, responsive design with mobile-first approach, and light/dark theme support using CSS light-dark() function.',
+    content:
+      'A personal portfolio website showcasing professional experience, skills, and projects. Built with Angular 21, it features server-side rendering for optimal SEO, responsive design with mobile-first approach, and light/dark theme support using CSS light-dark() function.',
   },
   {
     slug: 'astyimar-y-emmanuel',
@@ -100,8 +102,7 @@ const PROJECTS: readonly Project[] = [
     technologies: ['Astro', 'Preact', 'TypeScript', 'CSS', 'Cloudflare'],
     year: 2025,
     timeline: 'May – November 2025',
-    scope:
-      'Wedding invitation platform with event information and personalized pages for guests.',
+    scope: 'Wedding invitation platform with event information and personalized pages for guests.',
     products: ['Website'],
     modules: [
       'Event details and itinerary',
@@ -139,7 +140,8 @@ const PROJECTS: readonly Project[] = [
       },
       {
         title: 'Guest personalization',
-        detail: 'Added guest-specific invitation pages with personalized details and table assignments.',
+        detail:
+          'Added guest-specific invitation pages with personalized details and table assignments.',
       },
       {
         title: 'Deployment setup',
@@ -527,7 +529,8 @@ const PROJECTS: readonly Project[] = [
     technologies: ['Typescript', 'Angular', 'Storybook'],
     products: ['Web Application'],
     modules: ['Brand strategy recommendation system based on movie character archetypes'],
-    content: 'Web application featuring a brand strategy recommendation system based on movie character archetypes.',
+    content:
+      'Web application featuring a brand strategy recommendation system based on movie character archetypes.',
   },
   {
     slug: 'm374',

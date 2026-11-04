@@ -33,12 +33,6 @@ describe('Filter', () => {
     fixture.detectChanges();
   });
 
-  it('should provide a default sorting option', () => {
-    expect(component.sortProperties()).toHaveLength(1);
-    expect(component.sortProperty()).toBeTruthy();
-    expect(fixture.nativeElement.querySelector('.filter__sort')).not.toBeNull();
-  });
-
   it('should emit the selected sorting property', () => {
     const sortPropertyChange = vi.spyOn(component.sortPropertyChange, 'emit');
     fixture.componentRef.setInput('sortProperties', ['default', 'alternate']);

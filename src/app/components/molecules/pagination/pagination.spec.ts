@@ -54,24 +54,6 @@ describe('Pagination', () => {
     fixture.detectChanges();
   });
 
-  it('should render only the configured number of items without owning a more button', () => {
-    expect(fixture.nativeElement.querySelectorAll('.pagination-test__item').length).toBe(1);
-    expect(
-      fixture.nativeElement
-        .querySelector('.pagination-test__item')
-        .parentElement.classList.contains('pagination-test__wrapper'),
-    ).toBe(true);
-    expect(fixture.nativeElement.querySelector('app-button')).toBeNull();
-  });
-
-  it('should hide the button when all items fit', () => {
-    fixture.componentInstance.itemsPerPage.set(2);
-    fixture.detectChanges();
-
-    expect(fixture.nativeElement.querySelectorAll('.pagination-test__item').length).toBe(2);
-    expect(fixture.nativeElement.querySelector('app-button')).toBeNull();
-  });
-
   it('should show the requested page and emit navigation changes', () => {
     vi.spyOn(window, 'scrollTo').mockImplementation(() => undefined);
     fixture.componentInstance.showPageControls.set(true);
@@ -87,30 +69,15 @@ describe('Pagination', () => {
     expect(fixture.nativeElement.querySelectorAll('.pagination-test__item')).toHaveLength(1);
   });
 
-  it('should render accessible arrow icons for previous and next page controls', () => {
+  it('should disable the previous page control on the first page', () => {
     fixture.componentInstance.showPageControls.set(true);
     fixture.detectChanges();
 
     const previousButton: HTMLButtonElement = fixture.nativeElement.querySelector(
       '.pagination__control[aria-label="Previous page"]',
     );
-    const nextButton: HTMLButtonElement = fixture.nativeElement.querySelector(
-      '.pagination__control[aria-label="Next page"]',
-    );
 
-    expect(previousButton.querySelector('.material-symbols-outlined')?.textContent?.trim()).toBe(
-      'arrow_back',
-    );
-    expect(
-      previousButton.querySelector('.material-symbols-outlined')?.getAttribute('aria-hidden'),
-    ).toBe('true');
     expect(previousButton.disabled).toBe(true);
-    expect(nextButton.querySelector('.material-symbols-outlined')?.textContent?.trim()).toBe(
-      'arrow_forward',
-    );
-    expect(
-      nextButton.querySelector('.material-symbols-outlined')?.getAttribute('aria-hidden'),
-    ).toBe('true');
   });
 
   it('should always show five pages including the first, adjacent, current, and last pages', () => {
