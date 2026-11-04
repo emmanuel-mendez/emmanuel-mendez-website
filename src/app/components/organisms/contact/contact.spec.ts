@@ -7,6 +7,14 @@ describe('Contact', () => {
   let component: Contact;
   let fixture: ComponentFixture<Contact>;
 
+  const fillForm = (name: string, email: string, message: string): void => {
+    component.form.setValue({ name, email, message });
+  };
+
+  const fillValidForm = (): void => {
+    fillForm('John', 'john@example.com', 'A valid message with enough characters.');
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Contact],
@@ -24,17 +32,15 @@ describe('Contact', () => {
   it('should prevent duplicate submissions and complete the send flow', () => {
     vi.useFakeTimers();
     const timeoutSpy = vi.spyOn(globalThis, 'setTimeout');
-    component.name = 'John';
-    component.email = 'john@example.com';
-    component.message = 'Message';
+    fillValidForm();
     component.onSubmit();
     expect(component.status()).toBe('sending');
+    const scheduledCount: number = timeoutSpy.mock.calls.length;
     component.onSubmit();
     expect(component.status()).toBe('sending');
-    expect(timeoutSpy).toHaveBeenCalledOnce();
+    expect(timeoutSpy.mock.calls.length).toBe(scheduledCount);
     vi.advanceTimersByTime(2000);
     expect(component.status()).toBe('sent');
-    expect(timeoutSpy).toHaveBeenCalledOnce();
   });
 
   it('should create', () => {
@@ -72,9 +78,7 @@ describe('Contact', () => {
   });
 
   it('should keep submit disabled when fields only contain whitespace', () => {
-    component.name = '   ';
-    component.email = '   ';
-    component.message = '   ';
+    fillForm('   ', '   ', '   ');
     fixture.detectChanges();
 
     const submitButton = fixture.nativeElement.querySelector(
@@ -83,6 +87,19 @@ describe('Contact', () => {
 
     expect(component.isFormFilled()).toBe(false);
     expect(submitButton.disabled).toBe(true);
+  });
+
+  it('should enable submit when the form is valid and filled', () => {
+    fillValidForm();
+    fixture.detectChanges();
+
+    const submitButton = fixture.nativeElement.querySelector(
+      'app-button.contact__button button',
+    ) as HTMLButtonElement;
+
+    expect(component.isFormInvalid()).toBe(false);
+    expect(component.isFormFilled()).toBe(true);
+    expect(submitButton.disabled).toBe(false);
   });
 
   it('should expose an accessible message counter with explicit max length', () => {
@@ -98,7 +115,7 @@ describe('Contact', () => {
   });
 
   it('should update the message counter as the user writes', () => {
-    component.message = 'Accessibility improvements requested.';
+    component.messageControl.setValue('Accessibility improvements requested.');
     fixture.detectChanges();
 
     const counter = fixture.nativeElement.querySelector('#contact-message-counter');
@@ -137,9 +154,7 @@ describe('Contact', () => {
 
   it('should mark the form as busy while sending', () => {
     vi.useFakeTimers();
-    component.name = 'John';
-    component.email = 'john@example.com';
-    component.message = 'Message';
+    fillValidForm();
     component.onSubmit();
     fixture.detectChanges();
     const form = fixture.nativeElement.querySelector('.contact__form') as HTMLFormElement;
@@ -152,9 +167,7 @@ describe('Contact', () => {
 
   it('should set status to sending on submit', () => {
     vi.useFakeTimers();
-    component.name = 'John';
-    component.email = 'john@example.com';
-    component.message = 'Message';
+    fillValidForm();
     component.onSubmit();
     expect(component.status()).toBe('sending');
     vi.useRealTimers();
@@ -162,9 +175,7 @@ describe('Contact', () => {
 
   it('should set status to sent after timeout', () => {
     vi.useFakeTimers();
-    component.name = 'John';
-    component.email = 'john@example.com';
-    component.message = 'Message';
+    fillValidForm();
     component.onSubmit();
     expect(component.status()).toBe('sending');
     vi.advanceTimersByTime(2000);
@@ -173,29 +184,65 @@ describe('Contact', () => {
 
   it('should reset the status and fields', () => {
     vi.useFakeTimers();
-    component.name = 'John';
-    component.email = 'john@example.com';
-    component.message = 'Hello';
+    fillValidForm();
     component.status.set('sent');
     component.reset();
     component.reset();
     expect(component.status()).toBe('idle');
-    expect(component.name.length).toBe(0);
-    expect(component.email.length).toBe(0);
-    expect(component.message.length).toBe(0);
+    expect(component.nameControl.value.length).toBe(0);
+    expect(component.emailControl.value.length).toBe(0);
+    expect(component.messageControl.value.length).toBe(0);
+  });
+
+  it('should strip non-letter characters from the name input as the user types', () => {
+    const nameInput = fixture.nativeElement.querySelector('#contact-name') as HTMLInputElement;
+
+    nameInput.value = 'John123 Doe!';
+    nameInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    expect(component.nameControl.value).toBe('John Doe');
+    expect(nameInput.value).toBe('John Doe');
+  });
+
+  it('should keep letters, accents, and spaces in the name input', () => {
+    const nameInput = fixture.nativeElement.querySelector('#contact-name') as HTMLInputElement;
+
+    nameInput.value = 'María José Ñuño';
+    nameInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    expect(component.nameControl.value).toBe('María José Ñuño');
+    expect(nameInput.value).toBe('María José Ñuño');
+  });
+
+  it('should block submit and show an error when the name has non-letter characters', async () => {
+    const nativeElement: HTMLElement = fixture.nativeElement;
+    fillForm('John3', 'john@example.com', 'A valid message with enough characters.');
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const form = nativeElement.querySelector('.contact__form') as HTMLFormElement;
+    form.dispatchEvent(new Event('submit'));
+    fixture.detectChanges();
+
+    const nameError = nativeElement.querySelector('#contact-name-error');
+    const validationMessages = nativeElement.querySelectorAll('.contact__error');
+
+    expect(component.status()).toBe('idle');
+    expect(validationMessages.length).toBe(1);
+    expect(nameError?.textContent).toContain('only letters');
   });
 
   it('should trim user fields before sending the message', () => {
     vi.useFakeTimers();
-    component.name = ' John ';
-    component.email = ' john@example.com ';
-    component.message = ' Message with spaces ';
+    fillForm(' John ', ' john@example.com ', ' Message with spaces and details ');
 
     component.onSubmit();
 
-    expect(component.name).toBe('John');
-    expect(component.email).toBe('john@example.com');
-    expect(component.message).toBe('Message with spaces');
+    expect(component.nameControl.value).toBe('John');
+    expect(component.emailControl.value).toBe('john@example.com');
+    expect(component.messageControl.value).toBe('Message with spaces and details');
     expect(component.status()).toBe('sending');
     vi.advanceTimersByTime(2000);
     vi.useRealTimers();

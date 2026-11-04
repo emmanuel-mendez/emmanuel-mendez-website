@@ -21,10 +21,10 @@
   } @else {
     <form
       class="contact__form"
-      #contactForm="ngForm"
+      [formGroup]="form"
       novalidate
       [attr.aria-busy]="status() === 'sending' ? 'true' : 'false'"
-      (ngSubmit)="onSubmit(contactForm)"
+      (ngSubmit)="onSubmit()"
     >
       <div class="contact__field">
         <label class="contact__label" for="contact-name">Name</label>
@@ -32,27 +32,25 @@
           class="contact__input"
           id="contact-name"
           type="text"
-          name="name"
-          [(ngModel)]="name"
-          #nameModel="ngModel"
+          formControlName="name"
           required
-          minlength="2"
           maxlength="80"
           autocomplete="name"
+          (input)="onNameInput($event)"
           [attr.aria-invalid]="
-            nameModel.invalid && (nameModel.touched || contactForm.submitted) ? 'true' : 'false'
+            nameControl.invalid && (nameControl.touched || submitted()) ? 'true' : 'false'
           "
           [attr.aria-describedby]="
-            nameModel.invalid && (nameModel.touched || contactForm.submitted)
+            nameControl.invalid && (nameControl.touched || submitted())
               ? 'contact-name-error'
               : 'contact-name-hint'
           "
           placeholder="Your full name"
         />
-        <p class="contact__hint" id="contact-name-hint">Use your full name.</p>
-        @if (nameModel.invalid && (nameModel.touched || contactForm.submitted)) {
+        <p class="contact__hint" id="contact-name-hint">Use your full name (letters only).</p>
+        @if (nameControl.invalid && (nameControl.touched || submitted())) {
           <p class="contact__error" id="contact-name-error" role="alert">
-            Enter a valid name with at least 2 characters.
+            Enter a valid name using only letters, with at least 2 characters.
           </p>
         }
       </div>
@@ -63,18 +61,16 @@
           class="contact__input"
           id="contact-email"
           type="email"
-          name="email"
-          [(ngModel)]="email"
-          #emailModel="ngModel"
+          formControlName="email"
           required
           maxlength="120"
           autocomplete="email"
           inputmode="email"
           [attr.aria-invalid]="
-            emailModel.invalid && (emailModel.touched || contactForm.submitted) ? 'true' : 'false'
+            emailControl.invalid && (emailControl.touched || submitted()) ? 'true' : 'false'
           "
           [attr.aria-describedby]="
-            emailModel.invalid && (emailModel.touched || contactForm.submitted)
+            emailControl.invalid && (emailControl.touched || submitted())
               ? 'contact-email-error'
               : 'contact-email-hint'
           "
@@ -83,7 +79,7 @@
         <p class="contact__hint" id="contact-email-hint">
           Use an email address you check frequently.
         </p>
-        @if (emailModel.invalid && (emailModel.touched || contactForm.submitted)) {
+        @if (emailControl.invalid && (emailControl.touched || submitted())) {
           <p class="contact__error" id="contact-email-error" role="alert">
             Enter a valid email address.
           </p>
@@ -95,20 +91,15 @@
         <textarea
           class="contact__input contact__input--textarea"
           id="contact-message"
-          name="message"
-          [(ngModel)]="message"
-          #messageModel="ngModel"
+          formControlName="message"
           required
-          minlength="20"
           [maxlength]="messageMaxLength"
           autocomplete="off"
           [attr.aria-invalid]="
-            messageModel.invalid && (messageModel.touched || contactForm.submitted)
-              ? 'true'
-              : 'false'
+            messageControl.invalid && (messageControl.touched || submitted()) ? 'true' : 'false'
           "
           [attr.aria-describedby]="
-            messageModel.invalid && (messageModel.touched || contactForm.submitted)
+            messageControl.invalid && (messageControl.touched || submitted())
               ? 'contact-message-error contact-message-counter'
               : 'contact-message-hint contact-message-counter'
           "
@@ -118,20 +109,23 @@
         <p class="contact__hint" id="contact-message-hint">
           Add enough detail so I can understand your request.
         </p>
-        <p class="contact__counter" id="contact-message-counter" role="status" aria-live="polite">
-          {{ message.length }}/{{ messageMaxLength }} characters
-        </p>
-        @if (messageModel.invalid && (messageModel.touched || contactForm.submitted)) {
-          <p class="contact__error" id="contact-message-error" role="alert">
-            Enter a message with at least 20 characters.
+
+        <div class="contact__hints--message">
+          @if (messageControl.invalid && (messageControl.touched || submitted())) {
+            <p class="contact__error" id="contact-message-error" role="alert">
+              Enter a message with at least 20 characters.
+            </p>
+          }
+          <p class="contact__counter" id="contact-message-counter" role="status" aria-live="polite">
+            {{ messageLength() }}/{{ messageMaxLength }} characters
           </p>
-        }
+        </div>
       </div>
 
       <app-button
         class="contact__button"
         type="submit"
-        [disabled]="status() === 'sending' || contactForm.invalid === true || !isFormFilled()"
+        [disabled]="status() === 'sending' || isFormInvalid() || !isFormFilled()"
       >
         @if (status() === 'sending') {
           Sending...
