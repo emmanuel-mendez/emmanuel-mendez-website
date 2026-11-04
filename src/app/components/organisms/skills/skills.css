@@ -119,7 +119,7 @@
 .skills__tag {
   display: inline-flex;
   align-items: center;
-  padding: 0.35rem 0.75rem;
+  padding: 0.25rem 0.75rem;
   border: 1px solid rgb(252 252 253 / 0.24);
   border-radius: 999px;
   background-color: light-dark(var(--color-white), rgb(252 252 253 / 0.1));
