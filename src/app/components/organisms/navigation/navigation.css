@@ -10,6 +10,10 @@
   gap: 1.5rem;
   align-items: center;
   justify-content: space-between;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: 1fr auto;
+  }
 }
 
 .navigation__button {
@@ -80,7 +84,6 @@
   @media (min-width: 1024px) {
     display: grid;
     width: max-content;
-    grid-auto-columns: 1fr;
     grid-auto-flow: column;
     margin-inline: auto;
   }
@@ -99,7 +102,6 @@
   @media (min-width: 1024px) {
     display: grid;
     width: max-content;
-    grid-auto-columns: 1fr;
     grid-auto-flow: column;
     margin-inline: auto;
   }

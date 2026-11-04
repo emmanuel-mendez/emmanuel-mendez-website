@@ -5,6 +5,13 @@ import { Router, RouterLink } from '@angular/router';
 import { Responsive, Devices } from '@services/responsive/responsive';
 import { Theme, ThemeMode } from '@services/theme/theme';
 
+const EXPANDED_LOGO_DEVICES: readonly Devices[] = [
+  Devices.DESKTOP_MEDIUM,
+  Devices.DESKTOP_LARGE,
+  Devices.DESKTOP_EXTRA_LARGE,
+  Devices.DESKTOP_EXTRA_EXTRA_LARGE,
+];
+
 @Component({
   selector: 'app-header',
   imports: [Navigation, RouterLink],
@@ -30,20 +37,18 @@ export class Header {
     });
   }
 
-  public readonly isDesktop = computed((): boolean =>
-    this.responsive.device().includes(Devices.DESKTOP),
+  private readonly isExpandedLogo = computed((): boolean =>
+    this.responsive.device().some((device: Devices) => EXPANDED_LOGO_DEVICES.includes(device)),
   );
 
   public readonly logoSrc = computed((): string => {
-    const isDesktop = this.isDesktop();
     const themeMode = this.theme.current();
     const isDark =
       themeMode === ThemeMode.DARK || (themeMode === ThemeMode.SYSTEM && this.systemDark());
+    const name = this.isExpandedLogo() ? 'logo--expanded' : 'logo';
+    const suffix = isDark ? '' : '--light';
 
-    if (isDesktop) {
-      return isDark ? '/svg/logo--expanded.svg' : '/svg/logo--expanded--light.svg';
-    }
-    return isDark ? '/svg/logo.svg' : '/svg/logo--light.svg';
+    return `/svg/${name}${suffix}.svg`;
   });
 
   public scrollToTopOnHome(): void {
