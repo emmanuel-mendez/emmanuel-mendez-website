@@ -1,4 +1,17 @@
 <a routerLink="/" aria-label="Go to home" (click)="scrollToTopOnHome()">
-  <img [src]="logoSrc()" alt="Emmanuel Mendez" class="logo" />
+  <img
+    [src]="compactLogoSrc()"
+    [attr.width]="compactLogoDimensions.width"
+    [attr.height]="compactLogoDimensions.height"
+    alt="Emmanuel Mendez"
+    class="logo logo--compact"
+  />
+  <img
+    [src]="expandedLogoSrc()"
+    [attr.width]="expandedLogoDimensions().width"
+    [attr.height]="expandedLogoDimensions().height"
+    alt="Emmanuel Mendez"
+    class="logo logo--expanded"
+  />
 </a>
 <app-navigation />

@@ -1,0 +1,24 @@
+@if (isCarouselRendered()) {
+  <app-featured-projects-carousel-stage
+    #featuredProjectsCarouselStage
+    class="featured-projects-carousel__carousel"
+  />
+  <nav class="featured-projects-carousel__controls" aria-label="Featured projects">
+    <button
+      class="featured-projects-carousel__control"
+      type="button"
+      aria-label="Previous featured project"
+      (click)="featuredProjectsCarouselStage.prev()"
+    >
+      <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+    </button>
+    <button
+      class="featured-projects-carousel__control"
+      type="button"
+      aria-label="Next featured project"
+      (click)="featuredProjectsCarouselStage.next()"
+    >
+      <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+    </button>
+  </nav>
+}

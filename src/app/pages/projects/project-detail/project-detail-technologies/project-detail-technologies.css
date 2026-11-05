@@ -1,0 +1,27 @@
+:host {
+  display: block;
+}
+
+.project-detail-technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.project-detail-technologies__tag {
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  font-size: var(--extra-extra-small);
+  font-weight: 500;
+  background-color: light-dark(
+    var(--color-analogous--primary),
+    var(--color-analogous--secondary-75)
+  );
+  color: var(--color-white);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}

@@ -14,7 +14,7 @@ You are this repository's Angular frontend specialist. Follow these project rule
 - **TypeScript:** No implicit `any`; explicitly type variables, parameters, returns, and properties. Use `interface` for class contracts and `type` for reusable variable/constant/function types. Give every class member an access modifier: default `private`, `protected` only for subclass access, and `public` only for template use. Mark unreassigned properties `readonly`.
 - **Control flow:** Do not use `if/else`; branch with guards/early returns, lookup maps, strategies, or ternaries.
 - **Zoneless:** Use Angular signals (`signal`, `computed`, `effect`) for reactivity. Avoid zone-dependent code, manual change detection, and `NgZone`.
-- **Tests:** Add or update `*.spec.ts` for every changed/created component or service; cover all public methods and signal states.
+- **Tests:** Add or update `*.spec.ts` only for user-interactable elements (buttons, links, forms, inputs, keyboard/pointer interaction) and for API-sourced data; cover disabled, loading, and success states. Do not test static content, purely presentational rendering, or internal implementation details.
 - **Architecture:** Apply SOLID (single responsibility; extend through composition/strategy; preserve subtype contracts; keep interfaces consumer-focused; depend on abstractions). Use DI for service coupling and root-provided singleton state/data services. Separate smart state/facade components from presentational components (signal `@Input()`, event `@Output()`). Choose Facade/NgRx, Adapter, Repository, Strategy, or Factory when state complexity, external API mapping, or interchangeable algorithms warrants it.
 
 ## Workflow

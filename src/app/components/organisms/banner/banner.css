@@ -15,6 +15,10 @@
   flex-direction: column;
   gap: 3rem;
   padding-inline: 2rem;
+
+  @media (min-width: 1024px) {
+    padding-inline: 0;
+  }
 }
 
 .banner__info {
@@ -25,7 +29,6 @@
 
 .banner__title {
   font-size: var(--extra-large);
-  line-height: 1.2;
   max-width: 20ch;
 }
 
@@ -34,13 +37,14 @@
 }
 
 .banner__title-highlight {
-  color: var(--primary);
+  color: var(--color-primary);
   font-weight: bold;
 }
 
 .banner__description {
   font-size: var(--medium);
-  color: var(--grey);
+  color: light-dark(var(--color-grey--dark), var(--color-grey));
+  transition: color 0.2s ease;
 }
 
 .banner__actions {
@@ -48,46 +52,6 @@
   width: min(425px, 100%);
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
-}
-
-.banner__carousel-container {
-  min-width: 0;
-  width: 100%;
-}
-
-.banner__carousel {
-  display: block;
-  min-width: 0;
-  width: 100%;
-  border-radius: 0.5rem;
-}
-
-.banner__carousel-controls {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.banner__carousel-control {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  border: 1px solid light-dark(var(--analogous--secondary), var(--analogous--primary-50));
-  border-radius: 0.5rem;
-  background-color: light-dark(var(--white), var(--monochromatic--dark-deep));
-  color: light-dark(var(--analogous--secondary), var(--white));
-  cursor: pointer;
-  transition:
-    color 0.2s ease,
-    background-color 0.2s ease;
-
-  &:hover {
-    background-color: light-dark(var(--analogous--secondary-75), var(--analogous--primary));
-    color: var(--white);
-  }
 }
 
 @media (min-width: 375px) {

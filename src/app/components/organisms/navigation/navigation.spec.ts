@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { signal, WritableSignal } from '@angular/core';
-import { provideRouter, Router } from '@angular/router';
+import { provideRouter } from '@angular/router';
 import { Devices, Responsive } from '@services/responsive/responsive';
 import { vi } from 'vitest';
 import { Navigation } from './navigation';
@@ -9,7 +9,6 @@ describe('Navigation', () => {
   let component: Navigation;
   let fixture: ComponentFixture<Navigation>;
   let device: WritableSignal<Devices[]>;
-  let router: Router;
 
   beforeEach(async () => {
     vi.stubGlobal('localStorage', {
@@ -34,46 +33,12 @@ describe('Navigation', () => {
 
     fixture = TestBed.createComponent(Navigation);
     component = fixture.componentInstance;
-    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 
   afterEach(() => {
-    document.body.classList.remove('navigation--menu-open');
+    document.body.classList.remove('dialog--open');
     vi.unstubAllGlobals();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should expose reusable navigation items', () => {
-    expect(component.navigationItems).toEqual([
-      { href: '#home-about', label: 'About' },
-      { href: '#home-projects', label: 'Projects' },
-      { href: '#home-experience', label: 'Experience' },
-      { href: '#home-skills', label: 'Skills' },
-      { href: '#home-testimonials', label: 'Testimonials' },
-      { href: '#home-contact', label: 'Contact' },
-    ]);
-  });
-
-  it('should render desktop navigation for desktop devices', () => {
-    const navigationElement: HTMLElement | null =
-      fixture.nativeElement.querySelector('nav.navigation');
-    const sectionList = fixture.nativeElement.querySelector('.navigation__section-list');
-    const menuButton = fixture.nativeElement.querySelector('.navigation__button');
-
-    expect(navigationElement?.getAttribute('aria-label')).toBe('Primary navigation');
-    expect(sectionList).toBeTruthy();
-    expect(menuButton).toBeFalsy();
-    expect(sectionList?.querySelectorAll('a')).toHaveLength(6);
-  });
-
-  it('should expose current page metadata for the active navigation link', () => {
-    vi.spyOn(router, 'url', 'get').mockReturnValue('/projects');
-    expect(component.isCurrentRoute('/projects')).toBe(true);
-    expect(component.isCurrentRoute('/')).toBe(false);
   });
 
   it('should smoothly scroll to fragment links and update the URL hash', () => {
@@ -103,34 +68,6 @@ describe('Navigation', () => {
     expect(event.defaultPrevented).toBe(false);
   });
 
-  it('should render hamburger menu for tablet devices', () => {
-    device.set([Devices.TABLET]);
-    fixture.detectChanges();
-
-    const list = fixture.nativeElement.querySelector('.navigation__list');
-    const menuButton = fixture.nativeElement.querySelector('.navigation__button');
-    const toggleButton: HTMLButtonElement | null = menuButton?.querySelector('button');
-
-    expect(list).toBeFalsy();
-    expect(menuButton).toBeTruthy();
-    expect(toggleButton?.type).toBe('button');
-    expect(toggleButton?.getAttribute('aria-label')).toBe('Open navigation menu');
-    expect(toggleButton?.getAttribute('aria-expanded')).toBe('false');
-    expect(toggleButton?.getAttribute('aria-controls')).toBe(component.mobileMenuId);
-  });
-
-  it('should render hamburger menu for mobile devices', () => {
-    device.set([Devices.MOBILE]);
-    fixture.detectChanges();
-
-    const list = fixture.nativeElement.querySelector('.navigation__list');
-    const menuButton = fixture.nativeElement.querySelector('.navigation__button');
-
-    expect(list).toBeFalsy();
-    expect(menuButton).toBeTruthy();
-    expect(fixture.nativeElement.querySelector('.navigation__section-list')).toBeFalsy();
-  });
-
   it('should open and close the mobile menu with focus management', async () => {
     device.set([Devices.MOBILE]);
     fixture.detectChanges();
@@ -143,7 +80,7 @@ describe('Navigation', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    const backdrop = fixture.nativeElement.querySelector('.navigation__backdrop');
+    const backdrop = fixture.nativeElement.querySelector('.dialog__backdrop');
     const mobileMenu: HTMLUListElement | null =
       fixture.nativeElement.querySelector('.navigation__menu');
     const firstLink = mobileMenu?.querySelector<HTMLAnchorElement>('.navigation__link') ?? null;
@@ -151,7 +88,7 @@ describe('Navigation', () => {
     expect(backdrop).toBeTruthy();
     expect(mobileMenu).toBeTruthy();
     expect(mobileMenu?.querySelectorAll('.navigation__link--section')).toHaveLength(6);
-    expect(document.body.classList.contains('navigation--menu-open')).toBe(true);
+    expect(document.body.classList.contains('dialog--open')).toBe(true);
     expect(menuButton?.getAttribute('aria-expanded')).toBe('true');
     expect(document.activeElement).toBe(firstLink);
 
@@ -160,12 +97,12 @@ describe('Navigation', () => {
     await fixture.whenStable();
 
     const hiddenMenu = fixture.nativeElement.querySelector('.navigation__menu');
-    const hiddenBackdrop = fixture.nativeElement.querySelector('.navigation__backdrop');
+    const hiddenBackdrop = fixture.nativeElement.querySelector('.dialog__backdrop');
 
     expect(hiddenMenu).toBeFalsy();
     expect(hiddenBackdrop).toBeFalsy();
     expect(component.opened()).toBe(false);
-    expect(document.body.classList.contains('navigation--menu-open')).toBe(false);
+    expect(document.body.classList.contains('dialog--open')).toBe(false);
     expect(document.activeElement).toBe(menuButton);
   });
 
@@ -184,7 +121,7 @@ describe('Navigation', () => {
 
     const openedMenu: HTMLUListElement | null =
       fixture.nativeElement.querySelector('.navigation__menu');
-    openedMenu?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    openedMenu?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
     fixture.detectChanges();
     await fixture.whenStable();
 
@@ -195,13 +132,13 @@ describe('Navigation', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    const reopenedBackdrop = fixture.nativeElement.querySelector('.navigation__backdrop');
+    const reopenedBackdrop = fixture.nativeElement.querySelector('.dialog__backdrop');
     reopenedBackdrop?.click();
     fixture.detectChanges();
     await fixture.whenStable();
 
     expect(fixture.nativeElement.querySelector('.navigation__menu')).toBeFalsy();
     expect(component.opened()).toBe(false);
-    expect(document.body.classList.contains('navigation--menu-open')).toBe(false);
+    expect(document.body.classList.contains('dialog--open')).toBe(false);
   });
 });

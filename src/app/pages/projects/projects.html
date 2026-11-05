@@ -13,48 +13,47 @@
       Filter
     </button>
     <div class="projects__content">
-      @if (isFilterDialogOpen()) {
-        <button
-          class="projects__backdrop"
-          type="button"
-          aria-label="Close project filters"
-          (click)="closeFilterDialog()"
-        ></button>
-      }
-      <div
-        [id]="filterPanelId"
-        class="projects__filter-panel"
-        [class.projects__filter-panel--open]="isFilterDialogOpen()"
-        [attr.role]="isFilterDialogOpen() ? 'dialog' : null"
-        [attr.aria-modal]="isFilterDialogOpen() ? 'true' : null"
-        aria-labelledby="projects-filter-heading"
-        tabindex="-1"
-        (keydown.escape)="closeFilterDialog()"
+      <app-dialog
+        [open]="isFilterDialogOpen()"
+        backdropLabel="Close project filters"
+        [initialFocusSelector]="'#' + filterPanelId"
+        returnFocusSelector=".projects__filter-trigger"
+        (closed)="closeFilterDialog()"
       >
-        <div class="projects__filter-dialog-header">
-          <h2 class="projects__filter-dialog-title" id="projects-filter-heading">
-            Project filters
-          </h2>
-          <button
-            class="projects__filter-close"
-            type="button"
-            aria-label="Close project filters"
-            (click)="closeFilterDialog()"
-          >
-            <span class="material-symbols-outlined" aria-hidden="true">close</span>
-          </button>
+        <div
+          [id]="filterPanelId"
+          class="projects__filter-panel"
+          [class.projects__filter-panel--open]="isFilterDialogOpen()"
+          [attr.role]="isFilterDialogOpen() ? 'dialog' : null"
+          [attr.aria-modal]="isFilterDialogOpen() ? 'true' : null"
+          aria-labelledby="projects-filter-heading"
+          tabindex="-1"
+        >
+          <div class="projects__filter-dialog-header">
+            <h2 class="projects__filter-dialog-title" id="projects-filter-heading">
+              Project filters
+            </h2>
+            <button
+              class="projects__filter-close"
+              type="button"
+              aria-label="Close project filters"
+              (click)="closeFilterDialog()"
+            >
+              <span class="material-symbols-outlined" aria-hidden="true">close</span>
+            </button>
+          </div>
+          <app-filter
+            [list]="projects"
+            [categories]="categories()"
+            [sortProperties]="sortProperties"
+            [sortProperty]="sort()"
+            (filteredListChange)="setFilteredProjects($event)"
+            (sortPropertyChange)="setSort($event)"
+            (filtersApplied)="closeFilterDialog()"
+            (filtersCleared)="closeFilterDialog()"
+          />
         </div>
-        <app-filter
-          [list]="projects"
-          [categories]="categories()"
-          [sortProperties]="sortProperties"
-          [sortProperty]="sort()"
-          (filteredListChange)="setFilteredProjects($event)"
-          (sortPropertyChange)="setSort($event)"
-          (filtersApplied)="closeFilterDialog()"
-          (filtersCleared)="closeFilterDialog()"
-        />
-      </div>
+      </app-dialog>
       <div class="projects__results">
         <p class="projects__results-summary" role="status" aria-live="polite">
           {{ resultsSummary() }}

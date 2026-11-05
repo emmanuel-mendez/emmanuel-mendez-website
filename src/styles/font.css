@@ -15,3 +15,10 @@ body {
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
+
+/* Reserve the icon box so the ligature text cannot shift layout when the icon font swaps in. */
+.material-symbols-outlined {
+  width: 1em;
+  overflow: hidden;
+  flex-shrink: 0;
+}

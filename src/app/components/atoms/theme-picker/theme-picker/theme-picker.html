@@ -1,10 +1,8 @@
-@if (!theme.loading()) {
-  <app-button class="button" appearance="plain" type="button" (click)="toggleDropdown()">
-    <span class="material-symbols-outlined icon" [class.icon--filled]="dropdownStatus()">{{
-      currentModeIcon()
-    }}</span>
-  </app-button>
-}
+<app-button class="button" appearance="plain" type="button" (click)="toggleDropdown()">
+  <span class="material-symbols-outlined icon" [class.icon--filled]="dropdownStatus()">{{
+    currentModeIcon()
+  }}</span>
+</app-button>
 
 @if (dropdownStatus()) {
   <ul class="list">

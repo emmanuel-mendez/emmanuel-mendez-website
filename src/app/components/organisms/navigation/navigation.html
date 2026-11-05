@@ -1,5 +1,5 @@
 <nav class="navigation" aria-label="Primary navigation">
-  @if (responsive.device() | includes: [breakpoints.DESKTOP]) {
+  <div class="navigation__desktop">
     <div>
       <ul class="navigation__list" aria-label="Primary navigation links">
         @for (item of navigationItems; track item.href) {
@@ -34,7 +34,9 @@
     <div class="navigation__theme-picker">
       <app-theme-picker />
     </div>
-  } @else {
+  </div>
+
+  <div class="navigation__mobile">
     <app-theme-picker />
 
     <app-button
@@ -51,37 +53,36 @@
       }}</span>
     </app-button>
 
-    @if (opened()) {
-      <ul
-        class="navigation__menu"
-        [id]="mobileMenuId"
-        aria-label="Primary navigation links"
-        tabindex="-1"
-        (keydown.escape)="onMenuEscape($event)"
-      >
-        @for (item of navigationItems; track item.href; let isFirst = $first) {
-          <li class="navigation__item">
-            <a
-              class="navigation__link"
-              [class.navigation__link--section]="item.href.startsWith('#')"
-              [class.navigation__link--active]="isCurrentRoute(item.href)"
-              [attr.aria-current]="isCurrentRoute(item.href) ? 'page' : null"
-              [href]="item.href"
-              [attr.data-navigation-first-link]="isFirst ? 'true' : null"
-              (click)="onNavigationLinkClick($event, item.href); closeMenu()"
-              >{{ item.label }}</a
-            >
-          </li>
-        }
-      </ul>
-
-      <app-button
-        class="navigation__backdrop"
-        appearance="plain"
-        type="button"
-        aria-label="Close navigation menu"
-        (click)="closeMenu()"
-      ></app-button>
-    }
-  }
+    <app-dialog
+      [open]="opened()"
+      backdropLabel="Close navigation menu"
+      initialFocusSelector="[data-navigation-first-link='true']"
+      returnFocusSelector=".navigation__button button"
+      (closed)="closeMenu()"
+    >
+      @if (opened()) {
+        <ul
+          class="navigation__menu"
+          [id]="mobileMenuId"
+          aria-label="Primary navigation links"
+          tabindex="-1"
+        >
+          @for (item of navigationItems; track item.href; let isFirst = $first) {
+            <li class="navigation__item">
+              <a
+                class="navigation__link"
+                [class.navigation__link--section]="item.href.startsWith('#')"
+                [class.navigation__link--active]="isCurrentRoute(item.href)"
+                [attr.aria-current]="isCurrentRoute(item.href) ? 'page' : null"
+                [href]="item.href"
+                [attr.data-navigation-first-link]="isFirst ? 'true' : null"
+                (click)="onNavigationLinkClick($event, item.href); closeMenu()"
+                >{{ item.label }}</a
+              >
+            </li>
+          }
+        </ul>
+      }
+    </app-dialog>
+  </div>
 </nav>

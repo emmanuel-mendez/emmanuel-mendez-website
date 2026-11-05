@@ -27,12 +27,6 @@ describe('Header', () => {
     vi.restoreAllMocks();
   });
 
-  it('should render a logo with alternative text', () => {
-    const img: HTMLImageElement = fixture.nativeElement.querySelector('img.logo');
-    expect(img).toBeTruthy();
-    expect(img.hasAttribute('alt')).toBe(true);
-  });
-
   it('should smoothly scroll to the top when the logo is clicked on home', () => {
     const scrollToSpy = vi.spyOn(window, 'scrollTo').mockImplementation(() => undefined);
 

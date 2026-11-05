@@ -26,7 +26,7 @@ export class Footer {
 
   public readonly basicInfo: readonly FooterInfoItem[] = [
     { icon: 'work', text: 'Computer Engineer · Frontend Developer' },
-    { icon: 'location_on', text: 'Based in Colombia · Open to remote work' },
+    { icon: 'location_on', text: 'Based in Venezuela · Open to remote work' },
     { icon: 'calendar_month', text: '5+ years building web applications' },
   ];
 }

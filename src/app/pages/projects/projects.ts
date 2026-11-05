@@ -1,7 +1,8 @@
-import { Component, DestroyRef, ElementRef, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Card } from '@components/molecules/card/card';
 import { Filter, FilterCategory } from '@components/molecules/filter/filter';
 import { Pagination } from '@components/molecules/pagination/pagination';
+import { Dialog } from '@components/templates/dialog/dialog';
 import { Layout } from '@components/templates/layout/layout';
 import { Page } from '@services/page/page';
 import { Project, ProjectsData } from '@services/projects/projects-data';
@@ -114,19 +115,14 @@ const SORT_ALIASES: Readonly<Record<string, ProjectSort>> = {
   Year: 'Year (newest first)',
 };
 
-const FILTER_DIALOG_OPEN_CLASS = 'projects--filter-dialog-open';
-const FILTER_TRIGGER_SELECTOR = '.projects__filter-trigger';
-
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [Layout, Card, Filter, Pagination],
+  imports: [Layout, Card, Filter, Pagination, Dialog],
   templateUrl: './projects.html',
   styleUrl: './projects.css',
 })
 export class Projects {
-  private readonly destroyRef = inject(DestroyRef);
-  private readonly hostElement = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly pageService = inject(Page);
   private readonly projectsData = inject(ProjectsData);
 
@@ -177,16 +173,6 @@ export class Projects {
 
   constructor() {
     this.pageService.setMetaTags(this.DESCRIPTION);
-
-    effect(() => {
-      if (typeof document === 'undefined') return;
-      document.body.classList.toggle(FILTER_DIALOG_OPEN_CLASS, this.isFilterDialogOpen());
-    });
-
-    this.destroyRef.onDestroy(() => {
-      if (typeof document === 'undefined') return;
-      document.body.classList.remove(FILTER_DIALOG_OPEN_CLASS);
-    });
   }
 
   public setFilteredProjects(projects: readonly Project[]): void {
@@ -214,7 +200,6 @@ export class Projects {
     }
 
     this.isFilterDialogOpen.set(true);
-    this.focusFilterPanel();
   }
 
   public closeFilterDialog(): void {
@@ -223,21 +208,6 @@ export class Projects {
     }
 
     this.isFilterDialogOpen.set(false);
-    this.focusFilterTrigger();
-  }
-
-  private focusFilterPanel(): void {
-    queueMicrotask(() => {
-      this.hostElement.nativeElement.querySelector<HTMLElement>(`#${this.filterPanelId}`)?.focus();
-    });
-  }
-
-  private focusFilterTrigger(): void {
-    queueMicrotask(() => {
-      this.hostElement.nativeElement
-        .querySelector<HTMLButtonElement>(FILTER_TRIGGER_SELECTOR)
-        ?.focus();
-    });
   }
 
   public resetFilters(): void {

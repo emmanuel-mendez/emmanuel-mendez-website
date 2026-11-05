@@ -15,7 +15,6 @@ export interface Testimonial {
   styleUrl: './testimonials.css',
 })
 export class Testimonials {
-
   public readonly testimonials: Testimonial[] = [
     {
       id: 1,

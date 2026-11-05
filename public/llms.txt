@@ -1,0 +1,8 @@
+# Emmanuel Mendez
+
+> Personal website of Emmanuel Mendez, a Computer Engineer with 5+ years of experience building high-performance web applications with TypeScript and frontend frameworks.
+
+## Pages
+
+- [Home](https://emmanuel-mendez-website.vercel.app/): About, featured projects, experience, skills, testimonials, and contact.
+- [Projects](https://emmanuel-mendez-website.vercel.app/projects): Portfolio of web development projects.

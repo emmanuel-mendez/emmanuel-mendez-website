@@ -1,0 +1,12 @@
+<div class="project-detail-deliverables">
+  @for (section of sections(); track section.title) {
+    <article class="project-detail-deliverables__list-block">
+      <h3 class="project-detail-deliverables__list-title">{{ section.title }}</h3>
+      <ul class="project-detail-deliverables__list" [attr.aria-label]="section.ariaLabel">
+        @for (item of section.items; track item) {
+          <li class="project-detail-deliverables__list-item">{{ item }}</li>
+        }
+      </ul>
+    </article>
+  }
+</div>

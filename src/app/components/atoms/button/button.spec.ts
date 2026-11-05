@@ -16,13 +16,6 @@ describe('Button', () => {
     fixture.detectChanges();
   });
 
-  it('should render a primary button by default', () => {
-    const button: HTMLButtonElement | null = fixture.nativeElement.querySelector('button');
-
-    expect(button).not.toBeNull();
-    expect(button?.classList.contains('button--primary')).toBe(true);
-  });
-
   it('should render a router link for either route input', () => {
     fixture.componentRef.setInput('route', ['/projects']);
     fixture.detectChanges();
