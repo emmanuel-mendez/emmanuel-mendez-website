@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Content } from '@components/molecules/content/content';
 
 export interface JobExperienceItem {
   role: string;
@@ -15,7 +16,7 @@ export interface JobExperienceItem {
 
 @Component({
   selector: 'app-job-experience',
-  imports: [],
+  imports: [Content],
   templateUrl: './job-experience.html',
   styleUrl: './job-experience.css',
 })
