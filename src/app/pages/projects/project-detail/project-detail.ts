@@ -13,11 +13,20 @@ import { ProjectDetailRoadmap } from './project-detail-roadmap/project-detail-ro
 import { ProjectDetailTechnologies } from './project-detail-technologies/project-detail-technologies';
 import { Container } from '@components/molecules/container/container';
 
-
 @Component({
   selector: 'app-project-detail',
   standalone: true,
-  imports: [Layout, RouterLink, ProjectDetailHero, ProjectDetailSection, ProjectDetailHighlights, ProjectDetailDeliverables, ProjectDetailRoadmap, ProjectDetailTechnologies, Container],
+  imports: [
+    Layout,
+    RouterLink,
+    ProjectDetailHero,
+    ProjectDetailSection,
+    ProjectDetailHighlights,
+    ProjectDetailDeliverables,
+    ProjectDetailRoadmap,
+    ProjectDetailTechnologies,
+    Container,
+  ],
   templateUrl: './project-detail.html',
   styleUrl: './project-detail.css',
 })

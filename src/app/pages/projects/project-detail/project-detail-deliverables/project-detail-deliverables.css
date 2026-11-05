@@ -46,10 +46,7 @@
   width: 0.4rem;
   height: 0.4rem;
   border-radius: 999px;
-  background-color: light-dark(
-    var(--color-analogous--primary),
-    var(--color-analogous--primary-50)
-  );
+  background-color: light-dark(var(--color-analogous--primary), var(--color-analogous--primary-50));
   transition: background-color 0.2s ease;
 }
 

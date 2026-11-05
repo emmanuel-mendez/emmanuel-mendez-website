@@ -31,9 +31,7 @@ export class ProjectDetailHero {
   public readonly factItems = computed<readonly ProjectDetailFact[]>(() => {
     const project: Project = this.project();
     return [
-      ...(project.year === undefined
-        ? []
-        : [{ label: 'Year', value: String(project.year) }]),
+      ...(project.year === undefined ? [] : [{ label: 'Year', value: String(project.year) }]),
       ...(project.timeline ? [{ label: 'Timeline', value: project.timeline }] : []),
       ...(project.scope ? [{ label: 'Scope', value: project.scope }] : []),
     ];
@@ -44,13 +42,13 @@ export class ProjectDetailHero {
     return [
       ...(project.sourceCode
         ? [
-          {
-            label: 'Source',
-            href: project.sourceCode,
-            icon: 'code',
-            ariaLabel: `Open source code for ${project.title}`,
-          },
-        ]
+            {
+              label: 'Source',
+              href: project.sourceCode,
+              icon: 'code',
+              ariaLabel: `Open source code for ${project.title}`,
+            },
+          ]
         : []),
     ];
   });
