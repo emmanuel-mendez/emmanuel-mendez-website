@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Section } from '@components/molecules/section/section';
+import { Content } from '@components/molecules/content/content';
 
 export interface Testimonial {
   id: number;
@@ -11,7 +11,7 @@ export interface Testimonial {
 
 @Component({
   selector: 'app-testimonials',
-  imports: [Section],
+  imports: [Content],
   templateUrl: './testimonials.html',
   styleUrl: './testimonials.css',
 })

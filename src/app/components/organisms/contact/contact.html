@@ -1,138 +1,145 @@
-<section class="contact" appSection>
-  <h2 class="contact__title">Contact</h2>
-  <p class="contact__subtitle">Do you have a project in mind? Send me a message.</p>
+<app-content>
+  <section class="contact">
+    <h2 class="contact__title">Contact</h2>
+    <p class="contact__subtitle">Do you have a project in mind? Send me a message.</p>
 
-  @if (status() === 'sent') {
-    <div class="contact__feedback contact__feedback--sent" role="status" aria-live="polite">
-      <span class="material-symbols-outlined contact__feedback-icon">check_circle</span>
-      <p class="contact__feedback-text">Message sent successfully!</p>
-      <app-button class="contact__reset" appearance="secondary" (click)="reset()">
-        Send another message
-      </app-button>
-    </div>
-  } @else if (status() === 'error') {
-    <div class="contact__feedback contact__feedback--error" role="alert" aria-live="assertive">
-      <span class="material-symbols-outlined contact__feedback-icon">error</span>
-      <p class="contact__feedback-text">An error occurred. Please try again.</p>
-      <app-button class="contact__reset" appearance="secondary" (click)="reset()">
-        Try again
-      </app-button>
-    </div>
-  } @else {
-    <form
-      class="contact__form"
-      [formGroup]="form"
-      novalidate
-      [attr.aria-busy]="status() === 'sending' ? 'true' : 'false'"
-      (ngSubmit)="onSubmit()"
-    >
-      <div class="contact__field">
-        <label class="contact__label" for="contact-name">Name</label>
-        <input
-          class="contact__input"
-          id="contact-name"
-          type="text"
-          formControlName="name"
-          required
-          maxlength="80"
-          autocomplete="name"
-          (input)="onNameInput($event)"
-          [attr.aria-invalid]="
-            nameControl.invalid && (nameControl.touched || submitted()) ? 'true' : 'false'
-          "
-          [attr.aria-describedby]="
-            nameControl.invalid && (nameControl.touched || submitted())
-              ? 'contact-name-error'
-              : 'contact-name-hint'
-          "
-          placeholder="Your full name"
-        />
-        <p class="contact__hint" id="contact-name-hint">Use your full name (letters only).</p>
-        @if (nameControl.invalid && (nameControl.touched || submitted())) {
-          <p class="contact__error" id="contact-name-error" role="alert">
-            Enter a valid name using only letters, with at least 2 characters.
-          </p>
-        }
+    @if (status() === 'sent') {
+      <div class="contact__feedback contact__feedback--sent" role="status" aria-live="polite">
+        <span class="material-symbols-outlined contact__feedback-icon">check_circle</span>
+        <p class="contact__feedback-text">Message sent successfully!</p>
+        <app-button class="contact__reset" appearance="secondary" (click)="reset()">
+          Send another message
+        </app-button>
       </div>
-
-      <div class="contact__field">
-        <label class="contact__label" for="contact-email">Email address</label>
-        <input
-          class="contact__input"
-          id="contact-email"
-          type="email"
-          formControlName="email"
-          required
-          maxlength="120"
-          autocomplete="email"
-          inputmode="email"
-          [attr.aria-invalid]="
-            emailControl.invalid && (emailControl.touched || submitted()) ? 'true' : 'false'
-          "
-          [attr.aria-describedby]="
-            emailControl.invalid && (emailControl.touched || submitted())
-              ? 'contact-email-error'
-              : 'contact-email-hint'
-          "
-          placeholder="you@example.com"
-        />
-        <p class="contact__hint" id="contact-email-hint">
-          Use an email address you check frequently.
-        </p>
-        @if (emailControl.invalid && (emailControl.touched || submitted())) {
-          <p class="contact__error" id="contact-email-error" role="alert">
-            Enter a valid email address.
-          </p>
-        }
+    } @else if (status() === 'error') {
+      <div class="contact__feedback contact__feedback--error" role="alert" aria-live="assertive">
+        <span class="material-symbols-outlined contact__feedback-icon">error</span>
+        <p class="contact__feedback-text">An error occurred. Please try again.</p>
+        <app-button class="contact__reset" appearance="secondary" (click)="reset()">
+          Try again
+        </app-button>
       </div>
-
-      <div class="contact__field">
-        <label class="contact__label" for="contact-message">Message</label>
-        <textarea
-          class="contact__input contact__input--textarea"
-          id="contact-message"
-          formControlName="message"
-          required
-          [maxlength]="messageMaxLength"
-          autocomplete="off"
-          [attr.aria-invalid]="
-            messageControl.invalid && (messageControl.touched || submitted()) ? 'true' : 'false'
-          "
-          [attr.aria-describedby]="
-            messageControl.invalid && (messageControl.touched || submitted())
-              ? 'contact-message-error contact-message-counter'
-              : 'contact-message-hint contact-message-counter'
-          "
-          placeholder="Write your message here..."
-          rows="5"
-        ></textarea>
-        <p class="contact__hint" id="contact-message-hint">
-          Add enough detail so I can understand your request.
-        </p>
-
-        <div class="contact__hints--message">
-          @if (messageControl.invalid && (messageControl.touched || submitted())) {
-            <p class="contact__error" id="contact-message-error" role="alert">
-              Enter a message with at least 20 characters.
+    } @else {
+      <form
+        class="contact__form"
+        [formGroup]="form"
+        novalidate
+        [attr.aria-busy]="status() === 'sending' ? 'true' : 'false'"
+        (ngSubmit)="onSubmit()"
+      >
+        <div class="contact__field">
+          <label class="contact__label" for="contact-name">Name</label>
+          <input
+            class="contact__input"
+            id="contact-name"
+            type="text"
+            formControlName="name"
+            required
+            maxlength="80"
+            autocomplete="name"
+            (input)="onNameInput($event)"
+            [attr.aria-invalid]="
+              nameControl.invalid && (nameControl.touched || submitted()) ? 'true' : 'false'
+            "
+            [attr.aria-describedby]="
+              nameControl.invalid && (nameControl.touched || submitted())
+                ? 'contact-name-error'
+                : 'contact-name-hint'
+            "
+            placeholder="Your full name"
+          />
+          <p class="contact__hint" id="contact-name-hint">Use your full name (letters only).</p>
+          @if (nameControl.invalid && (nameControl.touched || submitted())) {
+            <p class="contact__error" id="contact-name-error" role="alert">
+              Enter a valid name using only letters, with at least 2 characters.
             </p>
           }
-          <p class="contact__counter" id="contact-message-counter" role="status" aria-live="polite">
-            {{ messageLength() }}/{{ messageMaxLength }} characters
-          </p>
         </div>
-      </div>
 
-      <app-button
-        class="contact__button"
-        type="submit"
-        [disabled]="status() === 'sending' || isFormInvalid() || !isFormFilled()"
-      >
-        @if (status() === 'sending') {
-          Sending...
-        } @else {
-          Send
-        }
-      </app-button>
-    </form>
-  }
-</section>
+        <div class="contact__field">
+          <label class="contact__label" for="contact-email">Email address</label>
+          <input
+            class="contact__input"
+            id="contact-email"
+            type="email"
+            formControlName="email"
+            required
+            maxlength="120"
+            autocomplete="email"
+            inputmode="email"
+            [attr.aria-invalid]="
+              emailControl.invalid && (emailControl.touched || submitted()) ? 'true' : 'false'
+            "
+            [attr.aria-describedby]="
+              emailControl.invalid && (emailControl.touched || submitted())
+                ? 'contact-email-error'
+                : 'contact-email-hint'
+            "
+            placeholder="you@example.com"
+          />
+          <p class="contact__hint" id="contact-email-hint">
+            Use an email address you check frequently.
+          </p>
+          @if (emailControl.invalid && (emailControl.touched || submitted())) {
+            <p class="contact__error" id="contact-email-error" role="alert">
+              Enter a valid email address.
+            </p>
+          }
+        </div>
+
+        <div class="contact__field">
+          <label class="contact__label" for="contact-message">Message</label>
+          <textarea
+            class="contact__input contact__input--textarea"
+            id="contact-message"
+            formControlName="message"
+            required
+            [maxlength]="messageMaxLength"
+            autocomplete="off"
+            [attr.aria-invalid]="
+              messageControl.invalid && (messageControl.touched || submitted()) ? 'true' : 'false'
+            "
+            [attr.aria-describedby]="
+              messageControl.invalid && (messageControl.touched || submitted())
+                ? 'contact-message-error contact-message-counter'
+                : 'contact-message-hint contact-message-counter'
+            "
+            placeholder="Write your message here..."
+            rows="5"
+          ></textarea>
+          <p class="contact__hint" id="contact-message-hint">
+            Add enough detail so I can understand your request.
+          </p>
+
+          <div class="contact__hints--message">
+            @if (messageControl.invalid && (messageControl.touched || submitted())) {
+              <p class="contact__error" id="contact-message-error" role="alert">
+                Enter a message with at least 20 characters.
+              </p>
+            }
+            <p
+              class="contact__counter"
+              id="contact-message-counter"
+              role="status"
+              aria-live="polite"
+            >
+              {{ messageLength() }}/{{ messageMaxLength }} characters
+            </p>
+          </div>
+        </div>
+
+        <app-button
+          class="contact__button"
+          type="submit"
+          [disabled]="status() === 'sending' || isFormInvalid() || !isFormFilled()"
+        >
+          @if (status() === 'sending') {
+            Sending...
+          } @else {
+            Send
+          }
+        </app-button>
+      </form>
+    }
+  </section>
+</app-content>

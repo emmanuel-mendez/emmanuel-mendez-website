@@ -1,23 +1,25 @@
-<section class="testimonials" appSection>
-  <h2 class="testimonials__title">Testimonials</h2>
-  <ul class="testimonials__list">
-    @for (testimonial of testimonials; track testimonial.id) {
-      <li class="testimonials__item">
-        <article class="testimonials__card">
-          <span class="material-symbols-outlined testimonials__quote-icon" aria-hidden="true"
-            >format_quote</span
-          >
-          <p class="testimonials__text">{{ testimonial.text }}</p>
-          <footer class="testimonials__footer">
-            <div class="testimonials__author">
-              <span class="testimonials__author-name">{{ testimonial.name }}</span>
-              <span class="testimonials__author-role"
-                >{{ testimonial.role }} · {{ testimonial.company }}</span
-              >
-            </div>
-          </footer>
-        </article>
-      </li>
-    }
-  </ul>
-</section>
+<app-content>
+  <section class="testimonials" appSection>
+    <h2 class="testimonials__title">Testimonials</h2>
+    <ul class="testimonials__list">
+      @for (testimonial of testimonials; track testimonial.id) {
+        <li class="testimonials__item">
+          <article class="testimonials__card">
+            <span class="material-symbols-outlined testimonials__quote-icon" aria-hidden="true"
+              >format_quote</span
+            >
+            <p class="testimonials__text">{{ testimonial.text }}</p>
+            <footer class="testimonials__footer">
+              <div class="testimonials__author">
+                <span class="testimonials__author-name">{{ testimonial.name }}</span>
+                <span class="testimonials__author-role"
+                  >{{ testimonial.role }} · {{ testimonial.company }}</span
+                >
+              </div>
+            </footer>
+          </article>
+        </li>
+      }
+    </ul>
+  </section>
+</app-content>

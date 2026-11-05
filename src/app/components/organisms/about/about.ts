@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { Section } from '@components/molecules/section/section';
+import { Content } from '@components/molecules/content/content';
 
 @Component({
   selector: 'app-about',
-  imports: [Section],
+  imports: [Content],
   templateUrl: './about.html',
   styleUrl: './about.css',
 })

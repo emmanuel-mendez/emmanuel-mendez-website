@@ -2,7 +2,7 @@ import { Component, computed, OnDestroy, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Button } from '@components/atoms/button/button';
-import { Section } from '@components/molecules/section/section';
+import { Content } from '@components/molecules/content/content';
 
 type ContactStatus = 'idle' | 'sending' | 'sent' | 'error';
 
@@ -24,7 +24,7 @@ const NAME_DISALLOWED_CHARS: RegExp = /[^\p{L} ]/gu;
 
 @Component({
   selector: 'app-contact',
-  imports: [Button, ReactiveFormsModule, Section],
+  imports: [Button, ReactiveFormsModule, Content],
   templateUrl: './contact.html',
   styleUrl: './contact.css',
 })

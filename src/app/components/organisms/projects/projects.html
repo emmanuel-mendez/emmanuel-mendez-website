@@ -1,22 +1,24 @@
-<section class="projects" appSection>
-  <h2 class="projects__title">Projects</h2>
-  <div class="projects__container">
-    <app-pagination
-      [items]="projects"
-      [itemTemplate]="projectTemplate"
-      [containerTemplate]="projectContainer"
-      [itemsPerPage]="3"
-    />
-    @if (hasMoreProjects) {
-      <app-button label="View all projects" [route]="['/projects']" />
-    }
-  </div>
-  <ng-template #projectContainer let-itemsContent>
-    <div class="projects__grid">
-      <ng-container [ngTemplateOutlet]="itemsContent" />
+<app-content>
+  <section class="projects">
+    <h2 class="projects__title">Projects</h2>
+    <div class="projects__container">
+      <app-pagination
+        [items]="projects"
+        [itemTemplate]="projectTemplate"
+        [containerTemplate]="projectContainer"
+        [itemsPerPage]="3"
+      />
+      @if (hasMoreProjects) {
+        <app-button label="View all projects" [route]="['/projects']" />
+      }
     </div>
-  </ng-template>
-  <ng-template #projectTemplate let-project>
-    <app-card [project]="project" [titleLevel]="3" />
-  </ng-template>
-</section>
+    <ng-template #projectContainer let-itemsContent>
+      <div class="projects__grid">
+        <ng-container [ngTemplateOutlet]="itemsContent" />
+      </div>
+    </ng-template>
+    <ng-template #projectTemplate let-project>
+      <app-card [project]="project" [titleLevel]="3" />
+    </ng-template>
+  </section>
+</app-content>

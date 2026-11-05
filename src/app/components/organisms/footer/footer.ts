@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Section } from '@components/molecules/section/section';
+import { Content } from '@components/molecules/content/content';
 
 type FooterSocialLink = {
   readonly label: string;
@@ -13,7 +13,7 @@ type FooterInfoItem = {
 
 @Component({
   selector: 'app-footer',
-  imports: [Section],
+  imports: [Content],
   templateUrl: './footer.html',
   styleUrl: './footer.css',
 })

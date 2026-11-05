@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Content } from '@components/molecules/content/content';
 
 interface Skill {
   name: string;
@@ -12,7 +13,7 @@ interface SkillCategory {
 
 @Component({
   selector: 'app-skills',
-  imports: [],
+  imports: [Content],
   templateUrl: './skills.html',
   styleUrl: './skills.css',
 })
