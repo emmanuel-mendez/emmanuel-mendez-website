@@ -14,7 +14,7 @@
 .skills {
   max-width: 80rem;
   margin: 0 auto;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
 
   color: var(--color-white);
   transition:
@@ -79,7 +79,7 @@
   justify-content: center;
   width: 3.5rem;
   height: 3.5rem;
-  border-radius: 50%;
+  border-radius: 0.5rem;
   background-color: var(--color-analogous--secondary);
   color: var(--color-white);
   font-size: var(--extra-extra-large);
@@ -103,8 +103,7 @@
 .skills__tags {
   display: flex;
   flex-wrap: wrap;
-  column-gap: 0.5rem;
-  row-gap: 1rem;
+  gap: 0.5rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -113,9 +112,9 @@
 .skills__tag {
   display: inline-flex;
   align-items: center;
-  padding: 0.25rem 0.75rem;
+  padding: 0.25rem 0.625rem;
   border: 1px solid rgb(252 252 253 / 0.24);
-  border-radius: 999px;
+  border-radius: 0.25rem;
   background-color: light-dark(var(--color-white), rgb(252 252 253 / 0.1));
   color: light-dark(var(--color-analogous--secondary), var(--color-white));
   font-size: var(--extra-extra-small);
