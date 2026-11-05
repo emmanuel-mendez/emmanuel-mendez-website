@@ -1,0 +1,60 @@
+<header class="project-detail-hero">
+  <div
+    class="project-detail-hero__image-panel"
+    [style.backgroundColor]="project().imageBackgroundColor"
+    aria-hidden="true"
+  >
+    <img
+      class="project-detail-hero__image"
+      [src]="project().image"
+      [alt]="project().title"
+      loading="lazy"
+      decoding="async"
+    />
+    <p
+      class="project-detail-hero__role"
+      [class.project-detail-hero__role--author]="project().rol === 'author'"
+      [class.project-detail-hero__role--collaborator]="project().rol !== 'author'"
+    >
+      {{ roleLabel() }}
+    </p>
+  </div>
+
+  <div class="project-detail-hero__intro">
+    <p class="project-detail-hero__eyebrow">Project detail</p>
+    <h1 class="project-detail-hero__title" id="project-detail-title">{{ project().title }}</h1>
+    <p class="project-detail-hero__description">{{ project().description }}</p>
+    @if (actions().length) {
+      <div class="project-detail-hero__actions" role="group" aria-label="Project links">
+        @for (action of actions(); track action.label) {
+          <a
+            class="project-detail-hero__action"
+            [href]="action.href"
+            [aria-label]="action.ariaLabel"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span
+              class="material-symbols-outlined project-detail-hero__action-icon"
+              aria-hidden="true"
+            >
+              {{ action.icon }}
+            </span>
+            {{ action.label }}
+          </a>
+        }
+      </div>
+    }
+
+    @if (factItems().length) {
+      <dl class="project-detail-hero__facts">
+        @for (fact of factItems(); track fact.label) {
+          <div class="project-detail-hero__fact">
+            <dt class="project-detail-hero__fact-label">{{ fact.label }}</dt>
+            <dd class="project-detail-hero__fact-value">{{ fact.value }}</dd>
+          </div>
+        }
+      </dl>
+    }
+  </div>
+</header>

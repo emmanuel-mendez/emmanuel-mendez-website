@@ -1,0 +1,23 @@
+:host {
+  display: block;
+}
+
+.project-detail-section {
+  padding: 1.25rem;
+  border: 0.0625rem solid light-dark(unset, var(--color-border));
+  border-radius: 0.75rem;
+  background-color: light-dark(var(--color-white), var(--color-monochromatic--dark-deep));
+  box-shadow: var(--shadow);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.project-detail-section__title {
+  margin: 0 0 0.75rem;
+  font-size: var(--large);
+  font-weight: 600;
+  color: light-dark(var(--color-primary), var(--color-white));
+  transition: color 0.2s ease;
+}

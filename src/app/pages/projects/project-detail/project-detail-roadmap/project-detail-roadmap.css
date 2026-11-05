@@ -1,0 +1,36 @@
+:host {
+  display: block;
+}
+
+.project-detail-roadmap {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.project-detail-roadmap__item {
+  padding: 1rem;
+  border-left: 3px solid light-dark(var(--color-primary), var(--color-analogous--primary));
+  border-radius: 0 0.5rem 0.5rem 0;
+  background-color: light-dark(
+    var(--color-analogous--primary-25),
+    var(--color-analogous--secondary-25)
+  );
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.project-detail-roadmap__title {
+  margin: 0 0 0.25rem;
+  font-size: var(--extra-small);
+  font-weight: 600;
+}
+
+.project-detail-roadmap__description {
+  margin: 0;
+  font-size: var(--extra-extra-small);
+  opacity: 0.9;
+}

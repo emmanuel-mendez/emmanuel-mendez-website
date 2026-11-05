@@ -1,0 +1,8 @@
+<ol class="project-detail-roadmap" aria-label="Project roadmap">
+  @for (milestone of milestones(); track milestone.title) {
+    <li class="project-detail-roadmap__item">
+      <h3 class="project-detail-roadmap__title">{{ milestone.title }}</h3>
+      <p class="project-detail-roadmap__description">{{ milestone.detail }}</p>
+    </li>
+  }
+</ol>

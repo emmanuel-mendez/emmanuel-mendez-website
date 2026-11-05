@@ -1,0 +1,9 @@
+<div class="project-detail-highlights" role="list" aria-label="Project highlights">
+  @for (highlight of highlights(); track highlight.metric) {
+    <article class="project-detail-highlights__highlight" role="listitem">
+      <p class="project-detail-highlights__value">{{ highlight.value }}</p>
+      <p class="project-detail-highlights__metric">{{ highlight.metric }}</p>
+      <p class="project-detail-highlights__context">{{ highlight.context }}</p>
+    </article>
+  }
+</div>
