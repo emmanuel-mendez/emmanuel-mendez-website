@@ -1,0 +1,18 @@
+/*
+ * Keep the server-rendered carousel layout stable until ngx-owl-carousel-o
+ * initializes on the client: the stage keeps its height and every slide keeps
+ * its final width (the carousel width; the 25px margin from carouselOptions
+ * only affects the slide pitch), so hydrating the carousel does not shift the
+ * page or repaint the slide images at a larger size. The transform matches the
+ * initialized position (2 loop clones before the first slide, each pitching at
+ * 100% + 25px) so the first slide is already visible before hydration.
+ */
+.featured-projects-carousel-stage .owl-stage {
+  display: flex;
+  transform: translate3d(calc(-200% - 50px), 0, 0);
+}
+
+.featured-projects-carousel-stage .owl-item {
+  flex: 0 0 auto;
+  width: 100%;
+}

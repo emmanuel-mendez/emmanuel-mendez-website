@@ -1,0 +1,16 @@
+<owl-carousel-o
+  #carousel
+  [options]="carouselOptions"
+  (initialized)="onCarouselInitialized(carousel)"
+  (change)="onCarouselChange()"
+>
+  @for (project of featuredProjects; track $index) {
+    <ng-template carouselSlide>
+      <app-featured-project
+        [project]="project"
+        loading="eager"
+        fetchpriority="high"
+      ></app-featured-project>
+    </ng-template>
+  }
+</owl-carousel-o>
