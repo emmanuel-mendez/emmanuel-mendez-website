@@ -1,4 +1,8 @@
 :host {
+  background-color: light-dark(
+    var(--color-monochromatic--dark-deep),
+    var(--color-monochromatic--dark-deep)
+  );
   display: block;
 }
 
@@ -7,10 +11,7 @@
   flex-direction: column;
   align-items: center;
   gap: 2.5rem;
-  background-color: light-dark(
-    var(--color-monochromatic--dark-deep),
-    var(--color-monochromatic--dark-deep)
-  );
+
   color: light-dark(var(--color-white), var(--color-white));
   transition:
     color 0.2s ease,
