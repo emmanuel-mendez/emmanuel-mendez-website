@@ -12,13 +12,8 @@ export class Theme {
   private readonly platformId = inject(PLATFORM_ID);
 
   public readonly current: WritableSignal<ThemeMode> = signal<ThemeMode>(this.getInitialTheme());
-  public readonly loading: WritableSignal<boolean> = signal<boolean>(true);
 
   constructor() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.loading.set(false);
-    }
-
     effect(() => {
       if (isPlatformBrowser(this.platformId)) {
         localStorage.setItem('theme', this.current());

@@ -37,7 +37,7 @@ describe('Navigation', () => {
   });
 
   afterEach(() => {
-    document.body.classList.remove('navigation--menu-open');
+    document.body.classList.remove('dialog--open');
     vi.unstubAllGlobals();
   });
 
@@ -80,7 +80,7 @@ describe('Navigation', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    const backdrop = fixture.nativeElement.querySelector('.navigation__backdrop');
+    const backdrop = fixture.nativeElement.querySelector('.dialog__backdrop');
     const mobileMenu: HTMLUListElement | null =
       fixture.nativeElement.querySelector('.navigation__menu');
     const firstLink = mobileMenu?.querySelector<HTMLAnchorElement>('.navigation__link') ?? null;
@@ -88,7 +88,7 @@ describe('Navigation', () => {
     expect(backdrop).toBeTruthy();
     expect(mobileMenu).toBeTruthy();
     expect(mobileMenu?.querySelectorAll('.navigation__link--section')).toHaveLength(6);
-    expect(document.body.classList.contains('navigation--menu-open')).toBe(true);
+    expect(document.body.classList.contains('dialog--open')).toBe(true);
     expect(menuButton?.getAttribute('aria-expanded')).toBe('true');
     expect(document.activeElement).toBe(firstLink);
 
@@ -97,12 +97,12 @@ describe('Navigation', () => {
     await fixture.whenStable();
 
     const hiddenMenu = fixture.nativeElement.querySelector('.navigation__menu');
-    const hiddenBackdrop = fixture.nativeElement.querySelector('.navigation__backdrop');
+    const hiddenBackdrop = fixture.nativeElement.querySelector('.dialog__backdrop');
 
     expect(hiddenMenu).toBeFalsy();
     expect(hiddenBackdrop).toBeFalsy();
     expect(component.opened()).toBe(false);
-    expect(document.body.classList.contains('navigation--menu-open')).toBe(false);
+    expect(document.body.classList.contains('dialog--open')).toBe(false);
     expect(document.activeElement).toBe(menuButton);
   });
 
@@ -121,7 +121,7 @@ describe('Navigation', () => {
 
     const openedMenu: HTMLUListElement | null =
       fixture.nativeElement.querySelector('.navigation__menu');
-    openedMenu?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    openedMenu?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
     fixture.detectChanges();
     await fixture.whenStable();
 
@@ -132,13 +132,13 @@ describe('Navigation', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    const reopenedBackdrop = fixture.nativeElement.querySelector('.navigation__backdrop');
+    const reopenedBackdrop = fixture.nativeElement.querySelector('.dialog__backdrop');
     reopenedBackdrop?.click();
     fixture.detectChanges();
     await fixture.whenStable();
 
     expect(fixture.nativeElement.querySelector('.navigation__menu')).toBeFalsy();
     expect(component.opened()).toBe(false);
-    expect(document.body.classList.contains('navigation--menu-open')).toBe(false);
+    expect(document.body.classList.contains('dialog--open')).toBe(false);
   });
 });

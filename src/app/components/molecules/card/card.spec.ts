@@ -44,7 +44,8 @@ describe('Card', () => {
     );
 
     expect(imageLink?.getAttribute('href')).toBe('/projects/test-project');
-    expect(imageLink?.getAttribute('aria-label')).toBe('View details for Test Project');
+    expect(imageLink?.getAttribute('aria-label')).toBeNull();
+    expect(imageLink?.querySelector('img')?.getAttribute('alt')).toBe(PROJECT.title);
     expect(detailsLink?.getAttribute('href')).toBe('/projects/test-project');
     expect(sourceLink?.getAttribute('href')).toBe(PROJECT.sourceCode);
     expect(sourceLink?.getAttribute('rel')).toBe('noopener noreferrer');

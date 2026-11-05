@@ -24,7 +24,7 @@ describe('Projects', () => {
   });
 
   afterEach(() => {
-    document.body.classList.remove('projects--filter-dialog-open');
+    document.body.classList.remove('dialog--open');
     vi.unstubAllGlobals();
   });
 
@@ -192,13 +192,13 @@ describe('Projects', () => {
     const heading = panel?.querySelector('#projects-filter-heading') as HTMLElement | null;
 
     expect(component.isFilterDialogOpen()).toBe(true);
-    expect(document.body.classList.contains('projects--filter-dialog-open')).toBe(true);
+    expect(document.body.classList.contains('dialog--open')).toBe(true);
     expect(panel).toBeTruthy();
     expect(panel?.getAttribute('role')).toBe('dialog');
     expect(heading?.textContent?.trim()).toBe('Project filters');
     expect(document.activeElement).toBe(panel);
 
-    panel?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    panel?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
     fixture.detectChanges();
     await fixture.whenStable();
 
@@ -209,12 +209,12 @@ describe('Projects', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    const backdrop = fixture.nativeElement.querySelector('.projects__backdrop');
+    const backdrop = fixture.nativeElement.querySelector('.dialog__backdrop');
     backdrop?.click();
     fixture.detectChanges();
     await fixture.whenStable();
 
     expect(component.isFilterDialogOpen()).toBe(false);
-    expect(document.body.classList.contains('projects--filter-dialog-open')).toBe(false);
+    expect(document.body.classList.contains('dialog--open')).toBe(false);
   });
 });

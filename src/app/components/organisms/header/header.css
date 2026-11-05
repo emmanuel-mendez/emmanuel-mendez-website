@@ -25,3 +25,17 @@
   height: 2rem;
   width: auto;
 }
+
+.logo--expanded {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .logo--compact {
+    display: none;
+  }
+
+  .logo--expanded {
+    display: block;
+  }
+}

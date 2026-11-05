@@ -8,10 +8,21 @@ import { Contact } from '@components/organisms/contact/contact';
 import { ProjectsSection } from '@components/organisms/projects/projects';
 import { Skills } from '@components/organisms/skills/skills';
 import { About } from '@components/organisms/about/about';
+import { Container } from '@components/molecules/container/container';
 
 @Component({
   selector: 'app-home',
-  imports: [Layout, Banner, About, Skills, ProjectsSection, JobExperience, Testimonials, Contact],
+  imports: [
+    Layout,
+    Banner,
+    About,
+    Skills,
+    ProjectsSection,
+    JobExperience,
+    Testimonials,
+    Contact,
+    Container,
+  ],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

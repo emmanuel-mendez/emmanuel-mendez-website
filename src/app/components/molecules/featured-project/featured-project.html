@@ -3,23 +3,36 @@
     <div class="featured-project__images">
       <img
         class="featured-project__image featured-project__image--desktop"
-        [src]="project().desktopImageSrc"
-        [alt]="project().desktopImageAlt"
-        loading="lazy"
+        [src]="project().images.desktop.src"
+        [srcset]="project().images.desktop.srcset"
+        [sizes]="project().images.desktop.sizes"
+        [attr.width]="project().images.desktop.width"
+        [attr.height]="project().images.desktop.height"
+        [alt]="project().images.desktop.alt"
+        [attr.loading]="loading()"
+        [attr.fetchpriority]="fetchpriority()"
         decoding="async"
       />
       <img
         class="featured-project__image featured-project__image--mobile"
-        [src]="project().mobileImageSrc"
-        [alt]="project().mobileImageAlt"
-        loading="lazy"
+        [src]="project().images.mobile.src"
+        [srcset]="project().images.mobile.srcset"
+        [sizes]="project().images.mobile.sizes"
+        [attr.width]="project().images.mobile.width"
+        [attr.height]="project().images.mobile.height"
+        [alt]="project().images.mobile.alt"
+        [attr.loading]="loading()"
         decoding="async"
       />
       <img
         class="featured-project__image featured-project__image--tablet"
-        [src]="project().tabletImageSrc"
-        [alt]="project().tabletImageAlt"
-        loading="lazy"
+        [src]="project().images.tablet.src"
+        [srcset]="project().images.tablet.srcset"
+        [sizes]="project().images.tablet.sizes"
+        [attr.width]="project().images.tablet.width"
+        [attr.height]="project().images.tablet.height"
+        [alt]="project().images.tablet.alt"
+        [attr.loading]="loading()"
         decoding="async"
       />
     </div>

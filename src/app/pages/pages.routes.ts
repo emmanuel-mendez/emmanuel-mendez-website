@@ -1,8 +1,5 @@
 import { Routes } from '@angular/router';
 import { Home } from './home/home';
-import { Projects } from './projects/projects';
-import { ProjectDetail } from './projects/project-detail/project-detail';
-import { PageNotFound } from './page-not-found/page-not-found';
 
 const SUFFIX = ' - Emmanuel Mendez';
 
@@ -13,17 +10,19 @@ export const routes: Routes = [
   },
   {
     path: 'projects',
-    component: Projects,
+    loadComponent: () => import('./projects/projects').then((module) => module.Projects),
     title: `Projects${SUFFIX}`,
   },
   {
     path: 'projects/:slug',
-    component: ProjectDetail,
+    loadComponent: () =>
+      import('./projects/project-detail/project-detail').then((module) => module.ProjectDetail),
     title: `Project${SUFFIX}`,
   },
   {
     path: '**',
-    component: PageNotFound,
+    loadComponent: () =>
+      import('./page-not-found/page-not-found').then((module) => module.PageNotFound),
     title: `404 Not Found${SUFFIX}`,
   },
 ];

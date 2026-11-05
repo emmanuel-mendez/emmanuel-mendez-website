@@ -3,11 +3,12 @@ import { Component, inject } from '@angular/core';
 import { Button } from '@components/atoms/button/button';
 import { Card } from '@components/molecules/card/card';
 import { Pagination } from '@components/molecules/pagination/pagination';
+import { Section } from '@components/molecules/section/section';
 import { ProjectsData } from '@services/projects/projects-data';
 
 @Component({
   selector: 'app-projects-section',
-  imports: [Button, Card, NgTemplateOutlet, Pagination],
+  imports: [Button, Card, NgTemplateOutlet, Pagination, Section],
   templateUrl: './projects.html',
   styleUrl: './projects.css',
 })

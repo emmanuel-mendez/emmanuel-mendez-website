@@ -1,4 +1,4 @@
-<section class="projects section">
+<section class="projects" appSection>
   <h2 class="projects__title">Projects</h2>
   <div class="projects__container">
     <app-pagination
@@ -8,7 +8,7 @@
       [itemsPerPage]="3"
     />
     @if (hasMoreProjects) {
-      <app-button label="See more" [route]="['/projects']" />
+      <app-button label="View all projects" [route]="['/projects']" />
     }
   </div>
   <ng-template #projectContainer let-itemsContent>

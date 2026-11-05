@@ -31,7 +31,6 @@
   font-size: var(--extra-large);
   font-weight: bold;
   margin-bottom: 1.5rem;
-  letter-spacing: 0.02em;
   color: light-dark(var(--color-white), var(--color-white));
   transition: color 0.2s ease;
 
